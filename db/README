@@ -1,0 +1,17 @@
+echo 'export PATH=/Library/PostgreSQL/9.0/bin:$PATH' >> ~/.profile
+
+. ~/.profile
+
+psql
+
+CREATE ROLE eric PASSWORD 'cantona' SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN;
+
+\q
+
+psql --username=eric --dbname=postgres 
+
+\i "<path to sql script file>"
+
+\c fielderic
+
+\d (to list relations)
