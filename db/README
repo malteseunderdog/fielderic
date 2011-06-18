@@ -17,6 +17,4 @@ psql -U eric fielderic
  
 \i "<path to sql script file>"
 
-\c fielderic
-
 \d (to list relations)
