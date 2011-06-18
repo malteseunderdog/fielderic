@@ -1,6 +1,10 @@
-echo 'export PATH=/Library/PostgreSQL/9.0/bin:$PATH' >> ~/.profile
+FOR MAC
+=======
 
+echo 'export PATH=/Library/PostgreSQL/9.0/bin:$PATH' >> ~/.profile
 . ~/.profile
+
+---------------
 
 psql
 
@@ -8,8 +12,9 @@ CREATE ROLE eric PASSWORD 'cantona' SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN;
 
 \q
 
-psql --username=eric --dbname=postgres 
-
+createdb -U eric fielderic
+psql -U eric fielderic
+ 
 \i "<path to sql script file>"
 
 \c fielderic

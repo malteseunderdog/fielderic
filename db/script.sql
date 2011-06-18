@@ -1,15 +1,5 @@
 -- Database: fielderic
 
-DROP DATABASE fielderic;
-
-CREATE DATABASE fielderic
-  WITH OWNER = eric
-       ENCODING = 'UTF8'
-       TABLESPACE = pg_default
-       LC_COLLATE = 'C'
-       LC_CTYPE = 'C'
-       CONNECTION LIMIT = -1;
-
 DROP TABLE IF EXISTS field;
 DROP TABLE IF EXISTS player;
 DROP TABLE IF EXISTS match;
@@ -42,4 +32,3 @@ CREATE TABLE field (
     PRIMARY KEY (player_id, match_id)
 );
 
-commit;
