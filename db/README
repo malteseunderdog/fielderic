@@ -1,7 +1,7 @@
 FOR MAC
 =======
 
-echo 'export PATH=/Library/PostgreSQL/9.0/bin:$PATH' >> ~/.profile
+echo 'export PATH=<PostgreSQL installation path>/bin:$PATH' >> ~/.profile
 . ~/.profile
 
 ---------------
@@ -18,3 +18,10 @@ psql -U eric fielderic
 \i <path to sql script file>
 
 \d (to list relations)
+
+---------------
+
+TO INSTALL CRYPT FUNCTIONS
+==========================
+
+psql -U eric -d fielderic -f <PostgreSQL installation path>/share/postgresql/contrib/pgcrypto.sql
