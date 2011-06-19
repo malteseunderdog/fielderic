@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  occurs: 2011-06-19 10:45:31
+  location: MyString
+  type: 
+  required: 
+  comment: MyText
+
+two:
+  occurs: 2011-06-19 10:45:31
+  location: MyString
+  type: 
+  required: 
+  comment: MyText
