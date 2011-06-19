@@ -1,4 +1,6 @@
 -- Database: fielderic
+-- Date: 18/06/2011
+-- Creates database structure
 
 DROP TABLE IF EXISTS field;
 DROP TABLE IF EXISTS player;
@@ -10,7 +12,7 @@ CREATE TABLE player (
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     mobile VARCHAR(20) NOT NULL,
-    password VARCHAR(50),
+    password BYTEA,
     coordinates VARCHAR(100) NOT NULL,
     location VARCHAR(100) NOT NULL
 );

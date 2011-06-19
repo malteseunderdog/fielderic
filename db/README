@@ -15,6 +15,6 @@ CREATE ROLE eric PASSWORD 'cantona' SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN;
 createdb -U eric fielderic
 psql -U eric fielderic
  
-\i "<path to sql script file>"
+\i <path to sql script file>
 
 \d (to list relations)
