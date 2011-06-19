@@ -2,9 +2,9 @@
 -- Date: 19/06/2011
 -- Creates a small test data set
 
-INSERT INTO player (nickname, name, email, mobile, password, coordinates, location) VALUES ('dave', 'David Camilleri', 'dave@fielderic.com', '+44 75 6337 8283', crypt('cantona', gen_salt('bf')), '51.496254,-0.136986', 'London,United Kingdom');
-INSERT INTO player (nickname, name, email, mobile, password, coordinates, location) VALUES ('mike', 'Michael Camilleri', 'mike@fielderic.com', '00447512345678', crypt('cantona', gen_salt('bf')), '51.524475,-0.080309', 'London,United Kingdom');
-INSERT INTO player (nickname, name, email, mobile, password, coordinates, location) VALUES ('jp', 'Jean-Paul Ebejer', 'jp@fielderic.com', '+4475 88888888', crypt('delpiero', gen_salt('bf')), '51.752279,-1.255884', 'Oxford,United Kingdom');
+INSERT INTO player (nickname, name, email, mobile, password, coordinates, location) VALUES ('dave', 'David Camilleri', 'dave@fielderic.com', '+44 75 6447 2800', crypt('oldTrafford', gen_salt('bf')), '61.496254,-0.226986', 'London,United Kingdom');
+INSERT INTO player (nickname, name, email, mobile, password, coordinates, location) VALUES ('mike', 'Michael Camilleri', 'mike@fielderic.com', '00447512345678', crypt('oldTrafford', gen_salt('bf')), '57.524475,-0.010339', 'London,United Kingdom');
+INSERT INTO player (nickname, name, email, mobile, password, coordinates, location) VALUES ('jp', 'Jean-Paul Ebejer', 'jp@fielderic.com', '+4475 88888888', crypt('delleAlpi', gen_salt('bf')), '51.752279,-1.255884', 'Oxford,United Kingdom');
 INSERT INTO player (nickname, name, email, mobile, password, coordinates, location) VALUES ('eric', 'Eric Cantona', 'eric@fielderic.com', '+77 77 77 77 77 77', NULL, '77.721200,10.911567', 'New York,United States of America');
 
 INSERT INTO match (date, location, type, players_required, comment) VALUES ('2011-06-20 18:00:00', 'Qormi,Malta', 5, 10, NULL);
