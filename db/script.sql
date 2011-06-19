@@ -23,7 +23,7 @@ CREATE TABLE match (
     created TIMESTAMPTZ NOT NULL DEFAULT now(),
     occurs TIMESTAMPTZ NOT NULL,
     location VARCHAR(100) NOT NULL,
-    type SMALLINT NOT NULL,
+    kind SMALLINT NOT NULL,
     players_required SMALLINT NOT NULL,
     comment TEXT
 );

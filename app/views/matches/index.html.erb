@@ -2,25 +2,16 @@
 
 <table>
   <tr>
+    <th>Id</th>
     <th>Occurs</th>
     <th>Location</th>
-    <th>Type</th>
+    <th>Kind</th>
     <th>Required</th>
     <th>Comment</th>
   </tr>
 
-<% @matches.each do |match| %>
-  <tr>
-    <td><%=h match.occurs %></td>
-    <td><%=h match.location %></td>
-    <td><%=h match.type %></td>
-    <td><%=h match.required %></td>
-    <td><%=h match.comment %></td>
-    <td><%= link_to 'Show', match %></td>
-    <td><%= link_to 'Edit', edit_match_path(match) %></td>
-    <td><%= link_to 'Destroy', match, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+<%= @matches.length %>
+
 </table>
 
 <br />

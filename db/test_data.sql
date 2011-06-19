@@ -7,12 +7,12 @@ INSERT INTO player (nickname, name, email, mobile, password, coordinates, locati
 INSERT INTO player (nickname, name, email, mobile, password, coordinates, location) VALUES ('jp', 'Jean-Paul Ebejer', 'jp@fielderic.com', '+4475 88888888', crypt('delleAlpi', gen_salt('bf')), '51.752279,-1.255884', 'Oxford,United Kingdom');
 INSERT INTO player (nickname, name, email, mobile, password, coordinates, location) VALUES ('eric', 'Eric Cantona', 'eric@fielderic.com', '+77 77 77 77 77 77', NULL, '77.721200,10.911567', 'New York,United States of America');
 
-INSERT INTO match (occurs, location, type, players_required, comment) VALUES ('2011-06-20 18:00:00', 'Qormi,Malta', 5, 10, NULL);
-INSERT INTO match (occurs, location, type, players_required, comment) VALUES ('2011-06-20 17:30:00', 'Mellieha,Malta', 5, 2, '5-a-side match at Mellieha. Beers after the match at Zapps!!!!!!!!');
-INSERT INTO match (occurs, location, type, players_required, comment) VALUES ('2011-06-20 18:00:00', 'London,United Kingdom', 5, 5, '5-a-side tournament match. Playing for car pink slips! Expect blood!!');
-INSERT INTO match (occurs, location, type, players_required, comment) VALUES ('2011-06-20 19:00:00', 'Milan,Italy', 11, 26, 'partita di calcietto a 5. nel piccolo stadio del Meazza. livello bassissimo');
-INSERT INTO match (occurs, location, type, players_required, comment) VALUES ('2011-06-20 17:00:00', 'Barcelona,Spain', 5, 12, 'partido a entrenar para convertirse en mejores que los de Barcelona el primer equipo!');
-INSERT INTO match (occurs, location, type, players_required, comment) VALUES ('2011-06-19 20:00:00', 'Qormi,Malta', 7, 1, E'5-a-side match at Qormi. Before coming, ask this question...\'are you good enough?\'');
+INSERT INTO match (occurs, location, kind, players_required, comment) VALUES ('2011-06-20 18:00:00', 'Qormi,Malta', 5, 10, NULL);
+INSERT INTO match (occurs, location, kind, players_required, comment) VALUES ('2011-06-20 17:30:00', 'Mellieha,Malta', 5, 2, '5-a-side match at Mellieha. Beers after the match at Zapps!!!!!!!!');
+INSERT INTO match (occurs, location, kind, players_required, comment) VALUES ('2011-06-20 18:00:00', 'London,United Kingdom', 5, 5, '5-a-side tournament match. Playing for car pink slips! Expect blood!!');
+INSERT INTO match (occurs, location, kind, players_required, comment) VALUES ('2011-06-20 19:00:00', 'Milan,Italy', 11, 26, 'partita di calcietto a 5. nel piccolo stadio del Meazza. livello bassissimo');
+INSERT INTO match (occurs, location, kind, players_required, comment) VALUES ('2011-06-20 17:00:00', 'Barcelona,Spain', 5, 12, 'partido a entrenar para convertirse en mejores que los de Barcelona el primer equipo!');
+INSERT INTO match (occurs, location, kind, players_required, comment) VALUES ('2011-06-19 20:00:00', 'Qormi,Malta', 7, 1, E'5-a-side match at Qormi. Before coming, ask this question...\'are you good enough?\'');
 
 INSERT INTO field (player_id, match_id, organizer) VALUES (1, 1, TRUE);
 INSERT INTO field (player_id, match_id, organizer) VALUES (4, 5, TRUE);

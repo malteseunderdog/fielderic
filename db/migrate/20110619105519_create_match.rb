@@ -1,9 +1,10 @@
-class CreateMatches < ActiveRecord::Migration
+class CreateMatch < ActiveRecord::Migration
   def self.up
-    create_table :matches do |t|
+    create_table :match do |t|
+      t.primary_key :id
       t.datetime :occurs
       t.string :location
-      t.int :type
+      t.int :kind
       t.int :required
       t.text :comment
 
@@ -12,6 +13,6 @@ class CreateMatches < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :matches
+    drop_table :match
   end
 end
