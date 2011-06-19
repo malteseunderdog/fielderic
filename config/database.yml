@@ -15,7 +15,7 @@ test:
     adapter: postgresql
     database: fielderic
     username: eric
-    password: cantona
+    password: 
     host: localhost
     encoding: UTF8
 
