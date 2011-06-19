@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :players
+
+  map.resources :players
+
   map.resources :matches
 
   map.resources :matches
