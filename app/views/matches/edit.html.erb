@@ -4,6 +4,10 @@
   <%= f.error_messages %>
 
   <p>
+    <%= f.label :id %><br />
+    <%= f.text_field :id %>
+  </p>
+  <p>
     <%= f.label :occurs %><br />
     <%= f.datetime_select :occurs %>
   </p>
@@ -12,8 +16,8 @@
     <%= f.text_field :location %>
   </p>
   <p>
-    <%= f.label :type %><br />
-    <%= f.text_field :type %>
+    <%= f.label :kind %><br />
+    <%= f.text_field :kind %>
   </p>
   <p>
     <%= f.label :required %><br />

@@ -4,7 +4,7 @@ class MatchesControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:matches)
+    assert_not_nil assigns(:match)
   end
 
   test "should get new" do
@@ -21,25 +21,25 @@ class MatchesControllerTest < ActionController::TestCase
   end
 
   test "should show match" do
-    get :show, :id => matches(:one).to_param
+    get :show, :id => match(:one).to_param
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, :id => matches(:one).to_param
+    get :edit, :id => match(:one).to_param
     assert_response :success
   end
 
   test "should update match" do
-    put :update, :id => matches(:one).to_param, :match => { }
+    put :update, :id => match(:one).to_param, :match => { }
     assert_redirected_to match_path(assigns(:match))
   end
 
   test "should destroy match" do
     assert_difference('Match.count', -1) do
-      delete :destroy, :id => matches(:one).to_param
+      delete :destroy, :id => match(:one).to_param
     end
 
-    assert_redirected_to matches_path
+    assert_redirected_to match_path
   end
 end

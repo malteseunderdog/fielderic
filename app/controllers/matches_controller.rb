@@ -1,17 +1,17 @@
 class MatchesController < ApplicationController
-  # GET /matches
-  # GET /matches.xml
+  # GET /match
+  # GET /match.xml
   def index
-    @matches = Match.all
+    @match = Match.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @matches }
+      format.xml  { render :xml => @match }
     end
   end
 
-  # GET /matches/1
-  # GET /matches/1.xml
+  # GET /match/1
+  # GET /match/1.xml
   def show
     @match = Match.find(params[:id])
 
@@ -21,8 +21,8 @@ class MatchesController < ApplicationController
     end
   end
 
-  # GET /matches/new
-  # GET /matches/new.xml
+  # GET /match/new
+  # GET /match/new.xml
   def new
     @match = Match.new
 
@@ -32,13 +32,13 @@ class MatchesController < ApplicationController
     end
   end
 
-  # GET /matches/1/edit
+  # GET /match/1/edit
   def edit
     @match = Match.find(params[:id])
   end
 
-  # POST /matches
-  # POST /matches.xml
+  # POST /match
+  # POST /match.xml
   def create
     @match = Match.new(params[:match])
 
@@ -54,8 +54,8 @@ class MatchesController < ApplicationController
     end
   end
 
-  # PUT /matches/1
-  # PUT /matches/1.xml
+  # PUT /match/1
+  # PUT /match/1.xml
   def update
     @match = Match.find(params[:id])
 
@@ -71,14 +71,14 @@ class MatchesController < ApplicationController
     end
   end
 
-  # DELETE /matches/1
-  # DELETE /matches/1.xml
+  # DELETE /match/1
+  # DELETE /match/1.xml
   def destroy
     @match = Match.find(params[:id])
     @match.destroy
 
     respond_to do |format|
-      format.html { redirect_to(matches_url) }
+      format.html { redirect_to(match_url) }
       format.xml  { head :ok }
     end
   end
