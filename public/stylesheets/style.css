@@ -106,7 +106,7 @@ body {
 /* ===================== REGIONAL HEADER =============================== */
 
 header {
-    background-image: url('../img/header.jpg');
+    background-image: url('../images/header.jpg');
     height: 225px;
     border-bottom:6px solid #FFFF00;
     margin-bottom:50px;
