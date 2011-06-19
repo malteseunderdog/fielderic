@@ -12,7 +12,7 @@ CREATE TABLE player (
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     mobile VARCHAR(20) NOT NULL,
-    password BYTEA,
+    password TEXT,
     coordinates VARCHAR(100) NOT NULL,
     location VARCHAR(100) NOT NULL
 );
@@ -30,7 +30,7 @@ CREATE TABLE field (
     id SERIAL,
     player_id INT NOT NULL REFERENCES player (id),
     match_id INT NOT NULL REFERENCES match(id),
-    is_organizer BOOLEAN NOT NULL,
+    organizer BOOLEAN NOT NULL,
     PRIMARY KEY (player_id, match_id)
 );
 
