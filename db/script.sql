@@ -1,5 +1,5 @@
 -- Database: fielderic
--- Date: 18/06/2011
+-- Date: 19/06/2011
 -- Creates database structure
 
 DROP TABLE IF EXISTS field;
@@ -14,12 +14,14 @@ CREATE TABLE player (
     mobile VARCHAR(20) NOT NULL,
     password TEXT,
     coordinates VARCHAR(100) NOT NULL,
-    location VARCHAR(100) NOT NULL
+    location VARCHAR(100) NOT NULL,
+    registration TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE TABLE match (
     id SERIAL PRIMARY KEY,
-    date TIMESTAMPTZ NOT NULL,
+    created TIMESTAMPTZ NOT NULL DEFAULT now(),
+    occurs TIMESTAMPTZ NOT NULL,
     location VARCHAR(100) NOT NULL,
     type SMALLINT NOT NULL,
     players_required SMALLINT NOT NULL,
@@ -31,6 +33,7 @@ CREATE TABLE field (
     player_id INT NOT NULL REFERENCES player (id),
     match_id INT NOT NULL REFERENCES match(id),
     organizer BOOLEAN NOT NULL,
+    joined TIMESTAMPTZ NOT NULL DEFAULT now(),
     PRIMARY KEY (player_id, match_id)
 );
 
