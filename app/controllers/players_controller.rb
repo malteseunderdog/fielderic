@@ -41,10 +41,19 @@ class PlayersController < ApplicationController
   # POST /player.xml
   def create
     @player = Player.new(params[:player])
+    
+    # Get player coordinates and location
+    @client_ip = request.remote_ip
+    @player_locator = PlayerLocator.new
+    @player.coordinates = @player_locator.get_coordinates(@client_ip)
+    @player.location = @player_locator.get_location(@client_ip)
+
+    # Set registration time
+    @player.registration = Time.now
 
     respond_to do |format|
       if @player.save
-        flash[:notice] = 'Player was successfully created.'
+        flash[:notice] = 'Your profile has been created. Go to your edit profile page to set your location and password.'
         format.html { redirect_to(@player) }
         format.xml  { render :xml => @player, :status => :created, :location => @player }
       else
