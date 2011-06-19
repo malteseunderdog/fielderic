@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>Id</th>
     <th>Nickname</th>
     <th>Email</th>
     <th>Email</th>
@@ -14,6 +15,7 @@
 
 <% @players.each do |player| %>
   <tr>
+    <td><%=h player.id %></td>
     <td><%=h player.nickname %></td>
     <td><%=h player.email %></td>
     <td><%=h player.email %></td>
