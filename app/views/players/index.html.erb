@@ -2,35 +2,27 @@
 
 <table>
   <tr>
-    <th>Id</th>
     <th>Nickname</th>
-    <th>Email</th>
+    <th>Name</th>
     <th>Email</th>
     <th>Mobile</th>
     <th>Password</th>
-    <th>Coordinates</th>
     <th>Location</th>
-    <th>Registration</th>
   </tr>
 
-<% @players.each do |player| %>
+<% @player.each do |player| %>
   <tr>
-    <td><%=h player.id %></td>
     <td><%=h player.nickname %></td>
-    <td><%=h player.email %></td>
+    <td><%=h player.name %></td>
     <td><%=h player.email %></td>
     <td><%=h player.mobile %></td>
-    <td><%=h player.password %></td>
-    <td><%=h player.coordinates %></td>
-    <td><%=h player.location %></td>
-    <td><%=h player.registration %></td>
+    <td><%=h player.location %></td>    
     <td><%= link_to 'Show', player %></td>
     <td><%= link_to 'Edit', edit_player_path(player) %></td>
-    <td><%= link_to 'Destroy', player, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New player', new_player_path %>
+<%= link_to 'Register', new_player_path %>
