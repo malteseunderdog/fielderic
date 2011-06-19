@@ -6,7 +6,8 @@ echo 'export PATH=<PostgreSQL installation path>/bin:$PATH' >> ~/.profile
 
 ---------------
 
-psql
+FOR MAC: psql -U postgres
+FOR LINUX: psql
 
 CREATE ROLE eric PASSWORD 'cantona' SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN;
 
