@@ -1,0 +1,28 @@
+<p>
+  <b>Occurs:</b>
+  <%=h @match.occurs %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%=h @match.location %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%=h @match.type %>
+</p>
+
+<p>
+  <b>Required:</b>
+  <%=h @match.required %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%=h @match.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_match_path(@match) %> |
+<%= link_to 'Back', matches_path %>

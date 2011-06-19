@@ -1,0 +1,1 @@
+script/generate scaffold Match occurs:datetime location:string type:int required:int comment:text
