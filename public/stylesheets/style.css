@@ -169,6 +169,15 @@ header a:visited {text-decoration: none; color:#169100;}
 header a:active  {text-decoration: none; color:#169100;}
 header a:hover   {text-decoration: none; color:#169100;}
 
+input.hintTextbox { 
+	color: #888; 
+}
+
+.hints { 
+	color: #888; 
+}
+
+
 /* ================== REGIONAL HEADER (END) ============================ */
 
 /* ===================== REGIONAL FOOTER =============================== */
