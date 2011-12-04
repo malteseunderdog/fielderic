@@ -27,6 +27,8 @@ class HomeController < ApplicationController
         end  
       end
     end
+    
+    @match = Match.all
   end
   
   def sign_out

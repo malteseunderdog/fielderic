@@ -1,2 +1,33 @@
 <%= link_to "List of matches", matches_path %><br>
 <%= link_to "List of players", players_path %><br>
+
+<br>
+<br>
+
+<h1>Listing matches</h1>
+
+<table>
+  <tr>
+    <th>Occurs</th>
+    <th>Location</th>
+    <th>Kind</th>
+    <th>Players required</th>
+    <th>Comment</th>
+  </tr>
+  
+<% number_of_matches_to_show = 10 %>  
+<% if @match.length < number_of_matches_to_show %>
+  <% number_of_matches_to_show = @match.length %>
+<% end %>
+
+<% number_of_matches_to_show.times do |i| %>
+  <tr>
+    <td><%=h @match[i].occurs %></td>
+    <td><%=h @match[i].location %></td>
+    <td><%=h @match[i].kind %></td>
+    <td><%=h @match[i].players_required %></td>
+    <td><%=h @match[i].comment %></td>
+    <td><%= link_to 'Details', @match[i] %></td>
+  </tr>
+<% end %>
+</table>
