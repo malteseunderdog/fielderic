@@ -6,6 +6,9 @@ class HomeController < ApplicationController
       unless params[:nickname].nil?
         @player = Player.get_player(params[:nickname])
         unless @player.nil?
+          if not @player.password.nil? and @player.password==""
+            params[:signed_in] = true
+          end          
           respond_to do |format|
             format.html # show.html.erb
             format.xml  { render :xml => @player }
@@ -19,6 +22,7 @@ class HomeController < ApplicationController
       unless params[:nickname].nil?
         @player = Player.get_player_with_password(params[:nickname], params[:password])
         unless @player.nil?
+          params[:signed_in] = true
           respond_to do |format|
             format.html # show.html.erb
             format.xml  { render :xml => @player }
