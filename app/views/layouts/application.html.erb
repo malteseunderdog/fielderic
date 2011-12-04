@@ -83,7 +83,7 @@
 					  <%= button_to "Sign out", :controller => "home", :action => "sign_out" %>
 					<% end %>
 				<% else %>
-				  <%= link_to session[:player].nickname, @player %>
+				  <%= link_to session[:player].nickname, session[:player] %>
 				  <%= button_to "Sign out", :controller => "home", :action => "sign_out" %>
 				<% end %>
             </div>
