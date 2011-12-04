@@ -1,5 +1,7 @@
 class HomeController < ApplicationController  
   def index
+    @match = Match.all
+    
     if params[:password].nil?
       unless params[:nickname].nil?
         @player = Player.get_player(params[:nickname])
@@ -27,8 +29,6 @@ class HomeController < ApplicationController
         end  
       end
     end
-    
-    @match = Match.all
   end
   
   def sign_out
