@@ -1,7 +1,23 @@
+<% if params[:signed_in] == true or not session[:player].nil? %>
 <div align="center">
 <table width="70%" bgcolor="#AACCAA">
-  <tr bgcolor="FFFFFF">
-  	<td colspan=5><h1>These matches need players. Join in and play some!</h1><br/></td>
+	<tr align="left">
+		<th width="50%">Plan some</th>
+		<th>Play some</th>
+	</tr>
+	<tr bgcolor="#CCEECC">		
+		<td><%= link_to "Create a match", "/matches/new" %></td>
+		<td></td>
+	</tr>	
+</table>
+	
+</div>
+<% end %>
+<br/>
+<div align="center">
+<table width="70%" bgcolor="#AACCAA">
+  <tr bgcolor="#FFF">
+  	<td colspan=5><h1>These matches need players. Join in and play some!</h1></td>
   </tr>
   <tr align="left">
     <th>Date</th>
@@ -25,7 +41,7 @@
     <td><%=h @match[i].location %></td>
     <td><%=h @match[i].kind %>-a-side</td>
     <td><%=h @match[i].players_required %></td>
-    <td><%= link_to 'Details', @match[i] %></td>
+    <td><%= link_to "Details", @match[i] %></td>
   </tr>
   <tr>
   	<% if not @match[i].comment.nil? %>
@@ -37,6 +53,9 @@
 	    <td colspan=5>Comments: <%=h @match[i].comment %></td>
 	  </tr>
 	<% end %>
+<% end %>
+<% if params[:signed_in] == true or not session[:player].nil? %>
+<tr><td colspan=4></td><td><%= link_to "Show all", "/matches" %></td></tr>
 <% end %>
 </table>
 </div>
