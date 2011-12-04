@@ -20,6 +20,7 @@
     <td><%=h match.comment %></td>
     <td><%= link_to 'Show', match %></td>
     <td><%= link_to 'Edit', edit_match_path(match) %></td>
+    <td><%= link_to 'Join', join_path(match) %></td>
     <td><%= link_to 'Destroy', match, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>

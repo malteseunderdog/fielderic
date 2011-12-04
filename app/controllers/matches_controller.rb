@@ -82,4 +82,13 @@ class MatchesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  # GET /match/1/join
+  def join
+    # mark the user as joining a particular match
+    @match = Match.find(params[:id])
+    @match.update_attribute("players_required", @match.players_required - 1) 
+    redirect_to(matches_url)
+  end 
+  
 end
