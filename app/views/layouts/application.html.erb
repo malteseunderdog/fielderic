@@ -17,7 +17,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>Field Eric ~ The social sports site</title>
+    <title>Field Eric: Plan Some | Play Some</title>
     <meta name="description" content="social sports, find player, organise match, field eric cantona">
     <meta name="author" content="Jean-Paul Ebejer, David Camilleri, Michael Camilleri">
     
@@ -31,64 +31,77 @@
     <link href='http://fonts.googleapis.com/css?family=Rokkitt&v1' rel='stylesheet' type='text/css'>
 
     <script src="js/libs/modernizr-1.7.min.js"></script>
-    
+    <script type="text/javascript" src="/javascripts/libs/hint-textbox.js"></script>
+
 </head>
 <body>
     <div id="container">
         <header>
             <div>
-	            <h1><a href="/index.html">Field Eric</a></h1>
-	            <h2>Play some | Plan some</h2>
-	            <%= image_tag "eric.png", {:alt => "eric the king"} %>
+	            <h1><a href="/">Field Eric</a></h1>
+	            <h2>Plan some | Play some</h2>
+	            <%= image_tag "eric.png", {:alt => "King Eric"} %>
             </div>
-            <div>
-	            <% if session[:player].nil? %>
-					<% if @player.nil? %>
-					  <% form_tag :action => :index do %>
-					  	<%= label_tag :nickname %><br>
-					  	<%= text_field_tag :nickname %><br>
-					  	<%= submit_tag 'Login' %>	  	
-					  <% end %>
-					  <%= button_to "Register", new_player_path%>
-					<% elsif @player == "Nickname error" %>
-					  <% form_tag :action => :index do %>
-					  	<%= label_tag :nickname %><br>
-					  	<%= text_field_tag :nickname %><br>
-					  	<%= submit_tag 'Login' %><br>
-					  	<%= "No such user" %>
-					  <% end %>
-					  <%= button_to "Register", new_player_path%>
-					<% elsif @player.instance_of?(String) %>
-					  <% form_tag :action => :index do %>
-					  	<%= label_tag :nickname %><br>
-					  	<%= text_field_tag :nickname, @player %><br>
-					  	<%= label_tag :password %><br>
-					  	<%= password_field_tag :password %><br>
-					  	<%= submit_tag 'Login' %><br>
-					  	<%= "Wrong nickname and password combination" %>
-					  <% end %>
-					  <%= button_to "Register", new_player_path%>
-					<% elsif (@player.password != "") and (not @player.password.nil?) and (params[:password].nil?) %>
-					  <% form_tag :action => :index do %>
-					  	<%= label_tag :nickname %><br>
-					  	<%= text_field_tag :nickname, @player.nickname %><br>
-					  	<%= label_tag :password %><br>
-					  	<%= password_field_tag :password %><br>
-					  	<%= submit_tag 'Login' %>
-					  <% end %>
-					  <%= button_to "Register", new_player_path%>
-					<% else %>
-					  <% session[:player] = @player %>
-					  <%= link_to @player.nickname, @player %>
-					  <%= button_to "Sign out", :controller => "home", :action => "sign_out" %>
+            <div style="font-family: arial, serif; color: #fff;">
+            	<table width="100px" height="48px">
+            		<tr><td></td></tr>
+            	</table>
+            	    <% if session[:player].nil? %>
+						
+						<% if @player.nil? %>
+						  <% form_tag :action => :index do %>
+						  	<%= text_field_tag :nickname, 'Nickname', :class => 'hintTextbox' %>
+						  	<%= submit_tag 'Sign in' %>
+						  <% end %>
+						  <br>New user? 
+ 						  <%= link_to "Sign up", new_player_path %>
+						  				    
+						<% elsif @player == "Nickname error" %>
+						  <% form_tag :action => :index do %>
+						  	<%= text_field_tag :nickname, 'Nickname', :class => 'hintTextbox' %>
+						  	<%= submit_tag 'Sign in' %>		
+						  	<br><%= "No such user" %>			  	
+						  <% end %>
+						  New user?
+						  <%= link_to "Sign up", new_player_path %>
+						
+						<% elsif @player.instance_of?(String) %>
+						  <% form_tag :action => :index do %>
+						  	<%= text_field_tag :nickname, @player %><br>
+						  	<div id="temp_pass"><input name="pass_temp" id="pass_temp" class="hints" type="text" value="Password" size="20" maxlength="20" onfocus="changeBox()" />&nbsp;<%= submit_tag 'Sign in' %></div>
+                            <div id="pass" style="display:none"><input name="password" id="password" type="password" value="" size="20" maxlength="20" onBlur="restoreBox()" />&nbsp;<%= submit_tag 'Sign in' %></div>
+						  	<%= "Wrong nickname and password combination" %>
+						  <% end %>
+						  New user?
+						  <%= link_to "Sign up", new_player_path %>
+						
+						<% elsif session[:player].nil? and @player.nickname.nil? %>
+						  <% form_tag :action => :index do %>
+						  	<%= text_field_tag :nickname, 'Nickname', :class => 'hintTextbox' %>
+						  	<%= submit_tag 'Sign in' %>
+						  <% end %>
+						  <br>New user?
+						  <%= link_to "Sign up", new_player_path %>
+						  
+						<% elsif @player.password != "" and not @player.password.nil? and params[:password].nil? %>					
+						  <% form_tag :action => :index do %>
+						  	<%= text_field_tag :nickname, @player.nickname %><br>
+						  	<div id="temp_pass"><input name="pass_temp" id="pass_temp" class="hints" type="text" value="Password" size="20" maxlength="20" onfocus="changeBox()" />&nbsp;<%= submit_tag 'Sign in' %></div>
+                            <div id="pass" style="display:none"><input name="password" id="password" type="password" value="" size="20" maxlength="20" onBlur="restoreBox()" />&nbsp;<%= submit_tag 'Sign in' %></div>				  							  	
+						  <% end %>
+						  <br>New user?
+						  <%= link_to "Sign up", new_player_path %>
+						<% else %>
+						  <% session[:player] = @player %>
+						  <%= link_to session[:player].nickname, session[:player] %>
+						  <%= link_to "Sign out", :controller => "home", :action => "sign_out" %>					  
+						<% end %>
+					<% else %>								
+					  <%= link_to session[:player].nickname, session[:player] %>
+					  <%= link_to "Sign out", :controller => "home", :action => "sign_out" %> 
 					<% end %>
-				<% else %>
-				  <%= link_to session[:player].nickname, session[:player] %>
-				  <%= button_to "Sign out", :controller => "home", :action => "sign_out" %>
-				<% end %>
             </div>
         </header>
-
         <div id="main" role="main">
             <%= yield %>
         </div>
