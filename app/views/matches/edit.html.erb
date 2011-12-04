@@ -1,22 +1,20 @@
+<% if params[:signed_in] == true or not session[:player].nil? %>
+
 <h1>Editing match</h1>
 
 <% form_for(@match) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :id %><br />
-    <%= f.text_field :id %>
-  </p>
-  <p>
-    <%= f.label :occurs %><br />
+    Date and time<br />
     <%= f.datetime_select :occurs %>
   </p>
   <p>
-    <%= f.label :location %><br />
+    Place<br />
     <%= f.text_field :location %>
   </p>
   <p>
-    <%= f.label :kind %><br />
+    Players on each side<br />
     <%= f.text_field :kind %>
   </p>
   <p>
@@ -34,3 +32,12 @@
 
 <%= link_to 'Show', @match %> |
 <%= link_to 'Back', matches_path %>
+
+<% else %>
+<script type="text/javascript">
+<!--
+window.location = "/"
+//-->
+</script>
+
+<% end %>
