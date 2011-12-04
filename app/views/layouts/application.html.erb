@@ -53,35 +53,45 @@
 						  	<%= text_field_tag :nickname, 'Nickname', :class => 'hintTextbox' %>
 						  	<%= submit_tag 'Sign in' %>
 						  <% end %>
-						  <br>New user? 
- 						  <%= link_to "Sign up", new_player_path %>
+						  <span id="auth">
+						  	New user? 
+ 						  	<%= link_to "Sign up", new_player_path %>
+ 						  </span>
 						  				    
 						<% elsif @player == "Nickname error" %>
 						  <% form_tag :action => :index do %>
 						  	<%= text_field_tag :nickname, 'Nickname', :class => 'hintTextbox' %>
-						  	<%= submit_tag 'Sign in' %>		
-						  	<br><%= "No such user" %>			  	
-						  <% end %>
-						  New user?
-						  <%= link_to "Sign up", new_player_path %>
+						  	<%= submit_tag 'Sign in' %>
+						  	<br/>		
+						  	<span id="auth">						  
+						  	  <%= "No such user" %>	
+						  	  <br/>		  	
+							  <% end %>
+							  New user?
+							  <%= link_to "Sign up", new_player_path %>
+						  </span>
 						
 						<% elsif @player.instance_of?(String) %>
 						  <% form_tag :action => :index do %>
 						  	<%= text_field_tag :nickname, @player %><br>
 						  	<div id="temp_pass"><input name="pass_temp" id="pass_temp" class="hints" type="text" value="Password" size="20" maxlength="20" onfocus="changeBox()" />&nbsp;<%= submit_tag 'Sign in' %></div>
                             <div id="pass" style="display:none"><input name="password" id="password" type="password" value="" size="20" maxlength="20" onBlur="restoreBox()" />&nbsp;<%= submit_tag 'Sign in' %></div>
-						  	<%= "Wrong nickname and password combination" %>
-						  <% end %>
-						  New user?
-						  <%= link_to "Sign up", new_player_path %>
+							<span id="auth">
+						  		<%= "Wrong nickname and password combination" %><br/>
+							  	<% end %>
+							  	New user?
+							  	<%= link_to "Sign up", new_player_path %>
+						  	</span>
 						
 						<% elsif session[:player].nil? and @player.nickname.nil? %>
 						  <% form_tag :action => :index do %>
 						  	<%= text_field_tag :nickname, 'Nickname', :class => 'hintTextbox' %>
 						  	<%= submit_tag 'Sign in' %>
 						  <% end %>
-						  <br>New user?
-						  <%= link_to "Sign up", new_player_path %>
+						  <span id="auth">
+							New user?
+						    <%= link_to "Sign up", new_player_path %>
+						  </span>
 						  
 						<% elsif @player.password != "" and not @player.password.nil? and params[:password].nil? %>					
 						  <% form_tag :action => :index do %>
@@ -89,16 +99,23 @@
 						  	<div id="temp_pass"><input name="pass_temp" id="pass_temp" class="hints" type="text" value="Password" size="20" maxlength="20" onfocus="changeBox()" />&nbsp;<%= submit_tag 'Sign in' %></div>
                             <div id="pass" style="display:none"><input name="password" id="password" type="password" value="" size="20" maxlength="20" onBlur="restoreBox()" />&nbsp;<%= submit_tag 'Sign in' %></div>				  							  	
 						  <% end %>
-						  <br>New user?
-						  <%= link_to "Sign up", new_player_path %>
+						  <br/>
+						  <span id="auth">
+  						    New user?
+						    <%= link_to "Sign up", new_player_path %>
+						  </span>
 						<% else %>
 						  <% session[:player] = @player %>
-						  <%= link_to session[:player].nickname, session[:player] %>
-						  <%= link_to "Sign out", :controller => "home", :action => "sign_out" %>					  
+						  <span id="auth">
+							  <%= link_to session[:player].nickname, session[:player] %> | 
+							  <%= link_to "Sign out", :controller => "home", :action => "sign_out" %>
+						  </span>					  
 						<% end %>
-					<% else %>								
-					  <%= link_to session[:player].nickname, session[:player] %>
-					  <%= link_to "Sign out", :controller => "home", :action => "sign_out" %> 
+					<% else %>		
+						<span id="auth">						
+						  <%= link_to session[:player].nickname, session[:player] %> | 
+						  <%= link_to "Sign out", :controller => "home", :action => "sign_out" %>
+					    </span> 
 					<% end %>
             </div>
         </header>

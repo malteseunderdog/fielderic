@@ -165,9 +165,15 @@ header h2 {
 
 header a         {text-decoration: none; color:#169100;}
 header a:link    {text-decoration: none; color:#169100;}
-header a:visited {text-decoration: none; color:#169100;}
+header a:visited {text-decoration: underline; color:#169100;}
 header a:active  {text-decoration: none; color:#169100;}
-header a:hover   {text-decoration: none; color:#169100;}
+header a:hover   {text-decoration: underline; color:#169100;}
+
+#auth a { text-decoration: none; color:#ff0; }
+#auth a:link { text-decoration: none; color:#ff0; }
+#auth a:hover { text-decoration: underline; color:#ff0; }
+#auth a:visited { text-decoration: none; color:#ff0; }	
+}
 
 input.hintTextbox { 
 	color: #888; 
