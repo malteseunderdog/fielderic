@@ -23,6 +23,9 @@
   <%=h @player.location %>
 </p>
 
-
+<p>
+	<b>Password:</b>
+	<%=h @player.password.blank? ? "No password is set" : "******"%>
+</p>
 
 <%= link_to 'Edit profile', edit_player_path(@player) %>

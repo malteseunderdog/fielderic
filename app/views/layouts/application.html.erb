@@ -37,9 +37,55 @@
     <div id="container">
         <header>
             <div>
-            <h1><a href="/index.html">Field Eric</a></h1>
-            <h2>Play some | Plan some</h2>
-            <%= image_tag "eric.png", {:alt => "eric the king"} %>
+	            <h1><a href="/index.html">Field Eric</a></h1>
+	            <h2>Play some | Plan some</h2>
+	            <%= image_tag "eric.png", {:alt => "eric the king"} %>
+            </div>
+            <div>
+	            <% if session[:player].nil? %>
+					<% if @player.nil? %>
+					  <% form_tag :action => :index do %>
+					  	<%= label_tag :nickname %><br>
+					  	<%= text_field_tag :nickname %><br>
+					  	<%= submit_tag 'Login' %>	  	
+					  <% end %>
+					  <%= button_to "Register", new_player_path%>
+					<% elsif @player == "Nickname error" %>
+					  <% form_tag :action => :index do %>
+					  	<%= label_tag :nickname %><br>
+					  	<%= text_field_tag :nickname %><br>
+					  	<%= submit_tag 'Login' %><br>
+					  	<%= "No such user" %>
+					  <% end %>
+					  <%= button_to "Register", new_player_path%>
+					<% elsif @player.instance_of?(String) %>
+					  <% form_tag :action => :index do %>
+					  	<%= label_tag :nickname %><br>
+					  	<%= text_field_tag :nickname, @player %><br>
+					  	<%= label_tag :password %><br>
+					  	<%= password_field_tag :password %><br>
+					  	<%= submit_tag 'Login' %><br>
+					  	<%= "Wrong nickname and password combination" %>
+					  <% end %>
+					  <%= button_to "Register", new_player_path%>
+					<% elsif (@player.password != "") and (not @player.password.nil?) and (params[:password].nil?) %>
+					  <% form_tag :action => :index do %>
+					  	<%= label_tag :nickname %><br>
+					  	<%= text_field_tag :nickname, @player.nickname %><br>
+					  	<%= label_tag :password %><br>
+					  	<%= password_field_tag :password %><br>
+					  	<%= submit_tag 'Login' %>
+					  <% end %>
+					  <%= button_to "Register", new_player_path%>
+					<% else %>
+					  <% session[:player] = @player %>
+					  <%= link_to @player.nickname, @player %>
+					  <%= button_to "Sign out", :controller => "home", :action => "sign_out" %>
+					<% end %>
+				<% else %>
+				  <%= link_to session[:player].nickname, @player %>
+				  <%= button_to "Sign out", :controller => "home", :action => "sign_out" %>
+				<% end %>
             </div>
         </header>
 

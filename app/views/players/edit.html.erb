@@ -16,15 +16,32 @@
     <%= f.text_field :mobile %>
   </p>
   <p>
-    <%= f.label :password %><br />
-    <%= f.text_field :password %>
-  </p>
-  <p>
     <%= f.label :location %><br />
     <%= f.text_field :location %>
   </p>  
   <p>
     <%= f.submit 'Save changes' %>
+  </p>
+<% end %>
+
+<br>
+<br>
+
+<% form_for(@player) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+    <br>
+    <%=h @player.password.blank? ? "Note: No password is set" : ""%>
+  </p>
+  <p>
+  	Confirm password<br>
+  	<input type="password" size="30">
+  </p>  
+  <p>
+    <%= f.submit 'Update password' %>
   </p>
 <% end %>
 
