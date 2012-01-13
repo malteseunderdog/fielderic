@@ -1,15 +1,19 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  occurs: 2011-06-19 11:42:21
+  id: 
+  created: 2012-01-13 23:02:15
+  kickoff: 2012-01-13 23:02:15
   location: MyString
-  kind: 
-  required: 
-  comment: MyText
+  variety: MyString
+  required: 1
+  comment: MyString
 
 two:
-  occurs: 2011-06-19 11:42:21
+  id: 
+  created: 2012-01-13 23:02:15
+  kickoff: 2012-01-13 23:02:15
   location: MyString
-  kind: 
-  required: 
-  comment: MyText
+  variety: MyString
+  required: 1
+  comment: MyString
