@@ -1,0 +1,42 @@
+field1:
+    id: 1
+    player_id: 1
+    match_id: 1
+    organiser: TRUE
+    joined: 2012-01-05 19:00:00
+    
+field2:
+    id: 2
+    player_id: 2
+    match_id: 1
+    organiser: FALSE
+    joined: 2012-01-08 19:11:39
+    
+field3:
+    id: 3
+    player_id: 3
+    match_id: 1
+    organiser: FALSE
+    joined: 2012-01-11 10:01:23
+    
+field4:
+    id: 4
+    player_id: 3
+    match_id: 3
+    organiser: TRUE
+    joined: 2012-01-12 19:11:26
+
+field5:
+    id: 5
+    player_id: 3
+    match_id: 4
+    organiser: FALSE
+    joined: 2012-01-14 15:09:01
+    
+field6:
+    id: 6
+    player_id: 2
+    match_id: 5
+    organiser: TRUE
+    joined: 2012-01-16 13:45:50
+
