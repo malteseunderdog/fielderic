@@ -26,3 +26,10 @@ TO INSTALL CRYPT FUNCTIONS
 ==========================
 
 psql -U eric -d fielderic -f <PostgreSQL installation path>/share/postgresql/contrib/pgcrypto.sql
+
+TO GENERATE SCHEMAs
+===================
+
+ruby script/generate model player id:primary_key nickname:string name:string email:string mobile:string password:string location:string registration:datetime
+ruby script/generate model match id:primary_key created:datetime kickoff:datetime location:string variety:string required:integer comment:string 
+ruby script/generate model field id:primary_key player:references match:references organiser:boolean joined:datetime`
