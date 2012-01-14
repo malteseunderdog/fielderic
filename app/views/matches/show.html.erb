@@ -6,7 +6,7 @@
 	
 	<p>
 	  <b>Occurs:</b>
-	  <%=h @match.occurs %>
+	  <%=h @match.kickoff %>
 	</p>
 	
 	<p>
@@ -16,12 +16,12 @@
 	
 	<p>
 	  <b>Kind:</b>
-	  <%=h @match.kind %>
+	  <%=h @match.variety %>
 	</p>
 	
 	<p>
 	  <b>Players required:</b>
-	  <%=h @match.players_required %>
+	  <%=h @match.required %>
 	</p>
 	
 	<p>
@@ -29,9 +29,7 @@
 	  <%=h @match.comment %>
 	</p>
 		
-		<%=h (Field.get_by_player(session[:player].id)).joined %>
-		
-	<% if (Field.get_by_player(session[:player].id)).organizer == true %>	
+	<% if (Field.get_by_player(session[:player].id)).organiser == true %>	
 		<%= link_to 'Edit', edit_match_path(@match) %> |
 	<% end %>
 
