@@ -44,14 +44,6 @@
     <td>
     	<%= link_to "Details", @match[i] %>    	
 		<%= link_to 'Join', join_path(@match), :confirm => 'Are you sure?' %>
-		
-		<% if params[:signed_in] == true or not session[:player].nil? %>
-    	  <% @field = (Field.get_by_player_and_match(session[:player].id, @match[i].id)) %>
-    	  <% if (@field != nil) and @field.organiser %>      		
-  	  <%= link_to 'Edit', edit_match_path(@match[i]) %>
-      <%= link_to 'Destroy', @match[i], :confirm => 'Are you sure?', :method => :delete %>
-  	<% end %>
-  <% end %>
     </td>
   </tr>
   <tr>
