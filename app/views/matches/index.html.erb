@@ -1,3 +1,5 @@
+<%=h params[:signed_in] == true or not session[:player].nil? %>
+
 <h1>Listing matches</h1>
 
 <table>
@@ -19,9 +21,13 @@
     <td><%=h match.required %></td>
     <td><%=h match.comment %></td>
     <td><%= link_to 'Show', match %></td>
+    <td><%= link_to 'Join', join_path(match), :confirm => 'Are you sure?' %></td>
+  <% if params[:signed_in] == true or not session[:player].nil? %>		
+	<% if (Field.get_by_player(session[:player].id)).organiser == true %>	  
     <td><%= link_to 'Edit', edit_match_path(match) %></td>
-    <td><%= link_to 'Join', join_path(match) %></td>
     <td><%= link_to 'Destroy', match, :confirm => 'Are you sure?', :method => :delete %></td>
+  	<% end %>
+  <% end %>
   </tr>
 <% end %>
 </table>

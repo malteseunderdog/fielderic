@@ -43,7 +43,7 @@
     <td><%=h @match[i].required %></td>
     <td>
     	<%= link_to "Details", @match[i] %>    	
-		<%= link_to 'Join', join_path(@match) %>
+		<%= link_to 'Join', join_path(@match), :confirm => 'Are you sure?' %>
     </td>
   </tr>
   <tr>
