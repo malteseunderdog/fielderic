@@ -1,33 +1,40 @@
-<p>
-  <b>Id:</b>
-  <%=h @match.id %>
-</p>
+<% if params[:signed_in] == true or not session[:player].nil? %>
+	<p>
+	  <b>Id:</b>
+	  <%=h @match.id %>
+	</p>
+	
+	<p>
+	  <b>Occurs:</b>
+	  <%=h @match.occurs %>
+	</p>
+	
+	<p>
+	  <b>Location:</b>
+	  <%=h @match.location %>
+	</p>
+	
+	<p>
+	  <b>Kind:</b>
+	  <%=h @match.kind %>
+	</p>
+	
+	<p>
+	  <b>Players required:</b>
+	  <%=h @match.players_required %>
+	</p>
+	
+	<p>
+	  <b>Comment:</b>
+	  <%=h @match.comment %>
+	</p>
+		
+		<%=h (Field.get_by_player(session[:player].id)).joined %>
+		
+	<% if (Field.get_by_player(session[:player].id)).organizer == true %>	
+		<%= link_to 'Edit', edit_match_path(@match) %> |
+	<% end %>
 
-<p>
-  <b>Occurs:</b>
-  <%=h @match.occurs %>
-</p>
+<% end %>
 
-<p>
-  <b>Location:</b>
-  <%=h @match.location %>
-</p>
-
-<p>
-  <b>Kind:</b>
-  <%=h @match.kind %>
-</p>
-
-<p>
-  <b>Players required:</b>
-  <%=h @match.players_required %>
-</p>
-
-<p>
-  <b>Comment:</b>
-  <%=h @match.comment %>
-</p>
-
-
-<%= link_to 'Edit', edit_match_path(@match) %> |
 <%= link_to 'Back', matches_path %>
