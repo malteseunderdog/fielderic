@@ -10,7 +10,10 @@
     <th>Comment</th>
   </tr>
 
-<% @match.each do |match| %>
+<% if flash[:notice] %>
+      <p><%= flash[:notice] %></p>
+<% end %>
+<% @match.each do |match| %>  
   <tr>
     <td><%=h match.id %></td>
     <td><%=h match.kickoff %></td>
