@@ -1,5 +1,3 @@
-<%=h params[:signed_in] == true or not session[:player].nil? %>
-
 <h1>Listing matches</h1>
 
 <table>
@@ -22,10 +20,15 @@
     <td><%=h match.comment %></td>
     <td><%= link_to 'Show', match %></td>
     <td><%= link_to 'Join', join_path(match), :confirm => 'Are you sure?' %></td>
-  <% if params[:signed_in] == true or not session[:player].nil? %>		
-	<% if (Field.get_by_player(session[:player].id)).organiser == true %>	  
-    <td><%= link_to 'Edit', edit_match_path(match) %></td>
-    <td><%= link_to 'Destroy', match, :confirm => 'Are you sure?', :method => :delete %></td>
+    
+
+  <% if params[:signed_in] == true or not session[:player].nil? %>
+    
+    <% @field = (Field.get_by_player_and_match(session[:player].id, match.id)) %>
+    <% if (@field != nil) and @field.organiser %>
+      		
+  	  <td><%= link_to 'Edit', edit_match_path(match) %></td>
+      <td><%= link_to 'Destroy', match, :confirm => 'Are you sure?', :method => :delete %></td>
   	<% end %>
   <% end %>
   </tr>
@@ -33,5 +36,6 @@
 </table>
 
 <br />
-
-<%= link_to 'New match', new_match_path %>
+<% if params[:signed_in] == true or not session[:player].nil? %>		
+  <%= link_to 'New match', new_match_path %>
+<% end %>
