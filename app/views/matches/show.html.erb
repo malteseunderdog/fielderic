@@ -1,4 +1,3 @@
-<% if params[:signed_in] == true or not session[:player].nil? %>
 	<p>
 	  <b>Id:</b>
 	  <%=h @match.id %>
@@ -28,11 +27,11 @@
 	  <b>Comment:</b>
 	  <%=h @match.comment %>
 	</p>
-		
+	
+<% if params[:signed_in] == true or not session[:player].nil? %>		
 	<% if (Field.get_by_player(session[:player].id)).organiser == true %>	
 		<%= link_to 'Edit', edit_match_path(@match) %> |
 	<% end %>
-
 <% end %>
 
-<%= link_to 'Back', matches_path %>
+<%= link_to 'Match list', matches_path %>

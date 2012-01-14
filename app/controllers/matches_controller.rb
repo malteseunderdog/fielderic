@@ -87,7 +87,7 @@ class MatchesController < ApplicationController
   def join
     # mark the user as joining a particular match
     @match = Match.find(params[:id])
-    @match.update_attribute("players_required", @match.players_required - 1) 
+    @match.update_attribute("required", @match.required - 1) 
     redirect_to(matches_url)
   end 
   
