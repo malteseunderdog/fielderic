@@ -37,10 +37,10 @@
   <% else %>
   	<tr bgcolor="#CCEECC">  	
   <% end %>
-    <td><%=h @match[i].occurs %></td>
+    <td><%=h @match[i].kickoff %></td>
     <td><%=h @match[i].location %></td>
-    <td><%=h @match[i].kind %>-a-side</td>
-    <td><%=h @match[i].players_required %></td>
+    <td><%=h @match[i].variety %>-a-side</td>
+    <td><%=h @match[i].required %></td>
     <td><%= link_to "Details", @match[i] %></td>
   </tr>
   <tr>
