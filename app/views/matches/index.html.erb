@@ -13,10 +13,10 @@
 <% @match.each do |match| %>
   <tr>
     <td><%=h match.id %></td>
-    <td><%=h match.occurs %></td>
+    <td><%=h match.kickoff %></td>
     <td><%=h match.location %></td>
-    <td><%=h match.kind %></td>
-    <td><%=h match.players_required %></td>
+    <td><%=h match.variety %></td>
+    <td><%=h match.required %></td>
     <td><%=h match.comment %></td>
     <td><%= link_to 'Show', match %></td>
     <td><%= link_to 'Edit', edit_match_path(match) %></td>
