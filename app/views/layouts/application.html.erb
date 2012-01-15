@@ -29,12 +29,20 @@
 
     <link href='http://fonts.googleapis.com/css?family=Play:regular,bold&v1' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Rokkitt&v1' rel='stylesheet' type='text/css'>
+    <link type="text/css" href="/javascripts/libs/jquery/development-bundle/themes/base/jquery.ui.all.css" rel="Stylesheet" />
+	<link type="text/css" href="/stylesheets/jquery-ui-timepicker-addon.css" rel="Stylesheet" />
 
-	<script type="text/javascript" src="/javascripts/libs/modernizr-1.7.min.js"></script>
-    <script type="text/javascript" src="/javascripts/libs/hint-textbox.js"></script>
-	<script type="text/javascript" src="/javascripts/libs/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="/javascripts/libs/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="/javascripts/application.js"></script>
+	<script type="text/javascript" src="/javascripts/libs/jquery/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/javascripts/libs/jquery/js/jquery-ui-1.8.17.custom.min.js"></script>
+	<script type="text/javascript" src="/javascripts/libs/jquery-ui-timepicker-addon.js"></script>
+	
+	<script>
+	$(function() {
+		$(".datetimepicker").datetimepicker({ dateFormat: 'dd/mm/yy', minDate: 0, showButtonPanel: false });
+	});
+	
+	
+	</script>	
 </head>
 <body>
     <div id="container">
@@ -131,16 +139,6 @@
             
         </footer>
     </div>
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-    <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery-1.7.1.min.js"%3E%3C/script%3E'))</script>
-    <script src="js/plugins.js"></script>
-    <script src="js/script.js"></script>
-    <!--[if lt IE 7 ]>
-    <script src="js/libs/dd_belatedpng.js"></script>
-    <script> DD_belatedPNG.fix('img, .png_bg');</script>
-    <![endif]-->
-    
     
 	<script type="text/javascript" charset="utf-8">
 	  var is_ssl = ("https:" == document.location.protocol);
@@ -157,5 +155,6 @@
 	  feedback_widget_options.style = "question";
 	  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
 	</script>
+	
 </body>
 </html>
