@@ -7,7 +7,7 @@ class CreateMatch < ActiveRecord::Migration
       t.string :location
       t.string :variety
       t.integer :required
-      t.string :comment
+      t.text :comment
 
       t.timestamps
     end

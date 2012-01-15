@@ -40,3 +40,12 @@ match5:
     variety: 6-a-side
     required: 5
     comment: Only interested in good players
+
+match6:
+    id: 6
+    created: 2012-01-01 10:34:12
+    kickoff: 2012-01-02 12:12:12
+    location: Narnia
+    variety: 12-a-side
+    required: 5
+    comment: IN THE PAST SHOULD NOT APPEAR
