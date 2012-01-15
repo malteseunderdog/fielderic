@@ -1,5 +1,4 @@
 # author: JP
-# copied from: http://quotedprintable.com/2007/11/16/seed-data-in-rails
 
 namespace :db do
   desc "Load seed fixtures (from db/fixtures) into the current environment's database." 
