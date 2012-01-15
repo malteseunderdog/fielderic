@@ -22,14 +22,17 @@
   <tr align="left">
     <th>Date</th>
     <th>Place</th>
-    <th>Variety</th>
+    <th>Kind</th>
     <th>Players needed</th>
   </tr>
+
   
-<% number_of_matches_to_show = 10 %>  
-<% if @match.length < number_of_matches_to_show %>
-  <% number_of_matches_to_show = @match.length %>
-<% end %>
+<% 
+  number_of_matches_to_show = 10  
+  if @match.length < number_of_matches_to_show
+    number_of_matches_to_show = @match.length
+  end 
+%>
 
 <% number_of_matches_to_show.times do |i| %>
   <% if i%2==0 %>
@@ -41,7 +44,10 @@
     <td><%=h @match[i].location %></td>
     <td><%=h @match[i].variety %>-a-side</td>
     <td><%=h @match[i].required %></td>
-    <td><%= link_to "Details", @match[i] %></td>
+    <td>
+    	<%= link_to "Details", @match[i] %>    	
+		<%= link_to 'Join', join_path(@match), :confirm => 'Are you sure?' %>
+    </td>
   </tr>
   <tr>
   	<% if not @match[i].comment.nil? %>

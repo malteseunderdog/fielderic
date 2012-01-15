@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 201201140003109) do
     t.string   "location"
     t.string   "variety"
     t.integer  "required"
-    t.string   "comment"
+    t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
