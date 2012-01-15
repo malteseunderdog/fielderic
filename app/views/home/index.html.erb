@@ -6,8 +6,39 @@
 		<th>Play some</th>
 	</tr>
 	<tr bgcolor="#CCEECC">		
-		<td><%= link_to "Create a match", "/matches/new" %></td>
-		<td></td>
+		<td>
+			<% fields = Field.get_by_player(session[:player].id) %>
+				<% if (fields != nil) and (fields.length > 0)					
+					 fields.each {
+					 	|field|
+					 	if field.organiser
+					 		match = Match.find(field.match_id)
+			 	%>
+			 				<%= link_to (match.variety + " in " + match.location + " at " + match.kickoff.to_s), match_path(match) %>
+			 				<br>
+			 	<%					 			
+			 			end								 	
+					 }
+				end
+			%>
+			<%= link_to "Create a match", "/matches/new" %>
+		</td>
+		<td>
+			<% fields = Field.get_by_player(session[:player].id) %>
+				<% if (fields != nil) and (fields.length > 0)					
+					 fields.each {
+					 	|field|
+					 	if not field.organiser
+					 		match = Match.find(field.match_id)
+			 	%>
+			 				<%= link_to (match.variety + " in " + match.location + " at " + match.kickoff.to_s), match_path(match) %>
+			 				<br>
+			 	<%					 			
+			 			end								 	
+					 }
+				end
+			%>
+		</td>
 	</tr>	
 </table>
 	
