@@ -25,11 +25,14 @@
     <th>Kind</th>
     <th>Players needed</th>
   </tr>
+
   
-<% number_of_matches_to_show = 10 %>  
-<% if @match.length < number_of_matches_to_show %>
-  <% number_of_matches_to_show = @match.length %>
-<% end %>
+<% 
+  number_of_matches_to_show = 10  
+  if @match.length < number_of_matches_to_show
+    number_of_matches_to_show = @match.length
+  end 
+%>
 
 <% number_of_matches_to_show.times do |i| %>
   <% if i%2==0 %>

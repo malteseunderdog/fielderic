@@ -1,6 +1,6 @@
 class HomeController < ApplicationController  
   def index
-    @match = Match.all
+    @match = Match.future
     
     if params[:password].nil?
       unless params[:nickname].nil?

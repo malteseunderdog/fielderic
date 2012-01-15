@@ -2,7 +2,7 @@ class MatchesController < ApplicationController
   # GET /match
   # GET /match.xml
   def index
-    @match = Match.all
+    @match = Match.future
 
     respond_to do |format|
       format.html # index.html.erb
