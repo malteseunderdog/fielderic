@@ -13,10 +13,12 @@
 					 	|field|
 					 	if field.organiser
 					 		match = Match.find(field.match_id)
+					 		if match.kickoff > DateTime.now
 			 	%>
-			 				<%= link_to (match.variety + " in " + match.location + " at " + match.kickoff.to_s), match_path(match) %>
-			 				<br>
-			 	<%					 			
+			 					<%= link_to (match.variety + " in " + match.location + " at " + match.kickoff.to_s), match_path(match) %>
+			 					<br>
+			 	<%					
+			 				end 			
 			 			end								 	
 					 }
 				end
@@ -30,10 +32,12 @@
 					 	|field|
 					 	if not field.organiser
 					 		match = Match.find(field.match_id)
+					 		if match.kickoff > DateTime.now
 			 	%>
-			 				<%= link_to (match.variety + " in " + match.location + " at " + match.kickoff.to_s), match_path(match) %>
-			 				<br>
-			 	<%					 			
+			 					<%= link_to (match.variety + " in " + match.location + " at " + match.kickoff.to_s), match_path(match) %>
+			 					<br>
+			 	<%				
+			 				end	 			
 			 			end								 	
 					 }
 				end
