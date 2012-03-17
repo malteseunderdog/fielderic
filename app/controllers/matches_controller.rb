@@ -97,6 +97,12 @@ class MatchesController < ApplicationController
     # the following should be done in a transactional manner ...
     # otherwise all sorts of race conditions could come back to bite us
     
+    # add a field entry for this logged in user
+    @field = @match.fields.create(:joined => DateTime.now, 
+                                  :player_id => 1, # FIXME: this should be taken from session?
+                                  :organiser => false)
+    
+    
     # this will worry about validations
     if @match.save 
       flash[:notice] = "Match joined"

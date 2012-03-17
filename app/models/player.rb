@@ -1,4 +1,6 @@
 class Player < ActiveRecord::Base
+  has_many :fields
+  has_many :matches, :through => :fields
   
   def self.get_player(nickname)
     find(:first, :conditions => "nickname = '#{nickname}'")
