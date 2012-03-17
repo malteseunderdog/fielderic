@@ -11,8 +11,9 @@
   </tr>
 
 <% if flash[:notice] %>
-      <p><%= flash[:notice] %></p>
+      <h1><%= flash[:notice] %></h1>
 <% end %>
+
 <% @match.each do |match| %>  
   <tr>
     <td><%=h match.id %></td>
@@ -21,21 +22,30 @@
     <td><%=h match.variety %></td>
     <td><%=h match.required %></td>
     <td><%=h match.comment %></td>
-    <td><%= link_to 'Show', match %></td>
-    <td><%= link_to 'Join', join_path(match), :confirm => 'Are you sure?' %></td>
-    
+    <td><%= link_to "Show", match %></td>
+    <td>
+        <%# do we require any players? if yes show the link %> 
+        <%= link_to "Join", join_path(match), :confirm => "Are you sure?" if match.required > 0 %>
+    </td>
 
-  <% if params[:signed_in] == true or not session[:player].nil? %>
+  <% 
+    if params[:signed_in] == true or not session[:player].nil? 
     
-    <% @field = (Field.get_by_player_and_match(session[:player].id, match.id)) %>
-    <% if (@field != nil) and @field.organiser %>
-      		
-  	  <td><%= link_to 'Edit', edit_match_path(match) %></td>
+        @field = (Field.get_by_player_and_match(session[:player].id, match.id)) 
+        if (@field != nil) and @field.organiser 
+  %>
+  		
+      <td><%= link_to 'Edit', edit_match_path(match) %></td>
       <td><%= link_to 'Destroy', match, :confirm => 'Are you sure?', :method => :delete %></td>
-  	<% end %>
-  <% end %>
+  	
+  <% 
+        end 
+    end 
+  %>
+  
   </tr>
 <% end %>
+
 </table>
 
 <br />

@@ -1,6 +1,9 @@
-class HomeController < ApplicationController  
+class HomeController < ApplicationController
+    
   def index
-    @match = Match.future
+    
+    # get the matches which  
+    @match = Match.future_games_with_required_players
     
     if params[:password].nil?
       unless params[:nickname].nil?

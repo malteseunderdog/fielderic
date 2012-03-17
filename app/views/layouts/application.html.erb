@@ -37,6 +37,8 @@
     <script type="text/javascript" src="/javascripts/libs/jquery/js/jquery-ui-1.8.17.custom.min.js"></script>
 	<script type="text/javascript" src="/javascripts/libs/jquery-ui-timepicker-addon.js"></script>
 	
+	<script type="text/javascript" src="/javascripts/fielderic.js"></script>
+	
 	<script>
 	$(function() {
 		$(".datetimepicker").datetimepicker({ dateFormat: 'dd/mm/yy', minDate: 0, showButtonPanel: false });
@@ -57,6 +59,7 @@
             	<table width="100px" height="48px">
             		<tr><td></td></tr>
             	</table>
+            	    <div id="signinMsg"></div>
             	    <% if session[:player].nil? %>
 						
 						<% if @player.nil? %>

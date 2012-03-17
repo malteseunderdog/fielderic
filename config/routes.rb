@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   
   # order of this is important... must come before general resources
-  map.join '/matches/:id/join', :controller => 'matches', :action => 'join'
+  map.join '/matches/:id/join/', :controller => 'matches', :action => 'join'
   map.resources :matches
 
   map.resources :players

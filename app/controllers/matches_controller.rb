@@ -1,4 +1,8 @@
 class MatchesController < ApplicationController
+  before_filter :require_login
+  # just apply above on join method -- for now (bit of an overkill)
+  skip_before_filter :require_login, :except => [ :join ]
+  
   # GET /match
   # GET /match.xml
   def index
@@ -85,16 +89,41 @@ class MatchesController < ApplicationController
   
   # GET /match/1/join
   def join
+            
     # mark the user as joining a particular match
     @match = Match.find(params[:id])
     @match.required = @match.required - 1
+    
+    # the following should be done in a transactional manner ...
+    # otherwise all sorts of race conditions could come back to bite us
+    
     # this will worry about validations
-    if @match.save
+    if @match.save 
       flash[:notice] = "Match joined"
     else
       flash[:notice] = "No more places to join"
     end
-    redirect_to(matches_url)
+
+    # now send back to index, but first we must initialise any attributes
+    # which need to be rendered  
+    @match = Match.future
+    # render the main index page
+    render "index"
+        
   end 
   
+  
+  private # after this all methods are private -- I think
+    
+    def require_login
+      unless logged_in?
+        flash[:notice] = "Not signed in"
+        #render :action => action_name
+      end
+    end
+
+    def logged_in?
+      !session[:player].nil?
+    end
+      
 end
