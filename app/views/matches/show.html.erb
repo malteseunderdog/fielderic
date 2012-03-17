@@ -29,7 +29,7 @@
 	</p>
 	
 <% if params[:signed_in] == true or not session[:player].nil? %>		
-	<% if (Field.get_by_player(session[:player].id)).organiser == true %>	
+	<% if (Field.get_by_player_and_match(session[:player].id, @match.id)).organiser == true %>	
 		<%= link_to 'Edit', edit_match_path(@match) %> |
 	<% end %>
 <% end %>
