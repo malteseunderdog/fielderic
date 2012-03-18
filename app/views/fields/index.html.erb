@@ -1,0 +1,21 @@
+<h1>Games you have signed up for ...</h1>
+
+<table>
+   <!--
+  <tr>
+    <th>Name</th>
+    <th>Title</th>
+    <th>Content</th>
+  </tr>
+  -->
+  
+<% for field in @fields %>
+  <tr>
+    <td><%=h field.player.name %></td>
+    <td><%=h field.match.kickoff %></td>
+    <td><%=h field.match.location %></td>
+    <td><%= field.organiser ? "Organiser" : "" %></td>
+  </tr>
+<% end %>
+
+</table>

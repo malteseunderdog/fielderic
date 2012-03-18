@@ -3,7 +3,8 @@ ActionController::Routing::Routes.draw do |map|
   # order of this is important... must come before general resources
   map.join '/matches/:id/join/', :controller => 'matches', :action => 'join'
   map.resources :matches
-
+  map.connect '/fields/organise/', :controller => 'fields', :action => 'organise'
+  map.resources :fields
   map.resources :players
 
   # The priority is based upon order of creation: first created -> highest priority.
