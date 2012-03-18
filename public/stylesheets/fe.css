@@ -1,0 +1,26 @@
+/*
+    CSS which holds customizations over the boostrap template CSS.
+    Do not change the bootstrap CSS as all that will be lost on updating the
+    bootstrap version.
+    
+    Author: JP <jp@javaclass.co.uk>
+*/
+
+
+/* The E.C. image should be on the left with text on the right */
+.hero-unit img {
+    margin-right: 40px;
+    position:relative;
+    float:left;
+}
+
+/* Decorate the footer */
+footer {
+	position: absolute;
+	height: 200px;
+	left: 0;
+	width: 100%;
+	background: #888;
+	border-top: 1px solid #666;
+}
+

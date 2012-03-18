@@ -6,7 +6,7 @@ class MatchesController < ApplicationController
   # GET /match
   # GET /match.xml
   def index
-    @match = Match.future
+    @matches = Match.future
 
     respond_to do |format|
       format.html # index.html.erb
@@ -105,14 +105,14 @@ class MatchesController < ApplicationController
     
     # this will worry about validations
     if @match.save 
-      flash[:notice] = "Match joined"
+      flash[:notice] = "Match joined (" + @match.variety + " match, " + @match.kickoff.to_s + " at " + @match.location + ")"
     else
       flash[:notice] = "No more places to join"
     end
 
     # now send back to index, but first we must initialise any attributes
     # which need to be rendered  
-    @match = Match.future
+    @matches = Match.future
     # render the main index page
     render "index"
         

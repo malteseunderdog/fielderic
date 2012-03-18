@@ -1,106 +1,66 @@
-<% if params[:signed_in] == true or not session[:player].nil? %>
-<div align="center">
-<table width="70%" bgcolor="#AACCAA">
-	<tr align="left">
-		<th width="50%">Plan some</th>
-		<th>Play some</th>
-	</tr>
-	<tr bgcolor="#CCEECC">		
-		<td>
-			<% fields = Field.get_by_player(session[:player].id) %>
-				<% if (fields != nil) and (fields.length > 0)					
-					 fields.each {
-					 	|field|
-					 	if field.organiser
-					 		match = Match.find(field.match_id)
-					 		if match.kickoff > DateTime.now
-			 	%>
-			 					<%= link_to (match.variety + " in " + match.location + " at " + match.kickoff.to_s), match_path(match) %>
-			 					<br>
-			 	<%					
-			 				end 			
-			 			end								 	
-					 }
-				end
-			%>
-			<%= link_to "Create a match", "/matches/new" %>
-		</td>
-		<td>
-			<% fields = Field.get_by_player(session[:player].id) %>
-				<% if (fields != nil) and (fields.length > 0)					
-					 fields.each {
-					 	|field|
-					 	if not field.organiser
-					 		match = Match.find(field.match_id)
-					 		if match.kickoff > DateTime.now
-			 	%>
-			 					<%= link_to (match.variety + " in " + match.location + " at " + match.kickoff.to_s), match_path(match) %>
-			 					<br>
-			 	<%				
-			 				end	 			
-			 			end								 	
-					 }
-				end
-			%>
-		</td>
-</tr>	
-</table>
-	
+<!-- Main hero unit for a primary marketing message or call to action -->
+<div class="hero-unit">
+    <img src="/images/eric.png" alt="eric cantona" />
+    <h1>Plan Some, Play Some</h1>
+    <p>
+        Go for it!  Play some football in an area close to you by selecting
+        one of the below games in need of players (no doubt handsome players like yourself).
+        Or if you already have your crew, but still lack a couple of heads
+        organise a match by clicking on the button below.
+    </p>
+    <p>
+        <a class="btn btn-primary btn-large">Organise &raquo;</a>
+    </p>
 </div>
-<% end %>
-<br/>
-<div align="center">
-    
-<%= link_to "Joined Games", fields_path %> | <%= link_to "Organised Games", :controller => "fields", :action => "organise" %>
 
-    
-<table width="70%" bgcolor="#AACCAA">
-  <tr bgcolor="#FFF">
-  	<td colspan=5><h1>These matches need players. Join in and play some!</h1></td>
-  </tr>
-  <tr align="left">
-    <th>Date</th>
-    <th>Place</th>
-    <th>Kind</th>
-    <th>Players needed</th>
-  </tr>
-
-  
-<% 
-  number_of_matches_to_show = 10  
-  if @match.length < number_of_matches_to_show
-    number_of_matches_to_show = @match.length
-  end 
-%>
-
-<% number_of_matches_to_show.times do |i| %>
-  <% if i%2==0 %>
-  	<tr bgcolor="#EEFFEE">
-  <% else %>
-  	<tr bgcolor="#CCEECC">  	
-  <% end %>
-    <td><%=h @match[i].kickoff %></td>
-    <td><%=h @match[i].location %></td>
-    <td><%=h @match[i].variety %>-a-side</td>
-    <td><%=h @match[i].required %></td>
-    <td>
-    	<%= link_to "Details", @match[i] %>    	
-		<%= link_to "Join", join_path(@match[i]) %>
-    </td>
-  </tr>
-  <tr>
-  	<% if not @match[i].comment.nil? %>
-	  <% if i%2==0 %>
-	  	<tr bgcolor="#EEFFEE">
-	  <% else %>
-	  	<tr bgcolor="#CCEECC">
-	  <% end %>	  	
-	    <td colspan=5>Comments: <%=h @match[i].comment %></td>
-	  </tr>
-	<% end %>
-<% end %>
-<% if params[:signed_in] == true or not session[:player].nil? %>
-<tr><td colspan=4></td><td><%= link_to "Show all", "/matches" %></td></tr>
-<% end %>
-</table>
+<div class="row">
+    <div class="span8">
+        <% if @matches.length > 0 %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>What</th>
+                    <th>When</th>
+                    <th>Where</th>
+                    <th># Places Left</th>
+                    <th>Comment</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            <% for match in @matches %>
+                <tr>
+                    <td><%=h match.variety %></td>
+                    <td><%=h match.kickoff %></td>
+                    <td><%=h match.location %></td>
+                    <td><span class="badge badge-success"><%=h match.required %></span></td>
+                    <td><%=h match.comment %></td>
+                    <td><%= link_to "Join", join_path(match), :class => "btn btn-info btn-small" %></td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+        <%= link_to "More Matches ...", matches_path %>
+        <% else %>
+            <div class="well">
+            No matches yet, click here to create one. <!-- FIXME: This should be a link -->
+            </div>
+        <% end %>
+    </div>
+    <div class="span4">
+        <h2>Need players? Fix a match</h2>
+        <p>
+            Organise a match at a location close to you, meet some new people, 
+            score an awesome bicycle kick and grab yourself a couple of beers with your new mates.  
+            Social sports, it is fun we swear!
+        </p>
+        <p>
+            p.s.  When we say "fix a match", we do not mean <i>Calciopoli</i>
+        </p>
+        <p>
+            <a class="btn" href="#">Find Players &raquo;</a>
+        </p>
+    </div>
 </div>
+
+

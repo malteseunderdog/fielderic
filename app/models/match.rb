@@ -13,10 +13,12 @@ class Match < ActiveRecord::Base
   end
 
   # Gets only the #future# matches for which players are required
-  def self.future_games_with_required_players()
+  def self.future_games_with_required_players(limit)
     # where kickoff past some date (now) and we need some players for 
     # these matches
-    all(:conditions => ["kickoff > ? and required > 0", DateTime.now], :order => 'kickoff')   
+    all(:conditions => ["kickoff > ? and required > 0", DateTime.now],
+        :limit => limit, 
+        :order => 'kickoff')   
   end
   
 end

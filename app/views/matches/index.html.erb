@@ -1,54 +1,43 @@
-<h1>Listing matches</h1>
+<div class="row">
+    <div class="span12">
+        <h1>Play in one of these matches <small>and enjoy</small></h1>
 
-<table>
-  <tr>
-    <th>Id</th>
-    <th>Occurs</th>
-    <th>Location</th>
-    <th>Kind</th>
-    <th>Players required</th>
-    <th>Comment</th>
-  </tr>
-
-<% if flash[:notice] %>
-      <h1><%= flash[:notice] %></h1>
-<% end %>
-
-<% @match.each do |match| %>  
-  <tr>
-    <td><%=h match.id %></td>
-    <td><%=h match.kickoff %></td>
-    <td><%=h match.location %></td>
-    <td><%=h match.variety %></td>
-    <td><%=h match.required %></td>
-    <td><%=h match.comment %></td>
-    <td><%= link_to "Show", match %></td>
-    <td>
-        <%# do we require any players? if yes show the link %> 
-        <%= link_to "Join", join_path(match), :confirm => "Are you sure?" if match.required > 0 %>
-    </td>
-
-  <% 
-    if params[:signed_in] == true or not session[:player].nil? 
-    
-        @field = (Field.get_by_player_and_match(session[:player].id, match.id)) 
-        if (@field != nil) and @field.organiser 
-  %>
-  		
-      <td><%= link_to 'Edit', edit_match_path(match) %></td>
-      <td><%= link_to 'Destroy', match, :confirm => 'Are you sure?', :method => :delete %></td>
-  	
-  <% 
-        end 
-    end 
-  %>
-  
-  </tr>
-<% end %>
-
-</table>
-
-<br />
-<% if params[:signed_in] == true or not session[:player].nil? %>		
-  <%= link_to 'New match', new_match_path %>
-<% end %>
+        <% if flash[:notice] %>
+        <div class="well">
+            <%= flash[:notice] %>
+        </div>
+        <% end %>
+        
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>What</th>
+                    <th>When</th>
+                    <th>Where</th>
+                    <th># Spaces Left</th>
+                    <th>Comment</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            <% for match in @matches %>
+                <tr>
+                    <td><%=h match.variety %></td>
+                    <td><%=h match.kickoff %></td>
+                    <td><%=h match.location %></td>
+                    <td>
+                        <span class="badge <%= match.required > 0 ? "badge-success" : "badge-error" %>">
+                            <%=h match.required %>
+                        </span>
+                    </td>
+                    <td><%=h match.comment %></td>
+                    <td><%= match.required > 0 ? "<a class=\"btn btn-info btn-small\" href=\"\">Join</a>" : "" %></td>
+                    <td><a class="btn btn-info btn-small" href="">Details</a></td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
