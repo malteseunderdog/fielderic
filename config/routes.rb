@@ -1,12 +1,20 @@
 ActionController::Routing::Routes.draw do |map|
+  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
+  map.login '/login', :controller => 'sessions', :action => 'new'
+  map.register '/register', :controller => 'players', :action => 'new'
+
+  map.resource :session
+
   
   # order of this is important... must come before general resources
-  map.join '/matches/:id/join/', :controller => 'matches', :action => 'join'
+  map.join '/matches/:id/join', :controller => 'matches', :action => 'join'
   map.resources :matches
+
+  map.resources :players, :collection => {:link_player_accounts => :get}
+  
   map.connect '/fields/organise/', :controller => 'fields', :action => 'organise'
   map.resources :fields
-  map.resources :players
-
+  
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
@@ -42,6 +50,7 @@ ActionController::Routing::Routes.draw do |map|
   # map.root :controller => "welcome"
   map.root :controller => "home"
   map.root :controller => 'matches'
+  map.root :controller => "players", :action => "home"
   map.connect '/index.html', :controller => 'home'
 
   # See how all your routes lay out with "rake routes"

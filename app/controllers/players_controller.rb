@@ -40,23 +40,31 @@ class PlayersController < ApplicationController
   # POST /player
   # POST /player.xml
   def create
+    logout_keeping_session!
     @player = Player.new(params[:player])
     
     # Get player coordinates and location
-    @client_ip = request.remote_ip
-    @player_locator = PlayerLocator.new
-    @player.coordinates = @player_locator.get_coordinates(@client_ip)
-    @player.location = @player_locator.get_location(@client_ip)
+    # @client_ip = request.remote_ip
+    # @player_locator = PlayerLocator.new
+    # @player.coordinates = @player_locator.get_coordinates(@client_ip)
+    # @player.location = @player_locator.get_location(@client_ip)
 
     # Set registration time
     @player.registration = Time.now
-
+    
     respond_to do |format|
-      if @player.save
-        flash[:notice] = 'Your profile has been created. Go to your edit profile page to set your location and password.'
+      success = @player && @player.save
+      if success && @player.errors.empty?
+        # Protects against session fixation attacks, causes request forgery
+        # protection if visitor resubmits an earlier form using back
+        # button. Uncomment if you understand the tradeoffs.
+        # reset session
+        self.current_player = @player # !! now logged in
+        flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
         format.html { redirect_to(@player) }
         format.xml  { render :xml => @player, :status => :created, :location => @player }
       else
+        flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
         format.html { render :action => "new" }
         format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
       end
@@ -90,5 +98,16 @@ class PlayersController < ApplicationController
       format.html { redirect_to(player_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  def link_player_accounts
+    if self.current_player.nil?
+      #register with fb
+      Player.create_from_fb_connect(facebook_session.user)
+    else
+      #connect accounts
+      self.current_player.link_fb_connect(facebook_session.user.id) unless self.current_player.fb_user_id == facebook_session.user.id
+    end
+    redirect_to '/'
   end
 end

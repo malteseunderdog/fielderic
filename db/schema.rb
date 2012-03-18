@@ -32,15 +32,22 @@ ActiveRecord::Schema.define(:version => 201201140003109) do
   end
 
   create_table "player", :force => true do |t|
-    t.string   "nickname"
-    t.string   "name"
-    t.string   "email"
-    t.string   "mobile"
-    t.string   "password"
+    t.string   "nickname",                  :limit => 40
+    t.string   "name",                      :limit => 100
+    t.string   "email",                     :limit => 100
+    t.string   "mobile",                    :limit => 20
+    t.string   "password",                  :limit => 40
+    t.string   "salt",                      :limit => 40
     t.string   "location"
     t.datetime "registration"
+    t.string   "remember_token",            :limit => 40
+    t.datetime "remember_token_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "fb_user_id",                :limit => 8
+    t.string   "email_hash"
   end
+
+  add_index "player", ["nickname"], :name => "index_player_on_nickname", :unique => true
 
 end

@@ -1,4 +1,3 @@
-
 player1:
     id: 1
     name: Jean-Paul Ebejer
@@ -7,6 +6,12 @@ player1:
     mobile: 79123456
     password: test123
     location: Oxford,United Kingdom
+    salt: 7288edd0fc3ffcbe93a0cf06e3568e28521687bc
+    registration: 2011-01-05 19:00:00
+    remember_token: false
+    remember_token_expires_at: 2011-01-05 19:00:00
+    fb_user_id: null
+    email_hash: 292cb3eda5cb9622f7b8fce30b9c1034
     
 player2:
     id: 2
@@ -16,6 +21,12 @@ player2:
     mobile: +44 75 6447 2800
     password: test123
     location: London, United Kingdom
+    salt: 7288edd0fc3ffcbe93a0cf06e3568e28521687bc
+    registration: 2011-04-03 19:00:00
+    remember_token: true
+    remember_token_expires_at: 2012-04-03 19:00:00
+    fb_user_id: null
+    email_hash: 979480f8873a719e95bbf6d9c76e77c9
 
 player3:
     id: 3
@@ -25,6 +36,12 @@ player3:
     mobile: 00447512345678
     password: test123
     location: London, United Kingdom
+    salt: 7288edd0fc3ffcbe93a0cf06e3568e28521687bc
+    registration: 2010-01-09 15:22:16
+    remember_token: false
+    remember_token_expires_at: 2011-01-05 19:00:00
+    fb_user_id: null
+    email_hash: b23fe16dd8dcbf49204c2731dfc24e17
 
 player4:
     id: 4
@@ -34,4 +51,9 @@ player4:
     mobile: +77 77 77 77 77 77
     password: test123
     location: Malta
-
+    salt: 7288edd0fc3ffcbe93a0cf06e3568e28521687bc
+    registration: 2011-07-07 20:00:00
+    remember_token: true
+    remember_token_expires_at: 2012-07-07 20:00:00
+    fb_user_id: null
+    email_hash: 62f29b96ff12ce76172199f5775aa105

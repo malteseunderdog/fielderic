@@ -1,21 +1,32 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  id: 
-  nickname: MyString
-  name: MyString
-  email: MyString
-  mobile: MyString
-  password: MyString
-  location: MyString
-  registration: 2012-01-13 23:01:53
+quentin:
+  id:                        1
+  nickname:                  quentin
+  email:                     quentin@example.com
+  salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+  password:                  e10af674245109045e1f432c2f0dc09cb61a0a2d # 'monkey'
+  registration:              <%= 5.days.ago.to_s :db  %>
+  remember_token_expires_at: <%= 1.days.from_now.to_s %>
+  remember_token:            77de68daecd823babbb58edb1c8e14d7106e83bb
+      
+aaron:
+  id:                        2
+  nickname:                  aaron
+  email:                     aaron@example.com
+  salt:                      da4b9237bacccdf19c0760cab7aec4a8359010b0 # SHA1('1')
+  password:                  19932df682a2ef79319cabc34f4626a1db35ded2 # 'monkey'
+  registration:              <%= 1.days.ago.to_s :db %>
+  remember_token_expires_at: 
+  remember_token:            
 
-two:
-  id: 
-  nickname: MyString
-  name: MyString
-  email: MyString
-  mobile: MyString
-  password: MyString
-  location: MyString
-  registration: 2012-01-13 23:01:53
+
+old_password_holder:
+  id:                        3
+  nickname:                  old_password_holder
+  email:                     salty_dog@example.com
+  salt:                      7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  password:                  00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  registration:              <%= 1.days.ago.to_s :db %>
+
+

@@ -8,14 +8,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Le styles -->
         <!-- FIXME: use min versions of these -->
-        <link href="/3rdparty/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="/3rdparty/bootstrap/css/bootstrap.css" rel="stylesheet" />
         <style type="text/css">
             body {
                 padding-top: 100px;
                 padding-bottom: 40px;
             }
         </style>
-        <link href="/3rdparty/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="/3rdparty/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
+		<link href="/3rdparty/jquery/development-bundle/themes/base/jquery.ui.all.css" rel="stylesheet" />
+		<link href="/3rdparty/jquery/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
         <!-- Our own CSS -->
         <%= stylesheet_link_tag "fe" %>
         
@@ -26,6 +28,8 @@
         <!-- Le fav and touch icons -->
         <link rel="shortcut icon" href="/images/favicon.ico">
         <link rel="apple-touch-icon" href="/images/football.png">
+        
+        <%= javascript_include_tag :defaults%>
     </head>
     <body>
         <div class="navbar navbar-fixed-top">
@@ -59,19 +63,34 @@
 
         </div>
         
-        <footer>
+        
+        <!--<footer>
             <div class="container">
-                <!--
                 <p>&copy; Company 2012</p>
-                -->
             </div>
-        </footer>
+        </footer>-->
 
-        <!-- Le javascript
+        <%= fb_connect_javascript_tag %>
+		<%= init_fb_connect "XFBML"%>
+
+		<!-- Le javascript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
+        <script src="/3rdparty/hint-textbox.js"></script>
         <script src="/3rdparty/jquery/jquery-1.7.min.js"></script>
-        <script src="/3rdparty/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/3rdparty/jquery/jquery-ui-1.8.17.custom.min.js"></script>
+		<script src="/3rdparty/jquery/jquery-ui-timepicker-addon.js"></script>
+		<script src="/3rdparty/bootstrap/js/bootstrap.min.js"></script>
+		
+		<script>
+			$(function() {
+				$(".datetimepicker").datetimepicker({ dateFormat: 'dd/mm/yy', minDate: 0, showButtonPanel: false });
+			});
+			$(function() {
+		    	$(".datetimepickerset").val(document.getElementById('match_kickoff').value);
+		    	$(".datetimepickerset").datetimepicker({ dateFormat: 'dd/mm/yy', minDate: 0, showButtonPanel: false });
+			});
+		</script>
 
     </body>
 </html>
