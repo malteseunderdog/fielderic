@@ -1,2 +1,0 @@
-script/generate scaffold Match id:primary_key occurs:datetime location:string kind:int required_players:int comment:text
-script/generate scaffold Player id:primary_key nickname:string email:sting mobile:string password:string coordinates:string location:string registration:datetime

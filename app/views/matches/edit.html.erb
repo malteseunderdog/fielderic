@@ -7,7 +7,7 @@
 
   <p>
     Date and time
-    <%= f.text_field :kickoff, :value => (@match.kickoff.blank? ? '' : @match.kickoff.strftime("%d/%m/%Y %H:%M")), :class => "datetimepickerset" %>
+    <%= f.text_field :kickoff, :class => "datetimepicker" %>
   </p>
   <p>
     Place<br />

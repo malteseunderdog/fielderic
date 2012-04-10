@@ -1,0 +1,48 @@
+/*
+    CSS which holds customizations over the boostrap template CSS.
+    Do not change the bootstrap CSS as all that will be lost on updating the
+    bootstrap version.
+    
+    Author: JP <jp@javaclass.co.uk>
+*/
+
+body {
+    padding-top: 100px;
+    padding-bottom: 40px;
+}
+
+
+/* The E.C. image should be on the left with text on the right */
+.hero-unit img {
+    margin-right: 40px;
+    position: relative;
+    float: left;
+}
+
+.hero-unit h1 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.hero-unit p {
+  color: #ddd;
+}
+
+.hero-unit {
+    /*background-image:  url("/assets/banner.jpg");*/
+    background-image: url(<%= asset_path 'banner.jpg' %>);
+}
+
+
+/* Decorate the footer */
+footer {
+    margin-top: 50px;
+	position: absolute;
+	height: 200px;
+	left: 0;
+	width: 100%;
+	background: #888;
+	border-top: 1px solid #666;
+}
+
+

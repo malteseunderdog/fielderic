@@ -1,25 +1,23 @@
-<h1>Sign up as a new player</h1>
-<% @player.password = @player.password_confirmation = nil %>
-
-<%= error_messages_for :player %>
-<% form_for :player, :url => new_player_path do |f| -%>
-<p><%= f.label :nickname %><br/>
-<%= f.text_field :nickname %></p>
-
-<p><%= label_tag 'name' %><br/>
-<%= f.text_field :name %></p>
-
-<p><%= f.label :email %><br/>
-<%= f.text_field :email %></p>
-
-<p><%= f.label :password %><br/>
-<%= f.password_field :password %></p>
-
-<p><%= f.label :password_confirmation, 'Confirm Password' %><br/>
-<%= f.password_field :password_confirmation %></p>
-
-<p><%= submit_tag 'Sign up' %></p>
-<% end -%>
-
-<p>or register with Facebook connect</p>
-<%= fb_login_button('window.location = "/players/link_player_accounts";')%>
+<% form_for(@player) do |f| %>
+  <%= f.error_messages %>
+  
+  <p>
+    <%= f.label :nickname %><br />
+    <%= f.text_field :nickname %>
+  </p>
+  <p>
+    Full Name<br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    Email Address<br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    Phone Number<br />
+    <%= f.text_field :mobile %>
+  </p>  
+  <p>
+    <%= f.submit 'Register' %>
+  </p>
+<% end %>
