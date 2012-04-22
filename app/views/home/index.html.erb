@@ -1,11 +1,11 @@
 <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="hero-unit">
     <%= image_tag "eric.png", :alt => "eric cantona" %>
-    <h1>Plan Some, Play Some</h1>
+    <h1>Plan Some | Play Some</h1>
     <p>
-        Go for it!  Play some football in an area close to you by selecting
-        one of the below games in need of players (no doubt handsome players like yourself).
-        Or if you already have your crew, but still lack a couple of heads
+        Go for it!  Play some football in an area close to you by joining
+        one of the games below.
+        Or if you already have your crew but still lack a couple of heads
         organise a match by clicking on the button below.
     </p>
     <p>
@@ -16,14 +16,14 @@
 <div class="row">
     <div class="span8">
         <% if @matches.length > 0 %>
-        <h3>Next Matches Close To You <small>Join</small></h3>
+        <h3>Next Matches Close To You</h3>
         <table class="table">
             <thead>
                 <tr>
                     <th>What</th>
                     <th>When</th>
                     <th>Where</th>
-                    <th># Places Left</th>
+                    <th>Places Left</th>
                     <th>Comment</th>
                     <th></th>
                 </tr>
