@@ -1,68 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Field Eric ~ Plan Some | Play Some</title>
-        <meta name="description" content="social sports, find player, organise match, field eric cantona">
-        <meta name="author" content="Jean-Paul Ebejer, David Camilleri, Michael Camilleri">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Le styles -->
-        
-        <!-- Our own CSS -->
-        <%= stylesheet_link_tag "application" %>
-        
-        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-        <!-- Le fav and touch icons -->
-        <%= favicon_link_tag %>
-        <%= favicon_link_tag 'football.png', :rel => 'apple-touch-icon', :type => 'image/png' %>
-    </head>
-    <body>
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
-                    <a class="brand" href="/">Field Eric</a>
-                    <div class="nav-collapse">
-                        <ul class="nav">
-                            <li class="active">
-                                <a href="#">Home</a>
-                            </li>
-                            <li>
-                                <%= link_to "Matches", matches_path %>
-                            </li>
-                            <li>
-                                <a href="#about">About</a>
-                            </li>
-                            <li>
-                                <a href="#contact">Contact</a>
-                            </li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
-                </div>
-            </div>
-        </div>
-        
-        <div class="container">
-            
-            <%= yield %>
+	<head>
+		<meta charset="utf-8">
+		<title>Field Eric ~ Plan Some | Play Some</title>
+		<meta name="description" content="social sports, find player, organise match, field eric cantona">
+		<meta name="author" content="Jean-Paul Ebejer, David Camilleri, Michael Camilleri">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Le styles -->
 
-        </div>
-        
-        <footer>
-            <div class="container">
-                <!--
-                <p>&copy; Company 2012</p>
-                -->
-            </div>
-        </footer>
+		<!-- Our own CSS -->
+		<%= stylesheet_link_tag "application" %>
 
-        <!-- Le javascript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-       
-       
-    </body>
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<!-- Le fav and touch icons -->
+		<%= favicon_link_tag %>
+		<%= favicon_link_tag 'football.png', :rel => 'apple-touch-icon', :type => 'image/png' %>		
+	</head>
+	<body>
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					</a>
+					<a class="brand" href="/">Field Eric</a>
+					<div class="nav-collapse">
+						<ul class="nav nav-pills">
+							<li class="active">
+								<a href="#">Home</a>
+							</li>
+							<li>
+								<%= link_to "Matches", matches_path %>
+							</li>
+							<li>
+								<a href="#about">About</a>
+							</li>
+							<li>
+								<a href="#contact">Contact</a>
+							</li>
+						</ul>
+						<ul class="nav pull-right">
+							<!-- if logged in show name and links to account and logout -->
+							<% if current_facebook_user != nil %>
+							<li>
+								<li class="dropdown" id="signin">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#signin">							
+								<%= current_facebook_user.name%>
+								<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu" id="login">
+									<li>
+										<div>
+											<p><a href="#">My Account</a></p>
+											<p><%= fb_logout_link("Logout", request.url)%></p>												
+										</div>
+									</li>
+								</ul>
+							</li>
+							<!-- if not logged in show links to sign in -->
+							<% else %>
+							<li class="dropdown" id="signin">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#signin">
+								Sign in
+								<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu" id="login">
+									<li>
+										<div>
+											<p>
+												<b>Sign in</b> to join or organise matches.
+											</p>
+										</div>
+										<form class="form-inline" name="lm" id="lm" method="post" action="/login" target="_top" accept-charset="utf-8">
+											<label>
+												Email:
+											</label>
+											<input type="text" class="span3" id="lme" name="a" maxlength="75" value="" placeholder="Email address" title="Enter your email address">
+											<label>
+												Password:
+											</label>
+											<input type="password" class="span2" name="p" maxlength="16" value="" placeholder="Password" title="Enter your password">
+											<input type="submit" id="sbmt" class="btn btn-primary" value="Login" />
+											<input type="hidden" name="frmact" value="login" />
+										</form>
+										<div class="fbconnect">
+											<label>
+												Or connect with Facebook:
+											</label>
+											<%=fb_login_and_redirect(request.url, :scope => 'user_location,email')%>										
+										</div>
+									</li>
+									<li>
+										<div>
+											<p>
+												<a href="/login">
+												<i class="icon-exclamation-sign"></i> Forgot password?
+												</a> &nbsp;
+												<a  href="/login#signup">
+												<i class="icon-ok"></i> No account? Sign up.
+												</a>
+											</p>
+										</div>
+									</li>
+
+								</ul>
+							</li>
+							<% end %>
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div>
+			</div>
+		</div>
+		
+		<div class="container">
+			<%= yield %>
+		</div>
+
+		<footer>
+			<div class="container">
+				<!--
+				<p>&copy; Company 2012</p>
+				-->
+			</div>
+		</footer>
+
+		<!-- Le javascript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="http://static.campca.ca/js/bootstrap.min.js"></script>
+		<script src="http://static.campca.ca/js/site.js"></script>
+		<%= fb_connect_async_js%>
+	</body>
 </html>

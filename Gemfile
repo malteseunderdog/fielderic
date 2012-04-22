@@ -43,3 +43,6 @@ end
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+# Used for facebook authentication
+gem 'facebooker2', '0.0.16'

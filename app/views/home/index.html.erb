@@ -48,12 +48,13 @@
             </div>
         <% end %>
     </div>
-    <div class="span4">
+    <div class="span4">    	
+	<% if current_facebook_user != nil %>
         <h2>Need players? Fix a match</h2>
         <p>
             Organise a match at a location close to you, meet some new people, 
             score an awesome bicycle kick and grab yourself a couple of beers with your new mates.  
-            Social sports, it is fun we swear!
+            Social sports is fun, we swear!
         </p>
         <p>
             p.s.  When we say "fix a match", we do not mean <i>Calciopoli</i>
@@ -61,6 +62,9 @@
         <p>
             <a class="btn" href="#">Find Players &raquo;</a>
         </p>
+    <% else %>
+    	Include register form here
+    <% end %>
     </div>
 </div>
 
