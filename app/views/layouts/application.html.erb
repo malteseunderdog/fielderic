@@ -47,12 +47,12 @@
 							</li>
 						</ul>
 						<ul class="nav pull-right">
-							<!-- if logged in show name and links to account and logout -->
+							<!-- if logged with facebook in show facebook name and links to account and logout -->
 							<% if current_facebook_user != nil %>
 							<li>
 								<li class="dropdown" id="signin">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#signin">							
-								<%= current_facebook_user.name%>
+								<%= current_facebook_user.nickname%>
 								<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu" id="login">
@@ -64,6 +64,25 @@
 									</li>
 								</ul>
 							</li>
+							
+							<!-- if logged in show name and links to account and logout -->
+							<% elsif !session[:logged_in_player].nil? %>
+							<li>
+								<li class="dropdown" id="signin">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#signin">							
+								<%= session[:logged_in_player].nickname %>
+								<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu" id="login">
+									<li>
+										<div>
+											<p><a href="#">My Account</a></p>		
+											<p><a href="/logout">Logout</a></p>																								
+										</div>
+									</li>
+								</ul>
+							</li>							
+							
 							<!-- if not logged in show links to sign in -->
 							<% else %>
 							<li class="dropdown" id="signin">
@@ -82,13 +101,29 @@
 											<label>
 												Email:
 											</label>
-											<input type="text" class="span3" id="lme" name="a" maxlength="75" value="" placeholder="Email address" title="Enter your email address">
-											<label>
-												Password:
-											</label>
-											<input type="password" class="span2" name="p" maxlength="16" value="" placeholder="Password" title="Enter your password">
-											<input type="submit" id="sbmt" class="btn btn-primary" value="Login" />
-											<input type="hidden" name="frmact" value="login" />
+											<%
+												email = ""
+												if session[:needs_password]
+													email = session[:email]
+												end
+											%>
+											<input type="text" class="span3" id="lme" name="email" maxlength="75" value="<%= email %>" placeholder="Email address" title="Enter your email address">											
+											<% if session[:needs_password] %>
+												<label>												
+													Password:
+												</label>
+												<input type="password" class="span2" name="password" maxlength="16" value="" placeholder="Password" title="Enter your password">												
+											<% 
+												session[:needs_password] = false
+												end 
+											%>
+											<input type="submit" id="sbmt" class="btn btn-primary" value="Play" />
+											<input type="hidden" name="frmact" value="login" />											
+											<% if flash[:error] %>
+											<div id="error">
+												<%= flash[:error] %>
+											</div>
+											<% end %>
 										</form>
 										<div class="fbconnect">
 											<label>
@@ -117,8 +152,7 @@
 					</div><!--/.nav-collapse -->
 				</div>
 			</div>
-		</div>
-		
+		</div>					
 		<div class="container">
 			<%= yield %>
 		</div>

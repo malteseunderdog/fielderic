@@ -58,7 +58,7 @@ FieldEric::Application.routes.draw do
   
   
   match '/logout' => 'sessions#destroy', :as => :logout
-  match '/login' => 'sessions#new', :as => :login
+  match '/login' => 'sessions#create', :as => :login
   match '/register' => 'players#new', :as => :register
   resource :session
   match '/matches/:id/join' => 'matches#join', :as => :join

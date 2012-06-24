@@ -24,9 +24,13 @@ class ApplicationController < ActionController::Base
       end
       @_current_facebook_user
     rescue Exception=>e
-      # Catch exceptions if user logs out from Facebook from another application
-      # while logged in on FE using Facebook.
-      # User is simply signed out of FE - no need to do any handling here.
+    # Catch exceptions if user logs out from Facebook from another application
+    # while logged in on FE using Facebook.
+    # User is simply signed out of FE - no need to do any handling here.
     end
+  end
+
+  def current_player
+    @current_player ||= Player.find(session[:player_id]) if session[:player_id]
   end
 end
