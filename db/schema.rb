@@ -41,8 +41,10 @@ ActiveRecord::Schema.define(:version => 201201140003109) do
     t.string   "password"
     t.string   "location"
     t.datetime "registration"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "fb_user_id",   :limit => 8
+    t.string   "email_hash"
   end
 
 end

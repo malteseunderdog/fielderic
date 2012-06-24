@@ -12,7 +12,8 @@ gem 'rails', '3.2.3'
 gem 'pg'
 # jquery files
 gem 'jquery-rails'
-
+# the ui themes
+gem 'jquery-ui-themes'
 ## If you add stuff here -- you will probably need to run a "bundle install"
 
 # Gems used only for assets and not required
@@ -25,8 +26,9 @@ group :assets do
   # gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
-  # this goes in here as it is only used by asset pipeline
-  gem 'twitter-bootstrap-rails'
+  
+  # Twitter bootstrap
+  gem 'anjlab-bootstrap-rails', '>= 2.0', :require => 'bootstrap-rails'
 end
 
 # To use ActiveModel has_secure_password

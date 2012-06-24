@@ -1,16 +1,31 @@
 <h1>New match</h1>
 
-<% form_for(@match) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(@match) do |f| %>
+  <% if @match.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@match.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @match.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <p>
     Place
-    <%= f.text_field :id %>
+    <%= f.text_field :location %>
   </p>
   <p>
     Date and time
-    <%= f.text_field :kickoff, :class => "datetimepicker" %>
+    <%= f.text_field :kickoff, :class => "datetimepicker" %>    
   </p>
+    <script>
+        $(function() { 
+            $(".datetimepicker").datetimepicker({ dateFormat: 'dd/mm/yy', minDate: 0, showButtonPanel: false });
+        });
+    </script>
   <p>
     Players on each side<br />
     <%= f.text_field :variety %>
@@ -26,6 +41,9 @@
   <p>
     <%= f.submit 'Create' %>
   </p>
-<% end %>
+  
+<% end %>  
+
+
 
 <%= link_to 'Back', matches_path %>
