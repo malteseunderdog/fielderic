@@ -1,71 +1,108 @@
 <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="hero-unit">
-    <%= image_tag "eric.png", :alt => "eric cantona" %>
-    <h1>Plan Some | Play Some</h1>
-    <p>
-        Go for it!  Play some football in an area close to you by joining
-        one of the games below.
-        Or if you already have your crew but still lack a couple of heads
-        organise a match by clicking on the button below.
-    </p>
-    <p>
-        <a class="btn btn-primary btn-large" href="/matches/new">Organise &raquo;</a>
-    </p>
+	<%= image_tag "eric.png", :alt => "eric cantona" %>
+	<h1>Plan Some | Play Some</h1>
+	<p>
+		Go for it!  Play some football in your area by joining one of the games below.
+		Or if you already have your crew but still lack a couple of heads organise a match 
+		by clicking the button below.
+	</p>
+	<br/>
+	<p>
+		<a class="btn btn-primary btn-large" href="/matches/new">Organise &raquo;</a>
+	</p>
 </div>
 
 <div class="row">
-    <div class="span8">
-        <% if @matches.length > 0 %>
-        <h3>Next Matches Close To You</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>What</th>
-                    <th>When</th>
-                    <th>Where</th>
-                    <th>Places Left</th>
-                    <th>Comment</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-            <% for match in @matches %>
-                <tr>
-                    <td><%=h match.variety %></td>
-                    <td><%=h match.kickoff %></td>
-                    <td><%=h match.location %></td>
-                    <td><span class="badge badge-success"><%=h match.required %></span></td>
-                    <td><%=h match.comment %></td>
-                    <td><%= link_to "Join", join_path(match), :class => "btn btn-info btn-small" %></td>
-                </tr>
-            <% end %>
-            </tbody>
-        </table>
-        <%= link_to "More Matches ...", matches_path %>
-        <% else %>
-            <div class="well">
-            No matches yet, click here to create one. <!-- FIXME: This should be a link -->
-            </div>
-        <% end %>
-    </div>
-    <div class="span4">    	
-	<% if current_facebook_user != nil %>
-        <h2>Need players? Fix a match</h2>
-        <p>
-            Organise a match at a location close to you, meet some new people, 
-            score an awesome bicycle kick and grab yourself a couple of beers with your new mates.  
-            Social sports is fun, we swear!
-        </p>
-        <p>
-            p.s.  When we say "fix a match", we do not mean <i>Calciopoli</i>
-        </p>
-        <p>
-            <a class="btn" href="/matches/">Find Players &raquo;</a>
-        </p>
-    <% else %>
-    	Include register form here
-    <% end %>
-    </div>
-</div>
+	<div class="span8">
+		<% if @matches.length > 0 %>
+		<h3>Next Matches Close To You</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>What</th>
+					<th>When</th>
+					<th>Where</th>
+					<th>Places Left</th>
+					<th>Comment</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for match in @matches %>
+				<tr>
+					<td><%= h match.variety %></td>
+					<td><%= h match.kickoff %></td>
+					<td><%= h match.location %></td>
+					<td>
+					<span class="badge badge-success"><%= h match.required %></span>
+					</td>
+					<td><%= h match.comment %></td>
+					<td><%= link_to "Join", join_path(match), :class => "btn btn-info btn-small" %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<%= link_to "More matches...", matches_path %>
+		<% else %>
+		<div class="well">
+			No matches yet, click here to create one. <!-- FIXME: This should be a link -->
+		</div>
+		<% end %>
+	</div>
+	<div class="span4">
+		<% if current_facebook_user != nil %>
+		<h2>Need players? Fix a match</h2>
+		<p>
+			Organise a match at a location close to you, meet some new people,
+			score an awesome bicycle kick and grab yourself a couple of beers with your new mates.
+			Social sports is fun, we swear!
+		</p>
+		<p>
+			p.s.  When we say "fix a match", we do not mean
+			<i>Calciopoli</i>
+		</p>
+		<p>
+			<a class="btn" href="/matches/">Find Players &raquo;</a>
+		</p>
+		<% else %>
+		<table class="table-no-top-border">
+			<thead>
+				<h3>Sign up and play</h3>
+			</thead>
+			<% @player = Player.new %>
+			<%= form_for(@player) do |f| %>
+			<% if @player.errors.any? %>
+			<div id="error_explanation">
+				<h2><%= pluralize(@player.errors.count, "error") %> prohibited this post from being saved:</h2>
 
+				<ul>
+					<% @player.errors.full_messages.each do |msg| %>
+					<li>
+						<%= msg %>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+			<% end %>
+			<tbody>
+				<tr><td><b>Nickname</b></td><td><%= f.text_field :nickname %></td></tr>
+				<tr><td><b>Full name</b></td><td><%= f.text_field :name %></td></tr>
+				<tr><td><b>Email address</b></td><td><%= f.text_field :email %></td></tr>
+				<tr><td><b>Phone number</b></td><td><%= f.text_field :mobile %></td></tr>				
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<button type="submit" class="btn btn-primary">
+	  						<i class="icon-user icon-white"></i> Register
+						</button>
+					</td>
+				</tr>
+			</tfoot>
+			<% end %>
+		</table>
+		<% end %>
+	</div>
+</div>
 
