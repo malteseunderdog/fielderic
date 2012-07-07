@@ -7,6 +7,10 @@ class SessionsController < ApplicationController
   def create    
     session[:email] = params[:email]    
     player = Player.get_player(params[:email])
+    
+    puts "&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+    
+    
     if (!player.nil?)
       password = player.password
       needs_password = (!password.nil? && !password.empty?)
@@ -16,7 +20,11 @@ class SessionsController < ApplicationController
         session[:needs_password] = true
         redirect_to "/"
       else
-        player = Player.get_player_with_password(params[:email], params[:password])
+        if (is_password_provided)
+          player = Player.get_player_with_password(params[:email], params[:password])
+        else
+          player = Player.get_player(params[:email])
+        end
         if player
           # Protects against session fixation attacks, causes request forgery
           # protection if user resubmits an earlier form using back
