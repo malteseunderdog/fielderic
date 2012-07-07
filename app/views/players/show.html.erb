@@ -1,37 +1,54 @@
-<p>
-  <b>Nickname:</b>
-  <%=h @player.nickname %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%=h @player.name %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%=h @player.email %>
-</p>
-
-<p>
-  <b>Mobile:</b>
-  <%=h @player.mobile %>
-</p>
-
-<!--
-<p>
-  <b>Location:</b>
-  <%=h @player.location %>
-</p>
--->
-
-<p>
-	<b>Password:</b>
-	<% if @player.password.blank? %>
-		<%= link_to 'Set a password', set_password_path(@player) %>
-	<% else %>
-		<%= link_to 'Change password', set_password_path(@player) %>
-	<% end %>
-</p>
-
-<%= link_to 'Edit profile', edit_player_path(@player) %>
+<table class="table-no-top-border">
+	<thead>
+		<h3>Your profile details</h3>
+	</thead>
+	<br/>
+	<tbody>
+		<tr>
+			<td>
+			<b>Nickname:</b>
+			<%= h @player.nickname %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<b>Name:</b>
+			<%= h @player.name %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<b>Email:</b>
+			<%= h @player.email %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<b>Mobile:</b>
+			<%= h @player.mobile %>
+			</td>
+		</tr>
+		<!--
+		<p>
+		<b>Location:</b>
+		<%=h @player.location %>
+		</p>
+		-->
+		<tr>
+			<td>
+			<b>Password:</b>
+			<% if @player.password.blank? %>
+			<%= link_to 'Set a password', set_password_path(@player) %>
+			<% else %>
+			<%= link_to 'Change password', set_password_path(@player) %>
+			<% end %>
+			</td>
+		</tr>
+		<tfoot>
+		<tr>
+			<td colspan="2">
+				<%= link_to "Edit profile", edit_player_path(@player), :class => "btn btn-info" %>
+			</td>
+		</tr>
+		</tfoot>
+</table>
