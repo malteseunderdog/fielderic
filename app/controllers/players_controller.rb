@@ -50,6 +50,8 @@ class PlayersController < ApplicationController
 
     # Set registration time
     @player.registration = Time.now
+    session[:logged_in_player] = @player
+    new_cookie_flag = (params[:remember_me] == "1")
 
     respond_to do |format|
       if @player.save
