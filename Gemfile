@@ -9,26 +9,26 @@ gem 'rails', '3.2.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # database adapter
-gem 'pg'
+gem 'pg', '0.14.0'
 # jquery files
-gem 'jquery-rails'
+gem 'jquery-rails', '2.0.2'
 # the ui themes
-gem 'jquery-ui-themes'
+gem 'jquery-ui-themes', '0.0.6'
 ## If you add stuff here -- you will probably need to run a "bundle install"
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails', '3.2.5'
+  gem 'coffee-rails', '3.2.2'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
 
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier', '1.2.5'
   
   # Twitter bootstrap
-  gem 'anjlab-bootstrap-rails', '>= 2.0', :require => 'bootstrap-rails'
+  gem 'anjlab-bootstrap-rails', '2.0.4.1', :require => 'bootstrap-rails'
 end
 
 # To use ActiveModel has_secure_password
@@ -46,5 +46,6 @@ end
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-# Used for facebook authentication
+# Use for Facebook authentication
 gem 'facebooker2', '0.0.16'
+
