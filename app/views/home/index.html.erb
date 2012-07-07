@@ -51,7 +51,7 @@
 		<% end %>
 	</div>
 	<div class="span4">
-		<% if current_facebook_user != nil %>
+		<% if current_facebook_user != nil || !session[:logged_in_player].nil? %>
 		<h2>Need players? Fix a match</h2>
 		<p>
 			Organise a match at a location close to you, meet some new people,
@@ -70,6 +70,7 @@
 			<thead>
 				<h3>Sign up and play</h3>
 			</thead>
+			<br/>
 			<% @player = Player.new %>
 			<%= form_for(@player) do |f| %>
 			<% if @player.errors.any? %>
