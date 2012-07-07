@@ -60,6 +60,7 @@ FieldEric::Application.routes.draw do
   match '/logout' => 'sessions#destroy', :as => :logout
   match '/login' => 'sessions#create', :as => :login
   match '/register' => 'players#new', :as => :register
+  match 'players/password/:id' => 'players#password', :as => :set_password
   resource :session
   match '/matches/:id/join' => 'matches#join', :as => :join
   resources :matches
@@ -77,7 +78,6 @@ FieldEric::Application.routes.draw do
   match '/' => 'matches#index'
   match '/' => 'players#home'
   match '/index.html' => 'home#index'
-  match '/:controller(/:action(/:id))'
-
-  
+  match '/:controller(/:action(/:id))' 
+    
 end

@@ -37,6 +37,10 @@ class PlayersController < ApplicationController
     @player = Player.find(params[:id])
   end
 
+  def password
+    @player = Player.find(params[:id])
+  end
+
   # POST /player
   # POST /player.xml
   def create

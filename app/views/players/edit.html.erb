@@ -1,48 +1,52 @@
-<h1>Editing player</h1>
+<table class="table-no-top-border">
+	<thead>
+		<h3>Edit profile</h3>
+	</thead>
+	<br/>
+	<%= form_for(@player) do |f| %>
+	<% if @player.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= pluralize(@player.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-<% form_for(@player) do |f| %>
-  <%= f.error_messages %>
+		<ul>
+			<% @player.errors.full_messages.each do |msg| %>
+			<li>
+				<%= msg %>
+			</li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
 
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </p>
-  <p>
-    <%= f.label :mobile %><br />
-    <%= f.text_field :mobile %>
-  </p>
-  <p>
-    <%= f.label :location %><br />
-    <%= f.text_field :location %>
-  </p>  
-  <p>
-    <%= f.submit 'Save changes' %>
-  </p>
-<% end %>
-
-<br>
-<br>
-
-<% form_for(@player) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
-    <br>
-    <%=h @player.password.blank? ? "Note: No password is set" : ""%>
-  </p>
-  <p>
-  	Confirm password<br>
-  	<input type="password" size="30">
-  </p>  
-  <p>
-    <%= f.submit 'Update password' %>
-  </p>
-<% end %>
-
-<%= link_to 'View profile', @player %>
+	<tbody>
+		<tr>
+			<td>
+			<b>Full name</b>
+			</td>
+			<td><%= f.text_field :name %></td>
+		</tr>
+		<tr>
+			<td>
+			<b>Email address</b>
+			</td>
+			<td><%= f.text_field :email %></td>
+		</tr>
+		<tr>
+			<td>
+			<b>Phone number</b>
+			</td>
+			<td><%= f.text_field :mobile %></td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="2">
+			<button type="submit" class="btn btn-primary">
+				Save changes
+			</button>
+			<a class="btn btn-cancel" href="/players/<%= @player.id %>">Cancel</a>
+			</td>
+		</tr>
+	</tfoot>
+	<% end %>
+</table>

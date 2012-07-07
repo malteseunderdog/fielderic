@@ -27,7 +27,11 @@
 
 <p>
 	<b>Password:</b>
-	<%=h @player.password.blank? ? "No password is set" : "******"%>
+	<% if @player.password.blank? %>
+		<%= link_to 'Set a password', set_password_path(@player) %>
+	<% else %>
+		<%= link_to 'Change password', set_password_path(@player) %>
+	<% end %>
 </p>
 
 <%= link_to 'Edit profile', edit_player_path(@player) %>
