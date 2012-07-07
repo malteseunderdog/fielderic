@@ -1,20 +1,30 @@
-<% form_for(@player) do |f| %>
-  <%= f.error_messages %>
-  
+<%= form_for(@player) do |f| %>
+  <% if @player.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@player.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @player.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    
   <p>
-    <%= f.label :nickname %><br />
+    Nickname
     <%= f.text_field :nickname %>
   </p>
   <p>
-    Full Name<br />
+    Full name
     <%= f.text_field :name %>
   </p>
   <p>
-    Email Address<br />
+    Email address
     <%= f.text_field :email %>
   </p>
   <p>
-    Phone Number<br />
+    Phone number
     <%= f.text_field :mobile %>
   </p>  
   <p>
