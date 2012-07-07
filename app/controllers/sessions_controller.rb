@@ -7,10 +7,6 @@ class SessionsController < ApplicationController
   def create    
     session[:email] = params[:email]    
     player = Player.get_player(params[:email])
-    
-    puts "&&&&&&&&&&&&&&&&&&&&&&&&&&&"
-    
-    
     if (!player.nil?)
       password = player.password
       needs_password = (!password.nil? && !password.empty?)
