@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     player = Player.get_player(params[:email])
     if (!player.nil?)
       password = player.password
-      needs_password = (!password.nil? || !password.empty?)
+      needs_password = (!password.nil? && !password.empty?)
       is_password_provided = (!params[:password].nil? && !params[:password].empty?)
       if (needs_password && !is_password_provided)
         # User account has a password set but no password was given at login
