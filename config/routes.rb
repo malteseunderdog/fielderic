@@ -63,6 +63,7 @@ FieldEric::Application.routes.draw do
   match '/register' => 'players#new', :as => :register
   match 'players/password/:id' => 'players#password', :as => :set_password
   match 'matches/mymatches' => 'matches#mymatches', :as => :mymatches
+  match 'matches/history' => 'matches#history', :as => :history
   resource :session
   match '/matches/:id/join' => 'matches#join', :as => :join
   resources :matches
