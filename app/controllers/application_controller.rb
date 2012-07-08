@@ -4,6 +4,13 @@ class ApplicationController < ActionController::Base
   
   before_filter :ensure_authenticated
   def ensure_authenticated
+    # TODO: This method is used so that if a user logs out from the FB page, the session player doesn't stay fixed forever.
+    # The problem with this is that the user needs to make 2 page calls, for example 2 page reloads, until the session is nulled.
+    #This is most certainly due to the Rails cookies. Maybe we need to find a more effective solution, but at least this works somewhat.
+    if (cookies["#{Facebooker2.cookie_prefix + Facebooker2.app_id.to_s}"].nil? && !session[:logged_in_player].nil? && !session[:logged_in_player].fb_user_id.nil?)
+      session[:logged_in_player] = nil
+    end
+    
     if session[:logged_in_player].nil?
       fb_user = current_facebook_user
       if !fb_user.nil?
