@@ -32,11 +32,6 @@
                         </span>
                     </td>
                     <td><%=h match.comment %></td>
-                    <td>
-                        <% if match.required > 0 %>
-                        <%= link_to "Join", join_path(match), :class => "btn btn-info btn-small" %>
-                        <% end %>
-                    </td>   
                     <td><%= link_to "Details", match, :class => "btn btn-info btn-small" %></td>
                 </tr>
             <% end %>
