@@ -8,25 +8,33 @@
 	<tbody>
 		<tr>
 			<td>
-			<b>Nickname:</b>
+			<b>Nickname</b>
+			</td>
+			<td>
 			<%= h @player.nickname %>
 			</td>
 		</tr>
 		<tr>
 			<td>
-			<b>Name:</b>
+			<b>Name</b>
+			</td>
+			<td>
 			<%= h @player.name %>
 			</td>
 		</tr>
 		<tr>
 			<td>
-			<b>Email:</b>
+			<b>Email</b>
+			</td>
+			<td>
 			<%= h @player.email %>
 			</td>
 		</tr>
 		<tr>
 			<td>
-			<b>Mobile:</b>
+			<b>Mobile</b>
+			</td>
+			<td>
 			<%= h @player.mobile %>
 			</td>
 		</tr>
@@ -39,6 +47,8 @@
 		<tr>
 			<td>
 			<b>Password:</b>
+			</td>
+			<td>
 			<% if @player.password.blank? %>
 			<%= link_to 'Set a password', set_password_path(@player) %>
 			<% else %>

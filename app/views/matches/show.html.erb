@@ -1,37 +1,72 @@
-	<p>
-	  <b>Id:</b>
-	  <%=h @match.id %>
-	</p>
-	
-	<p>
-	  <b>Occurs:</b>
-	  <%=h @match.kickoff %>
-	</p>
-	
-	<p>
-	  <b>Location:</b>
-	  <%=h @match.location %>
-	</p>
-	
-	<p>
-	  <b>Kind:</b>
-	  <%=h @match.variety %>
-	</p>
-	
-	<p>
-	  <b>Players required:</b>
-	  <%=h @match.required %>
-	</p>
-	
-	<p>
-	  <b>Comment:</b>
-	  <%=h @match.comment %>
-	</p>
-	
-<% if params[:signed_in] == true or not session[:player].nil? %>		
-	<% if (Field.get_by_player_and_match(session[:player].id, @match.id)).organiser == true %>	
-		<%= link_to 'Edit', edit_match_path(@match) %> |
-	<% end %>
-<% end %>
-
-<%= link_to 'Match list', matches_path %>
+<div class="span5">
+	<div class="well">
+		<table class="table-no-top-border">
+			<thead>
+				<h3>Match details</h3>
+			</thead>
+			<br/>
+			<tbody>
+				<tr>
+					<td>
+					<b>Date and time</b>
+					</td>
+					<td>
+					<%= h @match.kickoff %>					
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<b>Location</b>
+					</td>
+					<td>
+					<%= h @match.location %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<b>Players each side</b>
+					</td>
+					<td>
+					<%= h @match.variety %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<b>Players required</b>
+					</td>
+					<td>
+					<%= h @match.required %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<b>Comment</b>
+					</td>
+					<td>
+					<%= h @match.comment %>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<%
+						if params[:signed_in] == true or not session[:player].nil?
+							if (Field.get_by_player_and_match(session[:player].id, @match.id)).organiser == true
+								link_to 'Edit', edit_match_path(@match)
+							end
+						else
+						%>
+							<a class="btn" href="/mymatches">					
+				        		My matches		        		
+				    		</a>
+			    		<%end%>
+						<a class="btn" href="/matches">
+				        	Find a match
+				    	</a>						
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
