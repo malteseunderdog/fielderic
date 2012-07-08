@@ -28,4 +28,11 @@ class Match < ActiveRecord::Base
       :order => "match.kickoff")
   end
   
+  def self.my_past_matches(player_id)
+    find(:all, 
+      :conditions => ["match.kickoff < ? AND field.player_id  = ?", DateTime.now, player_id], 
+      :joins => :fields,
+      :order => "match.kickoff")
+  end
+  
 end
