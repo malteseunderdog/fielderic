@@ -36,7 +36,7 @@
 							<li class="active">
 								<a href="#">Home</a>
 							</li>
-							<% if (current_facebook_user != nil || !session[:logged_in_player].nil?) %>
+							<% if !session[:logged_in_player].nil? %>
 							<li class="dropdown" id="matches">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#matches">
 								Matches
@@ -44,13 +44,7 @@
 								</a>
 								<ul class="dropdown-menu">
 									<li>
-										<% 
-											if (current_facebook_user != nil)
-												player_id = current_facebook_user.id
-											elsif (!session[:logged_in_player].nil?)
-												player_id = session[:logged_in_player].id
-											end  
-										%>
+										<% player_id = session[:logged_in_player].id %>
 										<a href="/matches/mymatches">My matches</a>
 									</li>
 									<li>
@@ -74,40 +68,22 @@
 							</li>							
 						</ul>
 						<ul class="nav pull-right">
-							<!-- if logged with facebook in show facebook name and links to account and logout -->
-							<% if current_facebook_user != nil %>
-							<li class="dropdown" id="signedin">
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#signedin">
-								<%= current_facebook_user.username%>
-								<b class="caret"></b>
-								</a>
-								<ul class="dropdown-menu" id="signedin">
-									<li>
-										<a href="#">My account</a>
-									</li> <!-- TODO link to players/#id (not fb_user_id)  -->									
-									<li>
-										<%= fb_logout_link("Logout", request.url)%>
-									</li>
-								</ul>
-							</li>
-
 							<!-- if logged in show name and links to account and logout -->
-							<% elsif !session[:logged_in_player].nil? %>
+							<% if !session[:logged_in_player].nil? %>
 							<li class="dropdown" id="signedin">
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#signedin">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#signedin">							
 								<%= session[:logged_in_player].nickname %>
 								<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu" id="signedin">
-									<li>
-										<a href="/players/<%= session[:logged_in_player].id %>">My Account</a>
-									</li>
-									<li>
-										<a href="/logout">Logout</a>
-									</li>
+									<li><a href="/players/<%= session[:logged_in_player].id %>">My Account</a></li>
+									<% if session[:logged_in_player].fb_user_id.nil? %>
+										<li><a href="/logout">Logout</a></li>
+									<% else %>
+										<li><%= fb_logout_link("Logout", '/logout')%></li>
+									<% end %>									
 								</ul>
-							</li>
-
+							</li>							
 							<!-- if not logged in show links to sign in -->
 							<% else %>
 							<li class="dropdown" id="signin">
@@ -144,6 +120,52 @@
 				<p>&copy; Company 2012</p>
 				-->
 		</div>		
-		<%= fb_connect_async_js%>
+		
+		<div id="fb-root"></div>
+		<script>
+		  window.fbAsyncInit = function() {
+		    FB.init({
+		      appId  : '113577885437797',
+			  status : true, // check login status
+			  cookie : true, // enable cookies to allow the server to access the session
+			  oauth : true,
+	  		  xfbml  : true  // parse XFBML
+			});
+			
+			FB.getLoginStatus(function(response) {
+				var cookies = { };
+			    if (document.cookie && document.cookie != '') {
+			        var split = document.cookie.split(';');
+			        
+			        refreshed = false;
+			        fb_cookie_found = false;
+			        
+			        for (var i = 0; i < split.length; i++) {
+			            var name_value = split[i].split("=");
+			            name_value[0] = name_value[0].replace(/^ /, '');
+			            cookie_name = decodeURIComponent(name_value[0]);
+			            if (cookie_name.substring(0, 9) === "refreshed") {
+			            	refreshed = true;
+			            }
+			            if (cookie_name.substring(0, 4) === "fbsr") {
+			            	fb_cookie_found = true;
+			            }
+			        }
+			        
+			        if ((fb_cookie_found == true) && (refreshed == false)) {
+		            	document.cookie="refreshed=true";
+		            	window.location.reload();
+			        }
+			    }
+	        });
+	      };
+		  
+	      (function() {
+			var e = document.createElement('script'); e.async = true;
+			e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+			document.getElementById('fb-root').appendChild(e);
+		  }());
+		</script>
+		
 	</body>
 </html>

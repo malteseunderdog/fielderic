@@ -25,6 +25,7 @@ class Player < ActiveRecord::Base
     end
     @fb_player = Player.new(:nickname=>username, :name=>current_facebook_user.name, :email=>current_facebook_user.email, :fb_user_id=>current_facebook_user.id)
     @fb_player.save
+    @fb_player
   end
   
   def self.authenticate(email, password)
