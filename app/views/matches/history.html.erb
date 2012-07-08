@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="span12">
+        <h1>My past matches</h1>
+        <% if flash[:notice] %>
+        <div class="well">
+            <%= flash[:notice] %>
+        </div>
+        <% end %>
+        
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>What</th>
+                    <th>When</th>
+                    <th>Where</th>
+                    <th># Spaces Left</th>
+                    <th>Comment</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            <% for match in @matches %>
+                <tr>
+                    <td><%=h match.variety %></td>
+                    <td><%=h match.kickoff %></td>
+                    <td><%=h match.location %></td>
+                    <td>
+                        <span class="badge <%= match.required > 0 ? "badge-success" : "badge-error" %>">
+                            <%=h match.required %>
+                        </span>
+                    </td>
+                    <td><%=h match.comment %></td>
+                    <td><%= link_to "Details", match, :class => "btn btn-info btn-small" %></td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>        
+        <a class="btn" href="mymatches">
+        	My matches
+    	</a>
+    	<a class="btn" href="/matches">
+        	Find a match
+    	</a>
+    </div>
+</div>
