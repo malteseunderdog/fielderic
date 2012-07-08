@@ -1,3 +1,5 @@
+<div class="span4">
+<div class="well">
 <table class="table-no-top-border">
 	<thead>
 		<h3>Edit profile</h3>
@@ -42,11 +44,17 @@
 		<tr>
 			<td colspan="2">
 			<button type="submit" class="btn btn-primary">
+				<i class="icon-ok icon-white"></i>
 				Save changes
 			</button>
-			<a class="btn btn-cancel" href="/players/<%= @player.id %>">Cancel</a>
+			<a class="btn btn-cancel" href="/players/<%= @player.id %>">
+				<i class="icon-remove"></i>
+				Cancel
+			</a>
 			</td>
 		</tr>
 	</tfoot>
 	<% end %>
 </table>
+</div>
+</div>

@@ -19,11 +19,9 @@
 		<![endif]-->
 		<!-- Le fav and touch icons -->
 		<%= favicon_link_tag %>
-		<%= favicon_link_tag 'football.png', :rel => 'apple-touch-icon', :type => 'image/png' %>		
+		<%= favicon_link_tag 'football.png', :rel => 'apple-touch-icon', :type => 'image/png' %>
 	</head>
 	<body>
-        <%= fb_connect_async_js%>
-	    
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
@@ -38,63 +36,94 @@
 							<li class="active">
 								<a href="#">Home</a>
 							</li>
-							<li>
-								<%= link_to "Matches", matches_path %>
+							<% if (current_facebook_user != nil || !session[:logged_in_player].nil?) %>
+							<li class="dropdown" id="matches">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#matches">
+								Matches
+								<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<% 
+											if (current_facebook_user != nil)
+												player_id = current_facebook_user.id
+											elsif (!session[:logged_in_player].nil?)
+												player_id = session[:logged_in_player].id
+											end  
+										%>
+										<a href="/matches/mymatches">My matches</a>
+									</li>
+									<li>
+										<a href="/matches">All matches</a>
+									</li>
+									<li>
+										<a href="/matches/new">Create a match</a>
+									</li>
+								</ul>
 							</li>
+							<% else %>
+							<li>
+								<a href="matches">Matches</a>
+							</li>
+							<% end %>
 							<li>
 								<a href="#about">About</a>
 							</li>
 							<li>
 								<a href="#contact">Contact</a>
-							</li>
+							</li>							
 						</ul>
 						<ul class="nav pull-right">
 							<!-- if logged with facebook in show facebook name and links to account and logout -->
 							<% if current_facebook_user != nil %>
-							<li>
-								<li class="dropdown" id="signin">
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#signin">							
-								<span id="fb_username"><%= current_facebook_user.username %></span>
+							<li class="dropdown" id="signedin">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#signedin">
+								<%= current_facebook_user.username%>
 								<b class="caret"></b>
 								</a>
-								<ul class="dropdown-menu" id="login">
+								<ul class="dropdown-menu" id="signedin">
 									<li>
-										<div>
-											<p><a href="#">My Account</a></p>
-											<p><%= fb_logout_link("Logout", request.url)%></p>												
-										</div>
+										<a href="#">My account</a>
+									</li> <!-- TODO link to players/#id (not fb_user_id)  -->
+									<li>
+										<a href="#"> My matches</a>
+									</li>
+									<li>
+										<%= fb_logout_link("Logout", request.url)%>
 									</li>
 								</ul>
 							</li>
-							
+
 							<!-- if logged in show name and links to account and logout -->
 							<% elsif !session[:logged_in_player].nil? %>
-							<li>
-								<li class="dropdown" id="signin">
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#signin">							
+							<li class="dropdown" id="signedin">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#signedin">
 								<%= session[:logged_in_player].nickname %>
+								<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu" id="signedin">
+									<li>
+										<a href="/players/<%= session[:logged_in_player].id %>">My Account</a>
+									</li>
+									<li>
+										<a href="#"> My matches</a>
+									</li>
+									<li>
+										<a href="/logout">Logout</a>
+									</li>
+								</ul>
+							</li>
+
+							<!-- if not logged in show links to sign in -->
+							<% else %>
+							<li class="dropdown" id="signin">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#signin">
+								Sign in
 								<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu" id="login">
 									<li>
-										<div>
-											<p><a href="#">My Account</a></p>		
-											<p><a href="<%= logout_path %>">Logout</a></p>																								
-										</div>
-									</li>
-								</ul>
-							</li>							
-							
-							<!-- if not logged in show links to sign in -->
-							<% else %>
-							
-							<li class="dropdown" id="signin">
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#signin">
-								<span id="fb_username">Sign in</span>
-								<b class="caret"></b>
-								</a>
-								<ul class="dropdown-menu">
-                                    <%= form_tag(login_path, :method => "post", :remote => true) do %>
+                                        <%= form_tag(login_path, :method => "post", :remote => true) do %>
                                         <%= text_field_tag(:email) %>
                                         <div id="extra_form_controls"></div>
                                         <%= submit_tag("Play!", :class => "btn btn-primary") %>
@@ -102,10 +131,11 @@
                                         <div class="fbconnect">
                                             Or connect with Facebook:<%=fb_login_and_redirect(request.url, :scope => 'user_location,email') %>                                        
                                         </div>
-                                    <% end %>
+                                    <% end %>										
+									</li>
 								</ul>
 							</li>
-							<% end %> 
+							<% end %>
 						</ul>
 					</div><!--/.nav-collapse -->
 				</div>
@@ -114,16 +144,12 @@
 		<div class="container">
 			<%= yield %>
 		</div>
-        <script>
-            
-        </script>
-		<footer>
-			<div class="container">
+
+		<div id="footer">
 				<!--
 				<p>&copy; Company 2012</p>
 				-->
-			</div>
-		</footer>
-
+		</div>		
+		<%= fb_connect_async_js%>
 	</body>
 </html>

@@ -13,6 +13,21 @@ class MatchesController < ApplicationController
       format.xml  { render :xml => @match }
     end
   end
+  
+  def mymatches
+    if (current_facebook_user != nil)
+      player_id = current_facebook_user.id
+    elsif (!session[:logged_in_player].nil?)
+      player_id = session[:logged_in_player].id
+    end  
+    
+    @matches = Match.my_future_matches(player_id)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @match }
+    end
+  end
 
   # GET /match/1
   # GET /match/1.xml
@@ -105,7 +120,7 @@ class MatchesController < ApplicationController
     
     # this will worry about validations
     if @match.save 
-      flash[:notice] = "Match joined: " + @match.variety + " match, " + @match.kickoff.to_s + " at " + @match.location
+      flash[:notice] = "Match just joined: " + @match.variety + " match, " + @match.kickoff.to_s + " at " + @match.location
     else
       flash[:notice] = "No more places to join"
     end
