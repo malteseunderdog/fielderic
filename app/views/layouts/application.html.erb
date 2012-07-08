@@ -84,10 +84,7 @@
 								<ul class="dropdown-menu" id="signedin">
 									<li>
 										<a href="#">My account</a>
-									</li> <!-- TODO link to players/#id (not fb_user_id)  -->
-									<li>
-										<a href="#"> My matches</a>
-									</li>
+									</li> <!-- TODO link to players/#id (not fb_user_id)  -->									
 									<li>
 										<%= fb_logout_link("Logout", request.url)%>
 									</li>
@@ -104,9 +101,6 @@
 								<ul class="dropdown-menu" id="signedin">
 									<li>
 										<a href="/players/<%= session[:logged_in_player].id %>">My Account</a>
-									</li>
-									<li>
-										<a href="#"> My matches</a>
 									</li>
 									<li>
 										<a href="/logout">Logout</a>
