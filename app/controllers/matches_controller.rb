@@ -28,6 +28,21 @@ class MatchesController < ApplicationController
       format.xml  { render :xml => @match }
     end
   end
+  
+  def history
+    if (current_facebook_user != nil)
+      player_id = current_facebook_user.id
+    elsif (!session[:logged_in_player].nil?)
+      player_id = session[:logged_in_player].id
+    end  
+    
+    @matches = Match.my_past_matches(player_id)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @match }
+    end
+  end
 
   # GET /match/1
   # GET /match/1.xml
