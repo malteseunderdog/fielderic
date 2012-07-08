@@ -14,12 +14,8 @@ class MatchesController < ApplicationController
     end
   end
   
-  def mymatches
-    if (current_facebook_user != nil)
-      player_id = current_facebook_user.id
-    elsif (!session[:logged_in_player].nil?)
-      player_id = session[:logged_in_player].id
-    end  
+  def mymatches    
+    player_id = session[:logged_in_player].id
     
     @matches = Match.my_future_matches(player_id)
 
@@ -29,12 +25,8 @@ class MatchesController < ApplicationController
     end
   end
   
-  def history
-    if (current_facebook_user != nil)
-      player_id = current_facebook_user.id
-    elsif (!session[:logged_in_player].nil?)
-      player_id = session[:logged_in_player].id
-    end  
+  def history    
+    player_id = session[:logged_in_player].id
     
     @matches = Match.my_past_matches(player_id)
 
