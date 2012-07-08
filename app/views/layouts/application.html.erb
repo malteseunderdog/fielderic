@@ -19,7 +19,7 @@
 		<![endif]-->
 		<!-- Le fav and touch icons -->
 		<%= favicon_link_tag %>
-		<%= favicon_link_tag 'football.png', :rel => 'apple-touch-icon', :type => 'image/png' %>		
+		<%= favicon_link_tag 'football.png', :rel => 'apple-touch-icon', :type => 'image/png' %>
 	</head>
 	<body>
 		<div class="navbar navbar-fixed-top">
@@ -36,53 +36,84 @@
 							<li class="active">
 								<a href="#">Home</a>
 							</li>
+							<% if (current_facebook_user != nil || !session[:logged_in_player].nil?) %>
 							<li class="dropdown" id="matches">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="#matches">
-									Matches
-									<b class="caret"></b>
+								Matches
+								<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu">
-									<li><a href="#">My matches</a></li>
-									<li><a href="/matches">All matches</a></li>
-									<li><a href="/matches/new">Create a match</a></li>
+									<li>
+										<% 
+											if (current_facebook_user != nil)
+												player_id = current_facebook_user.id
+											elsif (!session[:logged_in_player].nil?)
+												player_id = session[:logged_in_player].id
+											end  
+										%>
+										<a href="/matches/mymatches">My matches</a>
+									</li>
+									<li>
+										<a href="/matches">All matches</a>
+									</li>
+									<li>
+										<a href="/matches/new">Create a match</a>
+									</li>
 								</ul>
 							</li>
+							<% else %>
+							<li>
+								<a href="matches">Matches</a>
+							</li>
+							<% end %>
 							<li>
 								<a href="#about">About</a>
 							</li>
 							<li>
 								<a href="#contact">Contact</a>
-							</li>
+							</li>							
 						</ul>
 						<ul class="nav pull-right">
 							<!-- if logged with facebook in show facebook name and links to account and logout -->
-							<% if current_facebook_user != nil %>						
+							<% if current_facebook_user != nil %>
 							<li class="dropdown" id="signedin">
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#signedin">							
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#signedin">
 								<%= current_facebook_user.username%>
 								<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu" id="signedin">
-									<li><a href="#">My account</a></li> <!-- TODO link to players/#id (not fb_user_id)  -->
-									<li><a href="#"> My matches</a></li>
-									<li><%= fb_logout_link("Logout", request.url)%></li>
+									<li>
+										<a href="#">My account</a>
+									</li> <!-- TODO link to players/#id (not fb_user_id)  -->
+									<li>
+										<a href="#"> My matches</a>
+									</li>
+									<li>
+										<%= fb_logout_link("Logout", request.url)%>
+									</li>
 								</ul>
 							</li>
-							
+
 							<!-- if logged in show name and links to account and logout -->
 							<% elsif !session[:logged_in_player].nil? %>
 							<li class="dropdown" id="signedin">
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#signedin">							
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#signedin">
 								<%= session[:logged_in_player].nickname %>
 								<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu" id="signedin">
-									<li><a href="/players/<%= session[:logged_in_player].id %>">My Account</a></li>
-									<li><a href="#"> My matches</a></li>
-									<li><a href="/logout">Logout</a></li>									
+									<li>
+										<a href="/players/<%= session[:logged_in_player].id %>">My Account</a>
+									</li>
+									<li>
+										<a href="#"> My matches</a>
+									</li>
+									<li>
+										<a href="/logout">Logout</a>
+									</li>
 								</ul>
-							</li>							
-							
+							</li>
+
 							<!-- if not logged in show links to sign in -->
 							<% else %>
 							<li class="dropdown" id="signin">
@@ -101,24 +132,22 @@
 											<label>
 												Email:
 											</label>
-											<%
- email = ""
-                        if session[:needs_password]
-                          email = session[:email]
-                        end
-%>
-											<input type="text" class="span3" id="lme" name="email" maxlength="75" value="<%= email %>" placeholder="Email address" title="Enter your email address">											
+												<% email = ""
+                        							if session[:needs_password]
+	                          						email = session[:email]
+                        						end %>			
+											<input type="text" class="span3" id="lme" name="email" maxlength="75" value="<%= email %>" placeholder="Email address" title="Enter your email address">
 											<% if session[:needs_password] %>
-												<label>												
-													Password:
-												</label>
-												<input type="password" class="span2" name="password" maxlength="16" value="" placeholder="Password" title="Enter your password">												
-											<% 
-												session[:needs_password] = false
-												end 
+											<label>
+												Password:
+											</label>
+											<input type="password" class="span2" name="password" maxlength="16" value="" placeholder="Password" title="Enter your password">
+											<%
+											session[:needs_password] = false
+											end
 											%>
 											<input type="submit" id="sbmt" class="btn btn-primary" value="Play" />
-											<input type="hidden" name="frmact" value="login" />											
+											<input type="hidden" name="frmact" value="login" />
 											<% if flash[:error] %>
 											<div id="error">
 												<%= flash[:error] %>
@@ -129,7 +158,7 @@
 											<label>
 												Or connect with Facebook:
 											</label>
-											<%= fb_login_and_redirect(request.url, :scope => 'user_location,email')%>										
+											<%= fb_login_and_redirect(request.url, :scope => 'user_location,email')%>
 										</div>
 									</li>
 									<li>
@@ -152,18 +181,16 @@
 					</div><!--/.nav-collapse -->
 				</div>
 			</div>
-		</div>					
+		</div>
 		<div class="container">
 			<%= yield %>
 		</div>
 
-		<footer>
-			<div class="container">
+		<div id="footer">
 				<!--
 				<p>&copy; Company 2012</p>
 				-->
-			</div>
-		</footer>
+		</div>		
 		<%= fb_connect_async_js%>
 	</body>
 </html>

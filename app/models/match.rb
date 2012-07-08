@@ -21,4 +21,11 @@ class Match < ActiveRecord::Base
         :order => 'kickoff')   
   end
   
+  def self.my_future_matches(player_id)
+    find(:all, 
+      :conditions => ["match.kickoff > ? AND field.player_id  = ?", DateTime.now, player_id], 
+      :joins => :fields,
+      :order => "match.kickoff")
+  end
+  
 end
