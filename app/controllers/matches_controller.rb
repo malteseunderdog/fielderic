@@ -121,13 +121,13 @@ class MatchesController < ApplicationController
     
     # add a field entry for this logged in user
     @field = @match.fields.create(:joined => DateTime.now, 
-                                  :player_id => 1, # FIXME: this should be taken from session?
+                                  :player_id => session[:logged_in_player].id,
                                   :organiser => false)
     
     
     # this will worry about validations
     if @match.save 
-      flash[:notice] = "Match just joined: " + @match.variety + " match, " + @match.kickoff.to_s + " at " + @match.location
+      flash[:notice] = "I've just joined a " + @match.variety + "-a-side match in " + @match.location + ". I prefer to play and lose rather than win, because I know in advance I'm going to win."
     else
       flash[:notice] = "No more places to join"
     end
@@ -136,7 +136,7 @@ class MatchesController < ApplicationController
     # which need to be rendered  
     @matches = Match.future
     # render the main index page
-    render "index"
+    render "mymatches"
         
   end 
   
