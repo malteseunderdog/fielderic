@@ -46,60 +46,62 @@
 		<%= link_to "More matches...", matches_path %>
 		<% else %>
 		<div class="well">
-			No matches yet, click here to create one. <!-- FIXME: This should be a link -->
+			No matches yet, click <a href="/matches/new">here</a> to create one.
 		</div>
 		<% end %>
 	</div>
 	<div class="span4">
-		<% if current_facebook_user != nil || !session[:logged_in_player].nil? %>
-		<h2>Need players? Fix a match</h2>
-		<p>
-			Organise a match in your area, meet some new people, score an amazing bicycle kick 
-			and grab yourself a couple of beers with your new mates.
-			Social sports is fun, we swear!
-		</p>
-		<p>
-			<a class="btn" href="/matches/new">Find players &raquo;</a>
-		</p>
-		<% else %>
-		<table class="table-no-top-border">
-			<thead>
-				<h3>Sign up and play</h3>
-			</thead>
-			<br/>
-			<% @player = Player.new %>
-			<%= form_for(@player) do |f| %>
-			<% if @player.errors.any? %>
-			<div id="error_explanation">
-				<h2><%= pluralize(@player.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-				<ul>
-					<% @player.errors.full_messages.each do |msg| %>
-					<li>
-						<%= msg %>
-					</li>
-					<% end %>
-				</ul>
-			</div>
+		<div class="well">
+			<% if current_facebook_user != nil || !session[:logged_in_player].nil? %>
+			<h2>Need players? Fix a match</h2>
+			<p>
+				Organise a match in your area, meet some new people, score an amazing bicycle kick 
+				and grab yourself a couple of beers with your new mates.
+				Social sports is fun, we swear!
+			</p>
+			<p>
+				<a class="btn" href="/matches/new">Find players &raquo;</a>
+			</p>
+			<% else %>
+			<table class="table-no-top-border">
+				<thead>
+					<h3>Sign up and play</h3>
+				</thead>
+				<br/>
+				<% @player = Player.new %>
+				<%= form_for(@player) do |f| %>
+				<% if @player.errors.any? %>
+				<div id="error_explanation">
+					<h2><%= pluralize(@player.errors.count, "error") %> prohibited this post from being saved:</h2>
+	
+					<ul>
+						<% @player.errors.full_messages.each do |msg| %>
+						<li>
+							<%= msg %>
+						</li>
+						<% end %>
+					</ul>
+				</div>
+				<% end %>
+				<tbody>
+					<tr><td><b>Nickname</b></td><td><%= f.text_field :nickname %></td></tr>
+					<tr><td><b>Full name</b></td><td><%= f.text_field :name %></td></tr>
+					<tr><td><b>Email address</b></td><td><%= f.text_field :email %></td></tr>
+					<tr><td><b>Phone number</b></td><td><%= f.text_field :mobile %></td></tr>				
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="2">
+							<button type="submit" class="btn btn-primary">
+		  						<i class="icon-user icon-white"></i> Register
+							</button>
+						</td>
+					</tr>
+				</tfoot>
+				<% end %>
+			</table>
 			<% end %>
-			<tbody>
-				<tr><td><b>Nickname</b></td><td><%= f.text_field :nickname %></td></tr>
-				<tr><td><b>Full name</b></td><td><%= f.text_field :name %></td></tr>
-				<tr><td><b>Email address</b></td><td><%= f.text_field :email %></td></tr>
-				<tr><td><b>Phone number</b></td><td><%= f.text_field :mobile %></td></tr>				
-			</tbody>
-			<tfoot>
-				<tr>
-					<td colspan="2">
-						<button type="submit" class="btn btn-primary">
-	  						<i class="icon-user icon-white"></i> Register
-						</button>
-					</td>
-				</tr>
-			</tfoot>
-			<% end %>
-		</table>
-		<% end %>
+		</div>
 	</div>
 </div>
 
