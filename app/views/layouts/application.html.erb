@@ -117,57 +117,16 @@
 								</a>
 								<ul class="dropdown-menu" id="login">
 									<li>
-										<div>
-											<p>
-												<b>Sign in</b> to join or organise matches.
-											</p>
-										</div>
-										<form class="form-inline" name="lm" id="lm" method="post" action="/login" target="_top" accept-charset="utf-8">
-											<label>
-												Email:
-											</label>
-												<% email = ""
-                        							if session[:needs_password]
-	                          						email = session[:email]
-                        						end %>			
-											<input type="text" class="span3" id="lme" name="email" maxlength="75" value="<%= email %>" placeholder="Email address" title="Enter your email address">
-											<% if session[:needs_password] %>
-											<label>
-												Password:
-											</label>
-											<input type="password" class="span2" name="password" maxlength="16" value="" placeholder="Password" title="Enter your password">
-											<%
-											session[:needs_password] = false
-											end
-											%>
-											<input type="submit" id="sbmt" class="btn btn-primary" value="Play" />
-											<input type="hidden" name="frmact" value="login" />
-											<% if flash[:error] %>
-											<div id="error">
-												<%= flash[:error] %>
-											</div>
-											<% end %>
-										</form>
-										<div class="fbconnect">
-											<label>
-												Or connect with Facebook:
-											</label>
-											<%= fb_login_and_redirect(request.url, :scope => 'user_location,email')%>
-										</div>
+                                        <%= form_tag(login_path, :method => "post", :remote => true) do %>
+                                        <%= text_field_tag(:email) %>
+                                        <div id="extra_form_controls"></div>
+                                        <%= submit_tag("Play!", :class => "btn btn-primary") %>
+                                        <div id="errors"></div>
+                                        <div class="fbconnect">
+                                            Or connect with Facebook:<%=fb_login_and_redirect(request.url, :scope => 'user_location,email') %>                                        
+                                        </div>
+                                    <% end %>										
 									</li>
-									<li>
-										<div>
-											<p>
-												<a href="/login">
-												<i class="icon-exclamation-sign"></i> Forgot password?
-												</a> &nbsp;
-												<a  href="/login#signup">
-												<i class="icon-ok"></i> No account? Sign up.
-												</a>
-											</p>
-										</div>
-									</li>
-
 								</ul>
 							</li>
 							<% end %>

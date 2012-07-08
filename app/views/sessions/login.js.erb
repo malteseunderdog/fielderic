@@ -1,0 +1,10 @@
+
+<% if (@needs_password_field) %>
+    $("#extra_form_controls").html("<%=escape_javascript  password_field_tag(:password) %>");
+<% end %>
+
+$("#errors").html("<%=escape_javascript flash[:error] ? flash[:error] : "" %>");
+
+<% if !session[:logged_in_player].nil? %>
+    window.location = "/";
+<% end %>

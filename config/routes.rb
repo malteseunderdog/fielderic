@@ -56,9 +56,10 @@ FieldEric::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
   
+  # Paths for authentication
+  match '/logout' => 'sessions#logout', :as => :logout
+  match '/login' => 'sessions#login', :as => :login
   
-  match '/logout' => 'sessions#destroy', :as => :logout
-  match '/login' => 'sessions#create', :as => :login
   match '/register' => 'players#new', :as => :register
   match 'players/password/:id' => 'players#password', :as => :set_password
   match 'matches/mymatches' => 'matches#mymatches', :as => :mymatches
