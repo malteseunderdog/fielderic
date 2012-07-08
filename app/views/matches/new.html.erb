@@ -1,49 +1,76 @@
-<h1>New match</h1>
+<table class="table-no-top-border">
+	<thead>
+		<h3>Create a match</h3>
+	</thead>
+	<br>
+	<%= form_for(@match) do |f| %>
+	<% if @match.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= pluralize(@match.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-<%= form_for(@match) do |f| %>
-  <% if @match.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@match.errors.count, "error") %> prohibited this post from being saved:</h2>
+		<ul>
+			<% @match.errors.full_messages.each do |msg| %>
+			<li>
+				<%= msg %>
+			</li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
 
-      <ul>
-      <% @match.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<tbody>
+		<tr>
+			<td>
+			<b>Place</b>
+			</td>
+			<td>	<%= f.text_field :location %></td>
+		</tr>
+		<tr>
+			<td>
+			<b>Date and time</b>
+			</td>
+			<td>
+			<%= f.text_field :kickoff, :class => "datetimepicker" %>
 
-  <p>
-    Place
-    <%= f.text_field :location %>
-  </p>
-  <p>
-    Date and time
-    <%= f.text_field :kickoff, :class => "datetimepicker" %>    
-  </p>
-    <script>
-        $(function() { 
-            $(".datetimepicker").datetimepicker({ dateFormat: 'dd/mm/yy', minDate: 0, showButtonPanel: false });
-        });
-    </script>
-  <p>
-    Players on each side<br />
-    <%= f.text_field :variety %>
-  </p>
-  <p>
-    <%= f.label :required %><br />
-    <%= f.text_field :required %>
-  </p>
-  <p>
-    <%= f.label :comment %><br />
-    <%= f.text_area :comment %>
-  </p>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
-  
-<% end %>  
-
-
-
-<%= link_to 'Back', matches_path %>
+			<script>
+				$( function() {
+					$(".datetimepicker").datetimepicker({
+						dateFormat: 'dd/mm/yy',
+						minDate: 0,
+						showButtonPanel: false
+					});
+				});
+			</script>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<b>Players each side</b>
+			</td>
+			<td>	<%= f.text_field :variety %></td>
+		</tr>
+		<tr>
+			<td>
+			<b>Players required</b>
+			</td>
+			<td>	<%= f.text_field :required %></td>
+		</tr>
+		<tr>
+			<td>
+			<b>Comment</b>
+			</td>
+			<td>	<%= f.text_field :comment %></td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="2">
+			<button type="submit" class="btn btn-primary">
+				Create match
+			</button>
+			<a class="btn btn-cancel" href="/matches/">Cancel</a>
+			</td>
+		</tr>
+	</tfoot>
+	<% end %>
+</table>
