@@ -33,7 +33,7 @@
                     </td>
                     <td><%=h match.comment %></td>
                     <td>
-                        <% if match.required > 0 %>
+                        <% if (match.required > 0 && !session[:logged_in_player].nil?) %>
                         <%= link_to "Join", join_path(match), :class => "btn btn-info btn-small" %>
                         <% end %>
                     </td>   

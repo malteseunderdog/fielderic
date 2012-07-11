@@ -1,6 +1,6 @@
 <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="hero-unit">
-	<%= image_tag "eric.png", :alt => "eric cantona" %>
+	<%= image_tag "eric.png", :alt => "Le Roi" %>
 	<h1>Plan Some | Play Some</h1>
 	<p>
 		Go for it!  Play some football in your area by joining one of the games below.
@@ -38,7 +38,9 @@
 					<span class="badge badge-success"><%= h match.required %></span>
 					</td>
 					<td><%= h match.comment %></td>
-					<td><%= link_to "Join", join_path(match), :class => "btn btn-info btn-small" %></td>
+					<% if (!session[:logged_in_player].nil?) %>
+						<td><%= link_to "Join", join_path(match), :class => "btn btn-info btn-small" %></td>
+					<% end %>
 				</tr>
 				<% end %>
 			</tbody>
