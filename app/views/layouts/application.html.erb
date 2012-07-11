@@ -90,16 +90,19 @@
 								</a>
 								<ul class="dropdown-menu" id="login">
 									<li>
-                                        <%= form_tag(login_path, :method => "post", :remote => true) do %>
-                                        <%= text_field_tag(:email) %>
+                                        <%= form_tag(login_path, :method => "post", :id => "loginForm", :remote => true) do %>
+                                        <%= field_set_tag do %>
+	                                        <%= label_tag(:email, "Email") %>
+    	                                    <%= text_field_tag :email, nil, :class => "textInput" %>
+										<% end %>
                                         <div id="extra_form_controls"></div>
                                         <%= submit_tag("Play!", :class => "btn btn-primary") %>
+                                        <p><a>(But Bob, where is my password?)</a></p>
                                         <div id="errors"></div>
-                                        <div class="fbconnect">
-                                            Or connect with Facebook:<%=fb_login_and_redirect(request.url, :scope => 'user_location,email') %>                                        
-                                        </div>
-                                    <% end %>										
+                                        <div class="fbconnect"> Or connect with Facebook: <%=fb_login_and_redirect(request.url, :scope => 'user_location,email') %></div>
+                                    	<% end %>										
 									</li>
+									
 								</ul>
 							</li>
 							<% end %>
