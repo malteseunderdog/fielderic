@@ -50,8 +50,10 @@
 			<tfoot>
 				<tr>
 					<td colspan="2">
-						<%
-						if params[:signed_in] == true or not session[:player].nil?
+						<% if !session[:logged_in_player].nil? %>
+                        	<%= link_to "Join", join_path(@match), :class => "btn btn-info btn-small" %>
+                    	
+						<% elsif params[:signed_in] == true or not session[:player].nil?
 							if (Field.get_by_player_and_match(session[:player].id, @match.id)).organiser == true
 								link_to 'Edit', edit_match_path(@match)
 							end
@@ -62,7 +64,7 @@
 				    		</a>
 			    		<%end%>
 						<a class="btn" href="/matches">
-				        	Find a match
+				        	Find another match
 				    	</a>						
 					</td>
 				</tr>
