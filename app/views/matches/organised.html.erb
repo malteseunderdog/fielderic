@@ -1,12 +1,11 @@
 <div class="row">
     <div class="span12">
-        <h1>My past matches</h1>
+        <h1>Matches I organised</h1>
         <% if flash[:notice] %>
         <div class="well">
             <%= flash[:notice] %>
         </div>
-        <% end %>
-        
+        <% end %>       
         
         <table class="table">
             <thead>
@@ -14,7 +13,7 @@
                     <th>What</th>
                     <th>When</th>
                     <th>Where</th>
-                    <th>Places left</th>
+                    <th>Spaces left</th>
                     <th>Comment</th>
                     <th></th>
                     <th></th>
@@ -37,11 +36,11 @@
             <% end %>
             </tbody>
         </table>        
-        <a class="btn" href="joined">
-        	My matches
+    	<a class="btn" href="/matches/new">
+        	Organise a match
     	</a>
-    	<a class="btn" href="/matches">
-        	Find a match
+    	<a class="btn" href="/matches/joined">
+        	View joined matches
     	</a>
     </div>
 </div>

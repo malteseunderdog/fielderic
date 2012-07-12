@@ -14,10 +14,21 @@ class MatchesController < ApplicationController
     end
   end
   
-  def mymatches    
+  def joined    
     player_id = session[:logged_in_player].id
     
     @matches = Match.my_future_matches(player_id)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @match }
+    end
+  end
+  
+   def organised    
+    player_id = session[:logged_in_player].id
+    
+    @matches = Match.my_organised_future_matches(player_id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -136,7 +147,7 @@ class MatchesController < ApplicationController
     # which need to be rendered  
     @matches = Match.future
     # render the main index page
-    render "mymatches"
+    render "joined"
         
   end 
   
