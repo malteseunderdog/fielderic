@@ -37,7 +37,12 @@
 					<td>
 					<span class="badge badge-success"><%= h match.required %></span>
 					</td>
-					<td><%= h match.comment %></td>
+					<td>
+						<%= h match.comment[0..29] %>
+						<% if match.comment.length > 30 %>
+							...
+						<% end %>
+					</td>
 					<% if (!session[:logged_in_player].nil?) %>
 						<td><%= link_to "Join", join_path(match), :class => "btn btn-info btn-small" %></td>
 					<% end %>
@@ -45,7 +50,7 @@
 				<% end %>
 			</tbody>
 		</table>
-		<%= link_to "More matches...", matches_path %>
+		<%= link_to "More matches ...", matches_path %>
 		<% else %>
 		<div class="well">
 			No matches yet, click <a href="/matches/new">here</a> to create one.
