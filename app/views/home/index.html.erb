@@ -38,8 +38,8 @@
 					<span class="badge badge-success"><%= h match.required %></span>
 					</td>
 					<td>
-						<%= h match.comment[0..29] %>
-						<% if match.comment.length > 30 %>
+						<%= h match.comment[0..24] %>
+						<% if match.comment.length > 25 %>
 							...
 						<% end %>
 					</td>
