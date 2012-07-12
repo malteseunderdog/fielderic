@@ -41,11 +41,13 @@
 								</a>
 								<ul class="dropdown-menu">
 									<li>
-										<% player_id = session[:logged_in_player].id %>
-										<a href="/matches/mymatches">My matches</a>
+										<a href="/matches">All matches</a>
 									</li>
 									<li>
-										<a href="/matches">All matches</a>
+										<a href="/matches/mymatches">Matches I joined</a>
+									</li>									
+									<li>
+										<a href="#">Matches I organised</a>
 									</li>
 									<li>
 										<a href="/matches/new">Organise a match</a>
