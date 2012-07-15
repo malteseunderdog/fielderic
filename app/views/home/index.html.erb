@@ -31,20 +31,22 @@
 			<tbody>
 				<% for match in @matches %>
 				<tr>
-					<td><%= h match.variety %></td>
-					<td><%= h match.kickoff %></td>
+					<td><%= h match.variety + "-a-side" %></td>
+					<td><%= h match.kickoff.strftime("%a %d %B %Y at %H:%M") %></td>
 					<td><%= h match.location %></td>
 					<td>
 					<span class="badge badge-success"><%= h match.required %></span>
 					</td>
 					<td>
-						<%= h match.comment[0..24] %>
-						<% if match.comment.length > 25 %>
-							...
+						<% if !match.comment.nil? %>
+							<%= h match.comment[0..24] %>
+							<% if match.comment.length > 25 %>
+								...
+							<% end %>
 						<% end %>
 					</td>
 					<% if (!session[:logged_in_player].nil?) %>
-						<td><%= link_to "Join", join_path(match), :class => "btn btn-info btn-small" %></td>
+						<td><%= link_to "Details", match, :class => "btn btn-info btn-small" %></td>
 					<% end %>
 				</tr>
 				<% end %>
