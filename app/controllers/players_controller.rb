@@ -95,14 +95,45 @@ class PlayersController < ApplicationController
   def update
     @player = Player.find(params[:id])
 
-    respond_to do |format|
-      if @player.update_attributes(params[:player])
-        flash[:notice] = 'Player was successfully updated.'
-        format.html { redirect_to(@player) }
-        format.xml  { head :ok }
-      else
+    player_params = params[:player].stringify_keys
+    player_params.each do |key,value|
+      if key.eql? "email"
+        @player_params_email = value
+      elsif key.eql? "mobile"
+        @player_params_mobile = value
+      end
+    end
+    
+    if (!@player.email.eql? @player_params_email)
+      @player_by_email = Player.get_player(@player_params_email)
+    end
+    if (!@player.mobile.eql? @player_params_mobile)
+      @player_by_mobile = Player.get_player_by_mobile(@player_params_mobile)
+    end
+      
+    if (!@player_by_email.nil?) || (!@player_by_mobile.nil?)
+      if (!@player_by_email.nil?)
+        @player.errors.add("email", "Someone already has that email address")
+        @player.email = @player_params_email
+      end
+      if (!@player_by_mobile.nil?)
+        @player.errors.add("mobile", "Someone already has that mobile number")
+        @player.mobile = @player_params_mobile
+      end
+      respond_to do |format|
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @player, :status => :unprocessable_entity }
+      end
+    else
+      respond_to do |format|
+        if @player.update_attributes(params[:player])
+          flash[:notice] = 'Player was successfully updated.'
+          format.html { redirect_to(@player) }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end

@@ -6,54 +6,61 @@
 	</thead>
 	<br/>
 	<%= form_for(@player) do |f| %>
-	<% if @player.errors.any? %>
-	<div id="error_explanation">
-		<h2><%= pluralize(@player.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-		<ul>
+		<% if @player.errors.any? %>
 			<% @player.errors.full_messages.each do |msg| %>
-			<li>
-				<%= msg %>
-			</li>
+				<% if (msg.include? 'email') %>
+					<% @email_error = msg.sub("Email", "") %>
+				<% end %>
+				<% if (msg.include? 'mobile') %>
+					<% @mobile_error = msg.sub("Mobile", "") %>
+				<% end %>
 			<% end %>
-		</ul>
-	</div>
-	<% end %>
-
-	<tbody>
-		<tr>
-			<td>
-			<b>Full name</b>
-			</td>
-			<td><%= f.text_field :name %></td>
-		</tr>
-		<tr>
-			<td>
-			<b>Email address</b>
-			</td>
-			<td><%= f.text_field :email %></td>
-		</tr>
-		<tr>
-			<td>
-			<b>Phone number</b>
-			</td>
-			<td><%= f.text_field :mobile %></td>
-		</tr>
-	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan="2">
-			<button type="submit" class="btn btn-primary">
-				<i class="icon-ok icon-white"></i>
-				Save changes
-			</button>
-			<a class="btn btn-cancel" href="/players/<%= @player.id %>">
-				<i class="icon-remove"></i>
-				Cancel
-			</a>
-			</td>
-		</tr>
-	</tfoot>
+		<% end %>
+		<tbody>
+			<tr><td><b>Full name</b></td><td><%= f.text_field :name %></td></tr>
+			
+			<% if !@email_error.nil? %>
+				<tr>
+					<td colspan="2">
+						<font color="red"><%= @email_error %>
+					</td>
+				</tr>
+			<% end %>
+			<tr>
+				<td>
+					<b>Email address</b>
+				</td>
+				<td><%= f.text_field :email, :value => @player.email %></td>
+			</tr>
+			
+			<% if !@mobile_error.nil? %>
+				<tr>
+					<td colspan="2">
+						<font color="red"><%= @mobile_error %>
+					</td>
+				</tr>
+			<% end %>
+			<tr>
+				<td>
+					<b>Mobile number</b>
+				</td>
+				<td><%= f.text_field :mobile %></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="2">
+				<button type="submit" class="btn btn-primary">
+					<i class="icon-ok icon-white"></i>
+					Save changes
+				</button>
+				<a class="btn btn-cancel" href="/players/<%= @player.id %>">
+					<i class="icon-remove"></i>
+					Cancel
+				</a>
+				</td>
+			</tr>
+		</tfoot>
 	<% end %>
 </table>
 </div>
