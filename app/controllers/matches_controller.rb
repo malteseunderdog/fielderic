@@ -79,11 +79,14 @@ class MatchesController < ApplicationController
   # POST /match
   # POST /match.xml
   def create
-    @match = Match.new(params[:match])
-    
+    @match = Match.new(params[:match])  
+    match_saved = @match.save
+
+    @field = Field.new(:player_id=>session[:logged_in_player].id, :match_id=>@match.id, :organiser=>'t', :joined=>Time.now)        
+        
     respond_to do |format|
-      if @match.save
-        flash[:notice] = 'Match was successfully created.'
+      if match_saved && @field.save       
+        flash[:notice] = 'Match created. If you want to be the first to join click the Join button below.'
         format.html { redirect_to(@match) }
         format.xml  { render :xml => @match, :status => :created, :location => @match }
       else
@@ -140,7 +143,7 @@ class MatchesController < ApplicationController
     
     # this will worry about validations
     if @match.save 
-      flash[:notice] = "I've just joined a " + @match.variety + "-a-side match in " + @match.location + ". I prefer to play and lose rather than win, because I know in advance I'm going to win."
+      flash[:notice] = "You've just joined this " + @match.variety + "-a-side match in " + @match.location + "."
     else
       flash[:notice] = "No more places to join"
     end
@@ -148,8 +151,10 @@ class MatchesController < ApplicationController
     # now send back to index, but first we must initialise any attributes
     # which need to be rendered  
     @matches = Match.future
-    # render the main index page
-    render "joined"
+    @takers = Player.get_joined_players(params[:id])
+    @organiser = Player.get_organiser(params[:id])
+   
+    render "show"
         
   end 
   

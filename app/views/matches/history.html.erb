@@ -1,12 +1,12 @@
+<% if flash[:notice] %>
+<div class="alert alert-info">
+    <%= flash[:notice] %>
+</div>
+<% end %>
+
 <div class="row">
     <div class="span12">
         <h1>My past matches</h1>
-        <% if flash[:notice] %>
-        <div class="well">
-            <%= flash[:notice] %>
-        </div>
-        <% end %>
-        
         
         <table class="table">
             <thead>

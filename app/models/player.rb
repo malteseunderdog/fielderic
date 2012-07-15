@@ -38,11 +38,11 @@ class Player < ActiveRecord::Base
   
   def self.authenticate(email, password)
     where("email = ? AND password = ?", email, password).first
-  end
-  
+  end  
+   
   def self.get_joined_players(match_id)
     find(:all,
-      :conditions => ["field.match_id = ? ", match_id],
+      :conditions => ["field.match_id = ? AND field.organiser = 'f'", match_id],
       :joins => :fields,
       :order => "field.id") # order by join order
   end

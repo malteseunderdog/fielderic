@@ -1,3 +1,8 @@
+<% if flash[:notice] %>
+	<div class="alert alert-info">
+    	<%= flash[:notice] %>
+	</div>    
+<% end %>
 <div class="span4">
 	<div class="well">
 		<table class="table-no-top-border">
@@ -73,8 +78,8 @@
 				        		My matches		        		
 				    		</a>
 			    		<%end%>
-						<a class="btn" href="/matches">
-				        	Find another match
+						<a class="btn" href="/matches/edit/<%=@match.id%>">
+				        	Edit match details
 				    	</a>						
 					</td>
 				</tr>
@@ -86,6 +91,15 @@
 <div class="row">
     <div class="span6">
     	<br/>
+    	<% if @takers.nil? || @takers.empty? %>    		
+    		No takers yet.
+    		<!-- TODO Try to put this in a pop-up -->
+    		<style> 
+    			html .fb_share_link { padding:2px 0 0 20px; height:16px; background:url(http://static.ak.facebook.com/images/share/facebook_share_icon.gif?6:26981) no-repeat top left; }
+			</style>
+    		<a class="fb_share_link" href="http://www.facebook.com/sharer.php?u=http://www.fielderic.com/matches/<%=@match.id%>&t=Join my match" target="blank">Share on Facebook</a>
+    		to find your crew.    		
+    	<% else %>
         <h3>Crew</h3>
     	<table class="table">
             <thead>
@@ -107,5 +121,6 @@
 			<% end %>
 			</tbody>
 		</table>
+		<% end %>
 	</div>
 </div>
