@@ -1,4 +1,4 @@
-<div class="span5">
+<div class="span4">
 	<div class="well">
 		<table class="table-no-top-border">
 			<thead>
@@ -11,7 +11,7 @@
 					<b>Date and time</b>
 					</td>
 					<td>
-					<%= h @match.kickoff %>					
+					<%= h @match.kickoff.strftime("%a %d %B %Y at %H:%M") %>					
 					</td>
 				</tr>
 				<tr>
@@ -46,11 +46,21 @@
 					<%= h @match.comment %>
 					</td>
 				</tr>
+				<% if @organiser != nil %>
+				<tr>
+					<td>
+					<b>Organiser</b>
+					</td>
+					<td>
+					<%= h @organiser.name %> (<%= h @organiser.nickname %>)
+					</td>
+				</tr>
+				<% end %>
 			</tbody>
 			<tfoot>
 				<tr>
 					<td colspan="2">
-						<% if !session[:logged_in_player].nil? %>
+						<% if (!session[:logged_in_player].nil? && @match.required > 0) %>
                         	<%= link_to "Join", join_path(@match), :class => "btn btn-info btn-small" %>
                     	
 						<% elsif params[:signed_in] == true or not session[:player].nil?
@@ -69,6 +79,33 @@
 					</td>
 				</tr>
 			</tfoot>
+		</table>
+	</div>
+</div>
+
+<div class="row">
+    <div class="span6">
+    	<br/>
+        <h3>Crew</h3>
+    	<table class="table">
+            <thead>
+                <tr>
+                    <th>Nickname</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                </tr>
+            </thead>
+            <tbody>
+			<% for player in @takers %>
+				<tr>
+					<td><%= player.nickname %></td>
+					<td><%= player.name %></td>
+					<td><%= player.email %></td>
+					<td><%= player.mobile %></td>
+				</tr>
+			<% end %>
+			</tbody>
 		</table>
 	</div>
 </div>

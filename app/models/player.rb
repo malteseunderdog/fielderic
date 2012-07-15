@@ -32,4 +32,17 @@ class Player < ActiveRecord::Base
     where("email = ? AND password = ?", email, password).first
   end
   
+  def self.get_joined_players(match_id)
+    find(:all,
+      :conditions => ["field.match_id = ? ", match_id],
+      :joins => :fields,
+      :order => "field.id") # order by join order
+  end
+  
+  def self.get_organiser(match_id)
+    find(:first,
+      :conditions => ["field.match_id = ? AND field.organiser = 't'", match_id],
+      :joins => :fields)
+  end
+  
 end

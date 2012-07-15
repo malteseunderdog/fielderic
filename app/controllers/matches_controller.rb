@@ -51,10 +51,12 @@ class MatchesController < ApplicationController
   # GET /match/1.xml
   def show
     @match = Match.find(params[:id])
-
+    @takers = Player.get_joined_players(params[:id])
+    @organiser = Player.get_organiser(params[:id])
+    
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @match }
+      format.xml # { render :xml => @match }
     end
   end
 
@@ -78,7 +80,7 @@ class MatchesController < ApplicationController
   # POST /match.xml
   def create
     @match = Match.new(params[:match])
-
+    
     respond_to do |format|
       if @match.save
         flash[:notice] = 'Match was successfully created.'

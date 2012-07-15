@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this is needed to pass more than one variable to the match details page -->
+<document>
+	<!-- serialise variables to xml -->
+    <%= @match.to_xml %>
+    <%= @takers.to_xml %>
+    <%= @organiser.to_xml %>
+</document>
