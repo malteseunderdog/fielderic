@@ -49,6 +49,7 @@
 									<li>
 										<a href="/matches/organised">Matches I organised</a>
 									</li>
+									<li class="divider"></li>
 									<li>
 										<a href="/matches/new">Organise a match</a>
 									</li>
@@ -75,7 +76,9 @@
 								<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu" id="signedin">
-									<li><a href="/players/<%= session[:logged_in_player].id %>">My Account</a></li>
+									<li><a href="/players/<%= session[:logged_in_player].id %>">My profile</a></li>
+									<li><a href="/players/<%= session[:logged_in_player].id %>/edit">Edit profile</a></li>
+									<li class="divider"></li>
 									<% if session[:logged_in_player].fb_user_id.nil? %>
 										<li><a href="/logout">Logout</a></li>
 									<% else %>
