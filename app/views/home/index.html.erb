@@ -15,6 +15,9 @@
 
 <div class="row">
 	<div class="span8">
+		<% if @matches.nil? %>
+			<% @matches = Match.future_games_with_required_players(7) %>
+		<% end %>
 		<% if @matches.length > 0 %>
 		<h3>Next Matches Close To You</h3>
 		<table class="table">
@@ -81,36 +84,78 @@
 					<h3>Sign up and play</h3>
 				</thead>
 				<br/>
-				<% @player = Player.new %>
-				<%= form_for(@player) do |f| %>
-				<% if @player.errors.any? %>
-				<div id="error_explanation">
-					<h2><%= pluralize(@player.errors.count, "error") %> prohibited this post from being saved:</h2>
-	
-					<ul>
-						<% @player.errors.full_messages.each do |msg| %>
-						<li>
-							<%= msg %>
-						</li>
-						<% end %>
-					</ul>
-				</div>
+				<% if @player.nil? %>
+					<% @player = Player.new %>
 				<% end %>
-				<tbody>
-					<tr><td><b>Nickname</b></td><td><%= f.text_field :nickname %></td></tr>
-					<tr><td><b>Full name</b></td><td><%= f.text_field :name %></td></tr>
-					<tr><td><b>Email address</b></td><td><%= f.text_field :email %></td></tr>
-					<tr><td><b>Phone number</b></td><td><%= f.text_field :mobile %></td></tr>				
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="2">
-							<button type="submit" class="btn btn-primary">
-		  						<i class="icon-user icon-white"></i> Register
-							</button>
-						</td>
-					</tr>
-				</tfoot>
+				
+				<%= form_for(@player) do |f| %>
+					<% if @player.errors.any? %>
+						<% @player.errors.full_messages.each do |msg| %>
+							<% if (msg.include? 'nickname') %>
+								<% @nickname_error = msg.sub("Nickname ", "") %>
+							<% end %>							
+							<% if (msg.include? 'email') %>
+								<% @email_error = msg.sub("Email", "") %>
+							<% end %>
+							<% if (msg.include? 'mobile') %>
+								<% @mobile_error = msg.sub("Mobile", "") %>
+							<% end %>
+						<% end %>
+					<% end %>
+					<tbody>
+						<% if !@nickname_error.nil? %>
+							<tr>
+								<td colspan="2">
+									<font color="red"><%= @nickname_error %>
+								</td>
+							</tr>
+						<% end %>
+						<tr>
+							<td>
+								<b>Nickname</b>
+							</td>
+							<td><%= f.text_field :nickname %></td>
+						</tr>
+						
+						<tr><td><b>Full name</b></td><td><%= f.text_field :name %></td></tr>
+						
+						<% if !@email_error.nil? %>
+							<tr>
+								<td colspan="2">
+									<font color="red"><%= @email_error %>
+								</td>
+							</tr>
+						<% end %>
+						<tr>
+							<td>
+								<b>Email address</b>
+							</td>
+							<td><%= f.text_field :email %></td>
+						</tr>
+						
+						<% if !@mobile_error.nil? %>
+							<tr>
+								<td colspan="2">
+									<font color="red"><%= @mobile_error %>
+								</td>
+							</tr>
+						<% end %>
+						<tr>
+							<td>
+								<b>Mobile number</b>
+							</td>
+							<td><%= f.text_field :mobile %></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="2">
+								<button type="submit" class="btn btn-primary">
+			  						<i class="icon-user icon-white"></i> Register
+								</button>
+							</td>
+						</tr>
+					</tfoot>
 				<% end %>
 			</table>
 			<% end %>

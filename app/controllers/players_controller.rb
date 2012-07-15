@@ -52,19 +52,40 @@ class PlayersController < ApplicationController
     #@player.coordinates = @player_locator.get_coordinates(@client_ip)
     #@player.location = @player_locator.get_location(@client_ip)
 
-    # Set registration time
-    @player.registration = Time.now
-    session[:logged_in_player] = @player
-    new_cookie_flag = (params[:remember_me] == "1")
-
-    respond_to do |format|
-      if @player.save
-        flash[:notice] = 'Your profile has been created. Go to your edit profile page to set your location and password.'
-        format.html { redirect_to(@player) }
-        format.xml  { render :xml => @player, :status => :created, :location => @player }
-      else
-        format.html { render :action => "new" }
+    # Check if nickname, email and mobile number are unique
+    player_by_nickname = Player.get_player_by_nickname(@player.nickname)
+    player_by_email = Player.get_player(@player.email)
+    player_by_mobile = Player.get_player_by_mobile(@player.mobile)
+    
+    if (!player_by_nickname.nil? || !player_by_email.nil? || !player_by_mobile.nil?)
+      if (!player_by_nickname.nil?)
+        @player.errors.add("nickname", "Someone already has that nickname")
+      end
+      if (!player_by_email.nil?)
+        @player.errors.add("email", "Someone already has that email address")
+      end
+      if (!player_by_mobile.nil?)
+        @player.errors.add("mobile", "Someone already has that mobile number")
+      end
+      respond_to do |format|
+        format.html { render :template => "home/index" }
         format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
+      end
+    else
+      # Set registration time
+      @player.registration = Time.now
+      
+      respond_to do |format|
+        if @player.save
+          session[:logged_in_player] = @player
+          new_cookie_flag = (params[:remember_me] == "1")
+          flash[:notice] = 'Your profile has been created. Go to your edit profile page to set your location and password.'
+          format.html { redirect_to(@player) }
+          format.xml  { render :xml => @player, :status => :created, :location => @player }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end

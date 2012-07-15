@@ -10,6 +10,14 @@ class Player < ActiveRecord::Base
     find(:first, :conditions => "id = '#{id}'")
   end
   
+  def self.get_player_by_nickname(nickname)
+    find(:first, :conditions => "nickname = '#{nickname}'")
+  end
+  
+  def self.get_player_by_mobile(mobile)
+    find(:first, :conditions => "mobile = '#{mobile}'")
+  end
+  
   def self.get_player_with_password(email, password)
     find(:first, :conditions => "email = '#{email}' AND password = '#{password}'")
   end
