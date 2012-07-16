@@ -92,13 +92,7 @@
     <div class="span6">
     	<br/>
     	<% if @takers.nil? || @takers.empty? %>    		
-    		No takers yet.
-    		<!-- TODO Try to put this in a pop-up -->
-    		<style> 
-    			html .fb_share_link { padding:2px 0 0 20px; height:16px; background:url(http://static.ak.facebook.com/images/share/facebook_share_icon.gif?6:26981) no-repeat top left; }
-			</style>
-    		<a class="fb_share_link" href="http://www.facebook.com/sharer.php?u=http://www.fielderic.com/matches/<%=@match.id%>&t=Join my match" target="blank">Share on Facebook</a>
-    		to find your crew.    		
+    		No takers yet.    		   		
     	<% else %>
         <h3>Crew</h3>
     	<table class="table">
@@ -121,6 +115,14 @@
 			<% end %>
 			</tbody>
 		</table>
+		<% end %>
+		<% if @takers.size < @match.required %>
+			<!-- TODO Try to put this in a pop-up -->
+			<style> 
+				html .fb_share_link { padding:2px 0 0 20px; height:16px; background:url(http://static.ak.facebook.com/images/share/facebook_share_icon.gif?6:26981) no-repeat top left; }
+			</style>
+			<a class="fb_share_link" href="http://www.facebook.com/sharer.php?u=http://www.fielderic.com/matches/<%=@match.id%>&t=Join my match" target="blank">Share on Facebook</a>
+			to find your crew.
 		<% end %>
 	</div>
 </div>
