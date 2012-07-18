@@ -131,15 +131,17 @@ class MatchesController < ApplicationController
     # mark the user as joining a particular match
     @match = Match.find(params[:id])
     @match.required = @match.required - 1
-    
+     
     # the following should be done in a transactional manner ...
     # otherwise all sorts of race conditions could come back to bite us
     
-    # add a field entry for this logged in user
-    @field = @match.fields.create(:joined => DateTime.now, 
+    # check if player has already joined
+    if !Player.get_joined_players(params[:id]).include?session[:logged_in_player]
+      # add a field entry for this logged in user
+      @field = @match.fields.create(:joined => DateTime.now, 
                                   :player_id => session[:logged_in_player].id,
                                   :organiser => false)
-    
+    end
     
     # this will worry about validations
     if @match.save 

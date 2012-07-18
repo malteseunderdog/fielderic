@@ -1,11 +1,13 @@
+<% if flash[:notice] %>
+<div class="alert alert-info">
+    <%= flash[:notice] %>
+</div>
+<% end %>
+
 <div class="row">
     <div class="span12">
-        <h1>Play in one of these matches</h1>        
-        <% if flash[:notice] %>
-		<div class="alert alert-info">
-            <%= flash[:notice] %>
-        </div>
-        <% end %>
+        <h1>Play in one of these matches</h1>
+        
         <table class="table">
             <thead>
                 <tr>
@@ -14,7 +16,6 @@
                     <th>Where</th>
                     <th>Places left</th>
                     <th>Comment</th>
-                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -30,11 +31,6 @@
                         </span>
                     </td>
                     <td><%=h match.comment %></td>
-                    <td>
-                        <% if (match.required > 0 && !session[:logged_in_player].nil?) %>
-                        <%= link_to "Join", join_path(match), :class => "btn btn-info btn-small" %>
-                        <% end %>
-                    </td>   
                     <td><%= link_to "Details", match, :class => "btn btn-info btn-small" %></td>
                 </tr>
             <% end %>

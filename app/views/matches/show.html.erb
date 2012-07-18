@@ -65,14 +65,14 @@
 			<tfoot>
 				<tr>
 					<td colspan="2">
-						<% if (!session[:logged_in_player].nil? && @match.required > 0) %>
-                        	<%= link_to "Join", join_path(@match), :class => "btn btn-info btn-small" %>
-                    	
+						<!-- only show join button if match still has places and logged in player has not already joined -->
+						<% if (@match.required > 0 && !@takers.include?(session[:logged_in_player])) %>
+                    		<%= link_to "Join", join_path(@match), :class => "btn btn-info btn-small" %>                    	
 						<% elsif params[:signed_in] == true or not session[:player].nil?
-							if (Field.get_by_player_and_match(session[:player].id, @match.id)).organiser == true
-								link_to 'Edit', edit_match_path(@match)
-							end
-						else
+								if (Field.get_by_player_and_match(session[:player].id, @match.id)).organiser == true
+									link_to 'Edit', edit_match_path(@match)
+								end
+						   else
 						%>
 							<a class="btn" href="/matches/joined">					
 				        		My matches		        		
