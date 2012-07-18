@@ -65,22 +65,38 @@
 			<tfoot>
 				<tr>
 					<td colspan="2">
-						<!-- only show join button if match still has places and logged in player has not already joined -->
-						<% if (@match.required > 0 && !@takers.include?(session[:logged_in_player])) %>
-                    		<%= link_to "Join", join_path(@match), :class => "btn btn-info btn-small" %>                    	
-						<% elsif params[:signed_in] == true or not session[:player].nil?
-								if (Field.get_by_player_and_match(session[:player].id, @match.id)).organiser == true
-									link_to 'Edit', edit_match_path(@match)
-								end
-						   else
-						%>
+						<% button_count = 0 %> <!-- always show 2 buttons -->
+						<!-- only show join button if match still has places and logged in player has not already joined -->						
+						<% if (@match.required > 0 && !@takers.include?(session[:logged_in_player])) %>                    		
+                    		<a class="btn btn-primary" href="/matches/join/<%=@match.id%>">
+                    			<i class="icon-play icon-white"></i>
+                    			Join
+                			</a>            
+	                		<% button_count += button_count %>                		
+			    		<% end %>
+			    		
+			    		<!-- only show edit button if current player is match organiser -->
+			    		<% if !@organiser.nil? && @organiser.id == session[:logged_in_player].id %>
+							<a class="btn" href="/matches/edit/<%=@match.id%>">
+								<i class="icon-pencil"></i>
+					        	Edit match details
+					    	</a>
+	                		<% button_count += button_count %>                		
+				    	<% end %>
+				    	
+				    	<% if button_count < 2 %>
+				    		<a class="btn" href="/matches/new">
+			    				<i class="icon-calendar"></i>
+					        	Organise a match
+					    	</a>				    	
+				    	<% end %>
+
+				    	<% if button_count < 2 %>				    						
 							<a class="btn" href="/matches/joined">					
+				        		<i class="icon-th-list"></i>
 				        		My matches		        		
 				    		</a>
-			    		<%end%>
-						<a class="btn" href="/matches/edit/<%=@match.id%>">
-				        	Edit match details
-				    	</a>						
+				    	<% end %>						
 					</td>
 				</tr>
 			</tfoot>
