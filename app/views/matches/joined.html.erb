@@ -1,13 +1,12 @@
-<% if flash[:notice] %>
-<div class="alert alert-info">
-	<%= flash[:notice] %>
-</div>
-<% end %>
-
 <div class="row">
     <div class="span12">
-        <h1>My matches</h1>
-        
+        <h1>Matches I joined</h1>
+        <% if flash[:notice] %>
+		<div class="alert alert-info">
+			<%= flash[:notice] %>
+		</div>
+		<% end %>
+		
         <table class="table">
             <thead>
                 <tr>
