@@ -5,8 +5,12 @@ class SessionsController < ApplicationController
   def login
     email = params[:email]
     password = params[:password]
-        
     player = Player.get_player(email)
+
+    if !password.nil? 
+      password = Digest::SHA2.hexdigest(player.id.to_s() + password)
+    end      
+        
     if (!player.nil?)
       # let us check if we should show a password field or not
       @needs_password_field = !player.password.blank?

@@ -19,6 +19,10 @@ class Player < ActiveRecord::Base
   end
   
   def self.get_player_with_password(email, password)
+    player = get_player(email)
+    if !player.nil?
+      password = Digest::SHA2.hexdigest(player.id.to_s() + password)      
+    end    
     find(:first, :conditions => "email = '#{email}' AND password = '#{password}'")
   end
   
@@ -37,6 +41,10 @@ class Player < ActiveRecord::Base
   end
   
   def self.authenticate(email, password)
+    player = get_player(email)
+    if !player.nil?
+      password = Digest::SHA2.hexdigest(player.id.to_s() + password)      
+    end    
     where("email = ? AND password = ?", email, password).first
   end  
    

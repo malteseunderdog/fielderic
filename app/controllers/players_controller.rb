@@ -93,46 +93,55 @@ class PlayersController < ApplicationController
   # PUT /player/1
   # PUT /player/1.xml
   def update
-    @player = Player.find(params[:id])
+    @player = Player.find(params[:id])       
 
-    player_params = params[:player].stringify_keys
-    player_params.each do |key,value|
+    player_params = params[:player].stringify_keys    
+    player_params.each do |key,value|     
       if key.eql? "email"
         @player_params_email = value
       elsif key.eql? "mobile"
         @player_params_mobile = value
+      elsif ((key.eql? "password") && (session[:updating_password]=="true"))                
+        h = params[:player]
+        clear_password = h["password"]
+        h["password"] = Digest::SHA2.hexdigest(@player.id.to_s() + clear_password)        
       end
     end
     
-    if (!@player.email.eql? @player_params_email)
-      @player_by_email = Player.get_player(@player_params_email)
-    end
-    if (!@player.mobile.eql? @player_params_mobile)
-      @player_by_mobile = Player.get_player_by_mobile(@player_params_mobile)
-    end
-      
-    if (!@player_by_email.nil?) || (!@player_by_mobile.nil?)
-      if (!@player_by_email.nil?)
-        @player.errors.add("email", "Someone already has that email address")
-        @player.email = @player_params_email
-      end
-      if (!@player_by_mobile.nil?)
-        @player.errors.add("mobile", "Someone already has that mobile number")
-        @player.mobile = @player_params_mobile
-      end
+    if session[:updating_password]
+      salt = SecureRandom.base64(8)
+
       respond_to do |format|
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @player, :status => :unprocessable_entity }
+          if @player.update_attributes(params[:player])
+            flash[:notice] = 'Player was successfully updated.'
+            format.html { redirect_to(@player) }
+            format.xml  { head :ok }
+          else
+            format.html { render :action => "edit" }
+            format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
+          end
+        end
+    else  
+      if (!@player.email.eql? @player_params_email)
+        @player_by_email = Player.get_player(@player_params_email)
       end
-    else
-      respond_to do |format|
-        if @player.update_attributes(params[:player])
-          flash[:notice] = 'Player was successfully updated.'
-          format.html { redirect_to(@player) }
-          format.xml  { head :ok }
-        else
+      if (!@player.mobile.eql? @player_params_mobile)
+        @player_by_mobile = Player.get_player_by_mobile(@player_params_mobile)
+      end
+        
+      if (!@player_by_email.nil?) || (!@player_by_mobile.nil?)
+        if (!@player_by_email.nil?)
+          @player.errors.add("email", "Someone already has that email address")
+          @player.email = @player_params_email
+        end
+        if (!@player_by_mobile.nil?)
+          @player.errors.add("mobile", "Someone already has that mobile number")
+          @player.mobile = @player_params_mobile
+        end
+        
+        respond_to do |format|
           format.html { render :action => "edit" }
-          format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
+          format.xml  { render :xml => @player, :status => :unprocessable_entity }
         end
       end
     end
