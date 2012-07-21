@@ -30,7 +30,14 @@
                             <%=h match.required %>
                         </span>
                     </td>
-                    <td><%=h match.comment %></td>
+                    <td>
+                    <% if !match.comment.nil? %>
+						<%= h match.comment[0..24] %>
+						<% if match.comment.length > 25 %>
+							...
+						<% end %>
+					<% end %>	
+                    </td>
                     <td><%= link_to "Details", match, :class => "btn btn-info btn-small" %></td>
                 </tr>
             <% end %>
