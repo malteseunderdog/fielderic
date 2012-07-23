@@ -45,6 +45,7 @@ class PlayersController < ApplicationController
   # POST /player.xml
   def create
     @player = Player.new(params[:player])
+    @player.email = @player.email.downcase
 
     # Get player coordinates and location
     #@client_ip = request.remote_ip
@@ -98,9 +99,10 @@ class PlayersController < ApplicationController
     player_params = params[:player].stringify_keys
     player_params.each do |key,value|
       if key.eql? "email"
-      @player_params_email = value
+        params[:player]["email"] = value.downcase
+        @player_params_email = value.downcase
       elsif key.eql? "mobile"
-      @player_params_mobile = value
+        @player_params_mobile = value
       elsif key.eql? "password"
         if ((!params[:old_password].nil?) && (!Digest::SHA2.hexdigest(@player.id.to_s() + params[:old_password]).eql?@player.password))
           @player.errors.add("old_password", "Incorrect password")

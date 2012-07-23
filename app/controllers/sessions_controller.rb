@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
 
   # method called upon clicking Play button
   def login
-    email = params[:email]
+    email = params[:email].downcase
     password = params[:password]
     player = Player.get_player(email)
 
@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
         if password != player.password and !password.blank? 
           flash.now[:error] = "Incorrect username and password combination"
         elsif !password.nil? and password.empty?
-          flash.now[:error] = "password empty"
+          flash.now[:error] = "Empty password"
         elsif password == player.password
           session[:logged_in_player] = player
         end        
