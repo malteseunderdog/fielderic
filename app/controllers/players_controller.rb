@@ -45,7 +45,7 @@ class PlayersController < ApplicationController
   # POST /player.xml
   def create
     @player = Player.new(params[:player])
-    
+
     # Get player coordinates and location
     #@client_ip = request.remote_ip
     #@player_locator = PlayerLocator.new
@@ -56,7 +56,7 @@ class PlayersController < ApplicationController
     player_by_nickname = Player.get_player_by_nickname(@player.nickname)
     player_by_email = Player.get_player(@player.email)
     player_by_mobile = Player.get_player_by_mobile(@player.mobile)
-    
+
     if (!player_by_nickname.nil? || !player_by_email.nil? || !player_by_mobile.nil?)
       if (!player_by_nickname.nil?)
         @player.errors.add("nickname", "Someone already has that nickname")
@@ -72,9 +72,9 @@ class PlayersController < ApplicationController
         format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
       end
     else
-      # Set registration time
+    # Set registration time
       @player.registration = Time.now
-      
+
       respond_to do |format|
         if @player.save
           session[:logged_in_player] = @player
@@ -93,35 +93,40 @@ class PlayersController < ApplicationController
   # PUT /player/1
   # PUT /player/1.xml
   def update
-    @player = Player.find(params[:id])       
+    @player = Player.find(params[:id])
 
-    player_params = params[:player].stringify_keys    
-    player_params.each do |key,value|     
+    player_params = params[:player].stringify_keys
+    player_params.each do |key,value|
       if key.eql? "email"
-        @player_params_email = value
+      @player_params_email = value
       elsif key.eql? "mobile"
-        @player_params_mobile = value
-      elsif ((key.eql? "password") && (session[:updating_password]=="true"))                
+      @player_params_mobile = value
+      elsif key.eql? "password"
+        if ((!params[:old_password].nil?) && (!Digest::SHA2.hexdigest(@player.id.to_s() + params[:old_password]).eql?@player.password))
+          @player.errors.add("old_password", "Incorrect password")
+        end
+        if !value.eql?params[:confirm_password]
+          @player.errors.add("confirm_password", "Passwords do not match")
+        end
         h = params[:player]
         clear_password = h["password"]
-        h["password"] = Digest::SHA2.hexdigest(@player.id.to_s() + clear_password)        
+        h["password"] = Digest::SHA2.hexdigest(@player.id.to_s() + clear_password)
       end
     end
-    
-    if session[:updating_password]
-      salt = SecureRandom.base64(8)
 
+    if session[:updating_password]
+      session[:updating_password] = nil
       respond_to do |format|
-          if @player.update_attributes(params[:player])
-            flash[:notice] = 'Player was successfully updated.'
-            format.html { redirect_to(@player) }
-            format.xml  { head :ok }
-          else
-            format.html { render :action => "edit" }
-            format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
-          end
+        if ((!@player.errors.any?) && (@player.update_attributes(params[:player])))
+          flash[:notice] = 'Password was set successfully'
+          format.html { redirect_to(@player) }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "password" }
+          format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
         end
-    else  
+      end
+    else
       if (!@player.email.eql? @player_params_email)
         @player_by_email = Player.get_player(@player_params_email)
       end
@@ -138,10 +143,20 @@ class PlayersController < ApplicationController
           @player.errors.add("mobile", "Someone already has that mobile number")
           @player.mobile = @player_params_mobile
         end
-        
         respond_to do |format|
           format.html { render :action => "edit" }
           format.xml  { render :xml => @player, :status => :unprocessable_entity }
+        end
+      else
+        respond_to do |format|
+          if @player.update_attributes(params[:player])
+            flash[:notice] = 'Player was successfully updated.'
+            format.html { redirect_to(@player) }
+            format.xml  { head :ok }
+          else
+            format.html { render :action => "edit" }
+            format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
+          end
         end
       end
     end
