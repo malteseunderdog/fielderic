@@ -4,7 +4,11 @@
     $("#extra_notices").html("");
 <% end %>
 
-$("#errors").html("<%=escape_javascript flash[:error] ? flash[:error] : "" %>");
+<% if flash[:error] %>
+    $("#errors").html("<div class=\"alert alert-error\"><%= flash[:error] %></div>");
+<% else %>
+    $("#errors").html("");
+<% end %>
 
 <% if !session[:logged_in_player].nil? %>
     window.location = "/";
