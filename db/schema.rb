@@ -17,9 +17,10 @@ ActiveRecord::Schema.define(:version => 201201140003109) do
     t.integer  "player_id"
     t.integer  "match_id"
     t.boolean  "organiser"
+    t.boolean  "active",     :default => true
     t.datetime "joined"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   create_table "match", :force => true do |t|

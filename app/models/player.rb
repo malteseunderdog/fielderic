@@ -50,7 +50,7 @@ class Player < ActiveRecord::Base
    
   def self.get_joined_players(match_id)
     find(:all,
-      :conditions => ["field.match_id = ? AND field.organiser = 'f'", match_id],
+      :conditions => ["field.match_id = ? AND field.organiser = 'f' AND field.active = 't'", match_id],
       :joins => :fields,
       :order => "field.id") # order by join order
   end

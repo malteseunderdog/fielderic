@@ -24,7 +24,7 @@ class Field < ActiveRecord::Base
 
   
   def self.get_by_player_and_match(player_id, match_id)
-    find(:first, :conditions => ["field.player_id = ? AND field.match_id = ?", player_id, match_id])
+    find(:first, :conditions => ["field.player_id = ? AND field.match_id = ? AND field.active='t'", player_id, match_id])
   end
    
 end

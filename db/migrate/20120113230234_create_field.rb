@@ -5,8 +5,9 @@ class CreateField < ActiveRecord::Migration
       t.references :player
       t.references :match
       t.boolean :organiser
+      t.boolean :active, :default => TRUE
       t.datetime :joined
-
+      
       t.timestamps
     end
   end

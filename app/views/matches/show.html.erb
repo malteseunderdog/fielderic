@@ -84,19 +84,29 @@
 	                		<% button_count += 1 %>                		
 				    	<% end %>
 				    	
+				    	<!-- only show leave button if joined -->
+						<% if !@takers.nil? && !@takers.empty? && @takers.include?(session[:logged_in_player]) %>
+							<a class="btn btn-danger" href="/matches/leave/<%=@match.id%>">
+								<i class="icon-white icon-ban-circle"></i>
+				        		Leave match			        	
+					    	</a>
+	                		<% button_count += 1 %>
+			    		<% end %>
+				    	
+				    	<% if button_count != 2 %>				    						
+							<a class="btn" href="/matches/joined">					
+				        		<i class="icon-th-list"></i>
+				        		My matches		        		
+				    		</a>
+				    		<% button_count += 1 %>
+				    	<% end %>
+				    	
 				    	<% if button_count != 2 %>
 				    		<a class="btn" href="/matches/new">
 			    				<i class="icon-calendar"></i>
 					        	Organise a match
 					    	</a>				
 	                		<% button_count += 1 %>
-				    	<% end %>
-
-				    	<% if button_count != 2 %>				    						
-							<a class="btn" href="/matches/joined">					
-				        		<i class="icon-th-list"></i>
-				        		My matches		        		
-				    		</a>
 				    	<% end %>						
 					</td>
 				</tr>

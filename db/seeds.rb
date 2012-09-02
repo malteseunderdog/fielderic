@@ -130,30 +130,36 @@ ActiveRecord::Base.connection.reset_pk_sequence!('field')
 Field.create(player_id: 1,
              match_id: 1,
              organiser: TRUE,
+             active: TRUE,
              joined: '2012-01-05 19:00:00')
 
 Field.create(player_id: 2,
              match_id: 1,
              organiser: FALSE,
+             active: TRUE,
              joined: '2012-01-08 19:11:39')
     
 Field.create(player_id: 3,
              match_id: 1,
              organiser: FALSE,
+             active: TRUE,
              joined: '2012-01-11 10:01:23')
     
 Field.create(player_id: 3,
              match_id: 3,
              organiser: TRUE,
+             active: TRUE,
              joined: '2012-01-12 19:11:26')
 
 Field.create(player_id: 3,
              match_id: 4,
              organiser: FALSE,
+             active: TRUE,
              joined: '2012-01-14 15:09:01')
     
 Field.create(player_id: 2,
              match_id: 5,
              organiser: TRUE,
+             active: TRUE,
              joined: '2012-01-16 13:45:50')
 

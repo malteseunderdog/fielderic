@@ -23,14 +23,14 @@ class Match < ActiveRecord::Base
   
   def self.my_future_matches(player_id)
     find(:all, 
-      :conditions => ["match.kickoff > ? AND field.player_id  = ?", DateTime.now, player_id], 
+      :conditions => ["match.kickoff > ? AND field.player_id  = ? AND field.active = 't'", DateTime.now, player_id], 
       :joins => :fields,
       :order => "match.kickoff")
   end
   
   def self.my_past_matches(player_id)
     find(:all, 
-      :conditions => ["match.kickoff < ? AND field.player_id  = ?", DateTime.now, player_id], 
+      :conditions => ["match.kickoff < ? AND field.player_id  = ? AND field.active = 't'", DateTime.now, player_id], 
       :joins => :fields,
       :order => "match.kickoff")
   end

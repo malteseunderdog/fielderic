@@ -158,5 +158,36 @@ class MatchesController < ApplicationController
     render "show"
         
   end 
-        
+  
+  def leave    
+    @match = Match.find(params[:id])
+    @match.required = @match.required + 1
+    
+    @field = Field.get_by_player_and_match(session[:logged_in_player].id, @match.id)
+    @field.active = false
+    
+    @organiser = Player.get_organiser(params[:id])
+    
+    if Player.get_joined_players(params[:id]).include?session[:logged_in_player]   
+      
+      ActiveRecord::Base.transaction do
+        @field_saved_ok = @field.save
+        @match_saved_ok = @match.save
+      end   
+      
+      if @field_saved_ok && @match_saved_ok
+        flash[:notice] = "You've just left this " + @match.variety + "-a-side match in " + @match.location + ". " + @organiser.name + " is sorry to see you go."
+      else if !@organiser.mobile.nil? && !organiser.mobile.empty?
+        flash[:notice] = "Failed to remove you from this match. Please contact " + @organiser.name + " on " + @organiser.mobile + "."
+      else 
+        flash[:notice] = "Failed to remove you from this match. Please contact " + @organiser.name + "."
+      end
+    end    
+    # now send back to index, but first we must initialise any attributes
+    # which need to be rendered  
+    @matches = Match.future
+    @takers = Player.get_joined_players(params[:id])
+    render "show"
+    end
+  end        
 end

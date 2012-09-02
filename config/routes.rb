@@ -67,6 +67,7 @@ FieldEric::Application.routes.draw do
   match 'matches/history' => 'matches#history', :as => :history
   resource :session
   match '/matches/:id/join' => 'matches#join', :as => :join
+  match '/matches/:id/leave' => 'matches#leave', :as => :leave
   resources :matches
   resources :players do
     collection do
