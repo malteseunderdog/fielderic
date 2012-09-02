@@ -72,28 +72,28 @@ Player.create(name: 'Jean-Paul Ebejer',
               nickname: 'l-artist' ,
               email: 'jp@fielderic.com',
               mobile: '79123456',
-              password: 'test123',
+              password: Digest::SHA2.hexdigest("1" + "test123"),
               location: 'Oxford,United Kingdom')
 
 Player.create(name: 'David Camilleri',
               nickname: 'dave' ,
               email: 'dave@fielderic.com',
               mobile: '+44 75 6447 2800',
-              password: 'test123',
+              password: Digest::SHA2.hexdigest("2" + "test123"),
               location: 'London, United Kingdom')
 
 Player.create(name: 'Michael Camilleri',
               nickname: 'mikey',
               email: 'mike@fielderic.com',
               mobile: '00447512345678',
-              password: 'test123',
+              password: Digest::SHA2.hexdigest("3" + "test123"),
               location: 'London, United Kingdom')
 
 Player.create(name: 'Eric Cantona',
               nickname: 'eric', 
               email: 'eric@fielderic.com',
               mobile: '+77 77 77 77 77 77',
-              password: 'test123',
+              password: Digest::SHA2.hexdigest("4" + "test123"),
               location: 'Malta')
 
 # *****************
