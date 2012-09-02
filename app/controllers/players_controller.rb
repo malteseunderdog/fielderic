@@ -128,6 +128,17 @@ class PlayersController < ApplicationController
           format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
         end
       end
+    elsif session[:remove_password]
+      session[:remove_password] = nil
+      @player.password = nil
+      if @player.update_attributes(@player)
+        flash[:notice] = 'Password removed successfully'
+        format.html { redirect_to(@player) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "password" }
+        format.xml  { render :xml => @player.errors, :status => :unprocessable_entity } 
+      end
     else
       if (!@player.email.eql? @player_params_email)
         @player_by_email = Player.get_player(@player_params_email)
