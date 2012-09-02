@@ -60,6 +60,23 @@ Match.create(created: '2012-01-01 10:34:12',
              required: 5,
              comment: 'IN THE PAST SHOULD NOT APPEAR')
 
+Match.create(created: '2012-06-01 10:34:12',
+             kickoff: '2012-10-02 20:30:00',
+             location: 'Oxford, Mansfield Road',
+             variety: '5-a-side',
+             required: 3)
+
+Match.create(created: '2012-10-10 16:00:00',
+             kickoff: '2012-11-02 19:00:00',
+             location: 'Qormi, Malta',
+             variety: '5-a-side',
+             required: 4)
+
+Match.create(created: '2012-10-10 16:00:00',
+             kickoff: '2012-10-05 18:00:00',
+             location: 'Qormi, Malta',
+             variety: '11-a-side',
+             required: 2)
 
 # ******************
 # **   Players   ***
@@ -95,6 +112,13 @@ Player.create(name: 'Eric Cantona',
               mobile: '+77 77 77 77 77 77',
               password: Digest::SHA2.hexdigest("4" + "test123"),
               location: 'Malta')
+
+Player.create(name: 'Jean-Paul Ebejer',
+              nickname: 'JP', 
+              email: 'malteseunderdog@gmail.com',
+              mobile: '+1234567890',
+              location: 'Malta')
+
 
 # *****************
 # **   Fields   ***
