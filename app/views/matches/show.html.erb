@@ -65,7 +65,8 @@
 			<tfoot>
 				<tr>
 					<td colspan="2">
-						<% button_count = 0 %> <!-- always show 2 buttons -->
+						<!-- always show 2 buttons (unless organiser - edit, join/leave and cancel are needed) -->
+						<% button_count = 0 %>
 						<!-- only show join button if match still has places and logged in player has not already joined -->						
 						<% if (@match.required > 0 && !@takers.include?(session[:logged_in_player])) %>                    		
                     		<a class="btn btn-primary" href="/matches/join/<%=@match.id%>">
@@ -79,25 +80,44 @@
 			    		<% if !@organiser.nil? && @organiser.id == session[:logged_in_player].id %>
 							<a class="btn" href="/matches/edit/<%=@match.id%>">
 								<i class="icon-pencil"></i>
-					        	Edit match details
+					        	Edit
 					    	</a>
 	                		<% button_count += 1 %>                		
 				    	<% end %>
 				    	
-				    	<% if button_count != 2 %>
+				    	<!-- only show leave button if current player is joined -->
+						<% if !@takers.nil? && !@takers.empty? && @takers.include?(session[:logged_in_player]) %>
+							<a class="btn btn-warning" href="/matches/leave/<%=@match.id%>">
+								<i class="icon-white icon-ban-circle"></i>
+				        		Leave			        	
+					    	</a>
+	                		<% button_count += 1 %>
+			    		<% end %>
+			    		
+			    		<!-- only show cancel button if current player is match organiser -->
+				    	<% if !@organiser.nil? && @organiser.id == session[:logged_in_player].id %>
+							<a class="btn btn-danger" href="/matches/cancel/<%=@match.id%>">
+								<i class="icon-white icon-ban-circle"></i>
+				        		Cancel			        	
+					    	</a>
+	                		<% button_count += 1 %>
+			    		<% end %>
+			    		
+				    	<% if button_count < 2 %>				    						
+							<a class="btn" href="/matches/joined">					
+				        		<i class="icon-th-list"></i>
+				        		My matches		        		
+				    		</a>
+				    		<% button_count += 1 %>
+				    	<% end %>
+				    	
+				    	<% if button_count < 2 %>
 				    		<a class="btn" href="/matches/new">
 			    				<i class="icon-calendar"></i>
 					        	Organise a match
 					    	</a>				
 	                		<% button_count += 1 %>
 				    	<% end %>
-
-				    	<% if button_count != 2 %>				    						
-							<a class="btn" href="/matches/joined">					
-				        		<i class="icon-th-list"></i>
-				        		My matches		        		
-				    		</a>
-				    	<% end %>						
 					</td>
 				</tr>
 			</tfoot>

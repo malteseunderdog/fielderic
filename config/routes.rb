@@ -68,6 +68,8 @@ FieldEric::Application.routes.draw do
   match 'matches/history' => 'matches#history', :as => :history
   resource :session
   match '/matches/:id/join' => 'matches#join', :as => :join
+  match '/matches/:id/leave' => 'matches#leave', :as => :leave
+  match '/matches/:id/cancel' => 'matches#cancel', :as => :cancel
   resources :matches
   resources :players do
     collection do
@@ -85,4 +87,5 @@ FieldEric::Application.routes.draw do
   match '/index.html' => 'home#index'
   match '/:controller(/:action(/:id))' 
     
+  match "*path" => 'error#handle404'
 end
