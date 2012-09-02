@@ -86,7 +86,7 @@ Player.create(name: 'Michael Camilleri',
               nickname: 'mikey',
               email: 'mike@fielderic.com',
               mobile: '00447512345678',
-              password: Digest::SHA2.hexdigest("2" + "test123"),
+              password: Digest::SHA2.hexdigest("3" + "test123"),
               location: 'London, United Kingdom')
 
 Player.create(name: 'Eric Cantona',
