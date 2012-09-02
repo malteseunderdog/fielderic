@@ -1,4 +1,7 @@
 class PlayersController < ApplicationController
+
+  skip_before_filter :require_login, :only => [ :create ]
+
   # GET /player
   # GET /player.xml
   def index

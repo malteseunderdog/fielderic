@@ -117,7 +117,15 @@
 			</div>
 		</div>
 		<div class="container">
+    
+    		<% if flash[:login_required] %>
+        		<div class="alert">
+    	   	       <%=h flash[:login_required] %></p>
+                </div>
+            <% end %>
+	
 			<%= yield %>
+	
 		</div>
 
 		<div id="footer">

@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  
+   skip_before_filter :require_login, :only => [:index ]
     
   def index
     # get the matches which have require some players

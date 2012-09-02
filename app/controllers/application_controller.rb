@@ -3,6 +3,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :ensure_authenticated
+  before_filter :require_login
+  
+  def require_login
+    unless !session[:logged_in_player].nil? # why not use if ?!
+      flash[:login_required] = "You must be logged in to access this section"
+      redirect_to :back
+    end
+  end
+  
+  
   def ensure_authenticated
     # TODO: This method is used so that if a user logs out from the FB page, the session player doesn't stay fixed forever.
     # The problem with this is that the user needs to make 2 page calls, for example 2 page reloads, until the session is nulled.

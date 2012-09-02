@@ -1,6 +1,8 @@
 # This controller handles the login/logout function of the site.
 class SessionsController < ApplicationController
 
+  skip_before_filter :require_login, :only => [ :login ]
+
   # method called upon clicking Play button
   def login
 

@@ -1,7 +1,6 @@
 class MatchesController < ApplicationController
-  before_filter :require_login
-  # just apply above on join method -- for now (bit of an overkill)
-  skip_before_filter :require_login, :except => [ :join ]
+  
+  skip_before_filter :require_login, :only => [ :index ]
   
   # GET /match
   # GET /match.xml
@@ -159,19 +158,5 @@ class MatchesController < ApplicationController
     render "show"
         
   end 
-  
-  
-  private # after this all methods are private -- I think
-    
-    def require_login
-      unless logged_in?
-        flash[:notice] = "Not signed in"
-        #render :action => action_name
-      end
-    end
-
-    def logged_in?
-      !session[:player].nil?
-    end
-      
+        
 end
