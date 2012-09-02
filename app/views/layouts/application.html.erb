@@ -126,6 +126,12 @@
     	   	       <%=h flash[:login_required] %></p>
                 </div>
             <% end %>
+            
+            <% if flash[:error_404] %>
+        		<div class="alert">
+    	   	       <%=h flash[:error_404] %></p>
+                </div>
+            <% end %>
 	
 			<%= yield %>
 	
