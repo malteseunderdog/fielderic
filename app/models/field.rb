@@ -18,13 +18,13 @@ class Field < ActiveRecord::Base
 
   def self.get_by_match(match_id)
     find(:all, 
-         :conditions => ["field.match_id  = ?", match_id], 
+         :conditions => ["field.match_id  = ? AND field.active = 't'", match_id], 
          :order => "field.joined")
   end
 
   
   def self.get_by_player_and_match(player_id, match_id)
-    find(:first, :conditions => ["field.player_id = ? AND field.match_id = ? AND field.active='t'", player_id, match_id])
+    find(:first, :conditions => ["field.player_id = ? AND field.match_id = ? AND field.active = 't'", player_id, match_id])
   end
    
 end

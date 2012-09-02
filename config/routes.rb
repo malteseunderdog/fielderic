@@ -68,6 +68,7 @@ FieldEric::Application.routes.draw do
   resource :session
   match '/matches/:id/join' => 'matches#join', :as => :join
   match '/matches/:id/leave' => 'matches#leave', :as => :leave
+  match '/matches/:id/cancel' => 'matches#cancel', :as => :cancel
   resources :matches
   resources :players do
     collection do

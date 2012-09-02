@@ -189,5 +189,30 @@ class MatchesController < ApplicationController
     @takers = Player.get_joined_players(params[:id])
     render "show"
     end
-  end        
+  end   
+  
+  def cancel
+    @match = Match.find(params[:id])
+    if @match.active
+      ActiveRecord::Base.transaction do
+        @fields = Field.get_by_match(params[:id])
+        for @field in @fields do
+          @field.active = false
+          @field.save
+        end
+        @match.active = false
+        @match_cancelled_ok = @match.save
+      end    
+      
+      if @match_cancelled_ok
+        flash[:notice] = "Match cancelled successfully. Players will be notified by email."
+      else
+        flash[:notice] = "Failed to cancel match"
+      end
+    else
+       flash[:notice] = "Match already cancelled."
+    end          
+    @matches = Match.future
+    render "organised"
+  end     
 end

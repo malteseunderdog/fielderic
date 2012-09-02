@@ -30,8 +30,9 @@ ActiveRecord::Schema.define(:version => 201201140003109) do
     t.string   "variety"
     t.integer  "required"
     t.text     "comment"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "active",     :default => true
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   create_table "player", :force => true do |t|

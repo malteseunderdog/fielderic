@@ -8,6 +8,7 @@ class CreateMatch < ActiveRecord::Migration
       t.string :variety
       t.integer :required
       t.text :comment
+      t.boolean :active, :default => TRUE
 
       t.timestamps
     end
