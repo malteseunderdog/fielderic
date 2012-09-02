@@ -106,12 +106,13 @@ class PlayersController < ApplicationController
         @player_params_email = value.downcase
       elsif key.eql? "mobile"
         @player_params_mobile = value
-      elsif key.eql? "password"
+      elsif key.eql? "password"          
         if ((!params[:old_password].nil?) && (!Digest::SHA2.hexdigest(@player.id.to_s() + params[:old_password]).eql?@player.password))
           @player.errors.add("old_password", "Incorrect password")
-        end
-        if !value.eql?params[:confirm_password]
-          @player.errors.add("confirm_password", "Passwords do not match")
+        elsif !value.eql?params[:confirm_password]
+          @player.errors.add("new_password", "Passwords do not match")
+        elsif params[:confirm_password].empty? || params[:confirm_password].nil?
+          @player.errors.add("new_password", "Password cannot be empty")
         end
         h = params[:player]
         clear_password = h["password"]
