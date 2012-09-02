@@ -102,7 +102,7 @@
 										<% end %>
                                         <div id="extra_form_controls"></div>
                                         <%= submit_tag("Play!", :class => "btn btn-primary") %>
-                                        <p><a>(But Bob, where is my password?)</a></p>
+                                        <div id="extra_notices"><p><a>(But Bob, where is my password?)</a></p></div>
                                         <div id="errors"></div>
                                         <div class="fbconnect"> Or connect with Facebook: <%=fb_login_and_redirect(request.url, :scope => 'user_location,email') %></div>
                                     	<% end %>										
