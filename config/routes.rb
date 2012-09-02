@@ -86,4 +86,5 @@ FieldEric::Application.routes.draw do
   match '/index.html' => 'home#index'
   match '/:controller(/:action(/:id))' 
     
+  match "*path" => 'error#handle404'
 end
