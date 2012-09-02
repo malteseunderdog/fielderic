@@ -44,7 +44,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  # method called upon clicking Play button
+  # logout 
   def logout
     session[:logged_in_player] = nil
     cookies.delete(:refreshed)

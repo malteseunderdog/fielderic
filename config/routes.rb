@@ -1,4 +1,5 @@
 FieldEric::Application.routes.draw do
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -70,14 +71,14 @@ FieldEric::Application.routes.draw do
   resources :matches
   resources :players do
     collection do
-  get :link_player_accounts
+      get :link_player_accounts
+    end
   end
-  
-  
-  end
-
-  match '/fields/organise/' => 'fields#organise'
   resources :fields
+  match '/fields/organise/' => 'fields#organise'
+
+  resources :password_resets
+
   match '/' => 'home#index'
   match '/' => 'matches#index'
   match '/' => 'players#home'

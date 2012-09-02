@@ -15,6 +15,13 @@
 
 <div class="row">
 	<div class="span8">
+	    
+	    <% if flash[:main_page_message] %>
+                <div class="alert">
+                   <%=h flash[:main_page_message] %></p>
+                </div>
+        <% end %>
+        
 		<% if @matches.nil? %>
 			<% @matches = Match.future_games_with_required_players(7) %>
 		<% end %>
