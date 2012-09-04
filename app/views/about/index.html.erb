@@ -1,0 +1,85 @@
+<script>
+	$('#myTab a').click(function (e) {
+	  e.preventDefault();
+	  $(this).tab('show');
+	})
+	$('#myTab a[href="#profile"]').tab('show'); // Select tab by name
+	$('#myTab a:first').tab('show'); // Select first tab
+	$('#myTab a:last').tab('show'); // Select last tab
+	$('#myTab li:eq(2) a').tab('show'); // Select third tab (0-indexed)
+</script>
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#fielderic">Field Eric</a></li>
+  <li><a href="#dave" data-toggle="tab">Dave</a></li>
+  <li><a href="#jp" data-toggle="tab">JP</a></li>
+  <li><a href="#mike" data-toggle="tab">Mike</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="home">
+  	<table>
+	<tbody>
+		<tr valign="top">
+			<td width="30%">
+	  			<img src="/images/about/dave_posterize_300.png">
+  			</td>
+  			<td align="justify">
+			  	<p>fielderic.com is a social sports web application that allows people to find sports matches in which they can participate.  Moreover it allows people trying to set up a match to find a number of players.  In practice, this site is inspired by Kros' constant nagging and Monday morning panic to find players for the Gh. F. Fondghadir (est. 1996) weekly match.</p>			
+				<p>One thing this project should not miss is humour and, the over abused but pertinent, doing things differently.</p>				
+				<p>The name fielderic.com follows the Camilleri brothers' (two of the three founders) passion for Manchester United - in particular, the King, Eric Daniel Pierre Cantona.  This name is not necessarily the best choice because:
+				<ul>
+					<li>eric has a number of different spellings (e.g. erik)</li>
+					<li>JP hates Man Utd</li>
+				</ul></p>
+				<p>The main scope of this project is to have fun (and potentially learn something new) while writing a piece of software which is useful to the community.</p>
+			</td>
+	  	</tr>
+  	</tbody>
+  	</table>
+  </div>
+  
+  <div class="tab-pane" id="dave">
+  	<table>
+	<tbody>
+		<tr valign="top">
+			<td width="30%">
+	  			<img src="/images/about/dave_posterize_300.png">
+  			</td>
+  			<td align="justify">
+	  			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis lorem, faucibus nec fringilla sed, pellentesque interdum ante. Cras ut lacinia odio. Praesent sit amet viverra lacus. In sit amet ante nunc, vel eleifend ligula. Vivamus sit amet libero sed dui iaculis volutpat. Maecenas vel ligula risus. Nam semper mi nec mauris vestibulum et scelerisque nisi convallis. Praesent nec nisi sapien. Maecenas venenatis ultrices ligula, eget mattis neque elementum ac. Quisque eu volutpat orci. Suspendisse potenti. Donec gravida condimentum nibh, a lobortis tellus molestie ac. Cras id nulla id arcu imperdiet pharetra elementum vel ante. Sed imperdiet pharetra ligula ac congue. Aliquam adipiscing lectus enim, vitae facilisis lorem. Sed luctus rutrum tempus.
+	  		</td>
+	  	</tr>
+  	</tbody>
+  	</table>
+  </div>
+  
+  <div class="tab-pane" id="jp">
+	<table>
+	<tbody>
+		<tr valign="top">
+			<td width="30%">
+	  			<img src="/images/about/jp_posterize_300.png">
+  			</td>
+  			<td align="justify">
+	  			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis lorem, faucibus nec fringilla sed, pellentesque interdum ante. Cras ut lacinia odio. Praesent sit amet viverra lacus. In sit amet ante nunc, vel eleifend ligula. Vivamus sit amet libero sed dui iaculis volutpat. Maecenas vel ligula risus. Nam semper mi nec mauris vestibulum et scelerisque nisi convallis. Praesent nec nisi sapien. Maecenas venenatis ultrices ligula, eget mattis neque elementum ac. Quisque eu volutpat orci. Suspendisse potenti. Donec gravida condimentum nibh, a lobortis tellus molestie ac. Cras id nulla id arcu imperdiet pharetra elementum vel ante. Sed imperdiet pharetra ligula ac congue. Aliquam adipiscing lectus enim, vitae facilisis lorem. Sed luctus rutrum tempus.
+	  		</td>
+	  	</tr>
+  	</tbody>
+  	</table>  </div>
+  
+  <div class="tab-pane" id="mike">
+	<table>
+	<tbody>
+		<tr valign="top">
+			<td width="30%">
+	  			<img src="/images/about/mike_posterize_300.png">
+  			</td>
+  			<td align="justify">
+	  			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec felis lorem, faucibus nec fringilla sed, pellentesque interdum ante. Cras ut lacinia odio. Praesent sit amet viverra lacus. In sit amet ante nunc, vel eleifend ligula. Vivamus sit amet libero sed dui iaculis volutpat. Maecenas vel ligula risus. Nam semper mi nec mauris vestibulum et scelerisque nisi convallis. Praesent nec nisi sapien. Maecenas venenatis ultrices ligula, eget mattis neque elementum ac. Quisque eu volutpat orci. Suspendisse potenti. Donec gravida condimentum nibh, a lobortis tellus molestie ac. Cras id nulla id arcu imperdiet pharetra elementum vel ante. Sed imperdiet pharetra ligula ac congue. Aliquam adipiscing lectus enim, vitae facilisis lorem. Sed luctus rutrum tempus.
+	  		</td>
+	  	</tr>
+  	</tbody>
+  	</table>
+    </div>
+</div>
