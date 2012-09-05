@@ -11,6 +11,11 @@
         <table class="table">
             <thead>
                 <tr>
+            	<% if @matches.empty? %>
+            		<br/>
+        			You do not have any past matches
+        			<br/><br/>
+        		<% else %>
                     <th>What</th>
                     <th>When</th>
                     <th>Where</th>
@@ -18,9 +23,10 @@
                     <th>Comment</th>
                     <th></th>
                     <th></th>
+                <% end %>
                 </tr>
             </thead>
-            <tbody>
+            <tbody>        	
             <% for match in @matches %>
                 <tr>
                     <td><%=h match.variety %></td>
@@ -41,7 +47,7 @@
 					</td>
                     <td><%= link_to "Details", match, :class => "btn btn-info btn-small" %></td>
                 </tr>
-            <% end %>
+            <% end %>            
             </tbody>
         </table>        
         <a class="btn" href="joined">

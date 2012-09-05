@@ -10,12 +10,18 @@
         <table class="table">
             <thead>
                 <tr>
+            	<% if @matches.empty? %>
+            		<br/>
+        			You have not joined any matches
+        			<br/><br/>
+        		<% else %>
                     <th>What</th>
                     <th>When</th>
                     <th>Where</th>
                     <th>Places left</th>
                     <th>Comment</th>
                     <th></th>
+                <% end %>
                 </tr>
             </thead>
             <tbody>
