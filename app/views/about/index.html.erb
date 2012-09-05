@@ -9,6 +9,29 @@
 	$('#myTab li:eq(2) a').tab('show'); // Select third tab (0-indexed)
 </script>
 
+<script type="text/javascript">
+	// Pre load images for rollover
+	if (document.images) {		
+		dave_mono = new Image;
+		dave_mono.src = "/images/about/dave.png";
+		dave_colour = new Image;
+		dave_colour.src = "/images/about/dave_colour.jpg";
+		jp_mono = new Image;
+		jp_mono.src = "/images/about/jp.png";
+		jp_colour = new Image;
+		jp_colour.src = "/images/about/jp_colour.jpg";
+		mike_mono = new Image;
+		mike_mono.src = "/images/about/mike.png";
+		mike_colour = new Image;
+		mike_colour.src = "/images/about/mike_colour.jpg";
+	}
+	function swapImage(thisImage,newImage) {
+		if (document.images) {
+			document[thisImage].src = eval(newImage + ".src");
+		}
+	}
+</script>	
+
 <ul class="nav nav-tabs">
   <li class="active"><a href="#fielderic" data-toggle="tab">Field Eric</a></li>
   <li><a href="#dave" data-toggle="tab">Dave</a></li>
@@ -47,8 +70,7 @@
 	<tbody>
 		<tr valign="top">
 			<td width="300px">
-				<a href="#" class="thumbnail">
-      				<img src="/images/about/dave.png">
+				<a href="#" class="thumbnail" onMouseOver="swapImage('dave','dave_colour')" onMouseOut="swapImage('dave','dave_mono')"><img src="/images/about/dave.png" width="300" height="225" border="0" name="dave"></a>
     			</a>	  	  			
 			</td>
 			<td width="30px" />
@@ -65,8 +87,7 @@
 	<tbody>
 		<tr valign="top">
 			<td width="300px">
-				<a href="#" class="thumbnail">
-      				<img src="/images/about/jp.png">
+				<a href="#" class="thumbnail" onMouseOver="swapImage('jp','jp_colour')" onMouseOut="swapImage('jp','jp_mono')"><img src="/images/about/jp.png" width="300" height="225" border="0" name="jp"></a>
     			</a>	  	  			
 			</td>
 			<td width="30px" />
@@ -83,8 +104,7 @@
 		<tr valign="top">
 		<tr valign="top">
 			<td width="300px">
-				<a href="#" class="thumbnail">
-      				<img src="/images/about/mike.png">
+				<a href="#" class="thumbnail" onMouseOver="swapImage('mike','mike_colour')" onMouseOut="swapImage('mike','mike_mono')"><img src="/images/about/dave.png" width="300" height="225" border="0" name="mike"></a>
     			</a>	  	  			
 			</td>
 			<td width="30px" />
