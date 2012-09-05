@@ -87,7 +87,7 @@
 				    	
 				    	<!-- only show leave button if current player is joined -->
 						<% if !@takers.nil? && !@takers.empty? && @takers.include?(session[:logged_in_player]) %>
-							<a class="btn btn-warning" href="/matches/leave/<%=@match.id%>">
+							<a id="leave-match" class="btn btn-warning" href="#">
 								<i class="icon-white icon-ban-circle"></i>
 				        		Leave			        	
 					    	</a>
@@ -96,7 +96,7 @@
 			    		
 			    		<!-- only show cancel button if current player is match organiser -->
 				    	<% if !@organiser.nil? && @organiser.id == session[:logged_in_player].id %>
-							<a class="btn btn-danger" href="/matches/cancel/<%=@match.id%>">
+							<a id="cancel-match" class="btn btn-danger" href="#">
 								<i class="icon-white icon-ban-circle"></i>
 				        		Cancel			        	
 					    	</a>
@@ -168,3 +168,10 @@
 		<% end %>
 	</div>
 </div>
+
+<script type="text/javascript">
+  $('#leave-match').popover({trigger:'focus', placement:'top', title:'<h3>Leave match</h3>', 
+  content:'Are you sure you want to <strong>leave</strong> this match? </br></br><a class="btn btn-cancel" href="#"><i class="icon-remove"></i> No</a>&nbsp;&nbsp;<a class="btn btn-primary" href="/matches/leave/<%=@match.id%>"><i class="icon-ok icon-white"></i> Yes</a>'})
+  $('#cancel-match').popover({trigger:'focus', placement:'top', title:'<h3>Cancel match</h3>', 
+  content:'Are you sure you want to <strong>cancel</strong> this match? </br></br><a class="btn btn-cancel" href="#"><i class="icon-remove"></i> No</a>&nbsp;&nbsp;<a class="btn btn-primary" href="/matches/cancel/<%=@match.id%>"><i class="icon-ok icon-white"></i> Yes</a>'})
+</script>
