@@ -129,7 +129,6 @@ class MatchesController < ApplicationController
             
     # mark the user as joining a particular match
     @match = Match.find(params[:id])
-    @match.required = @match.required - 1
      
     # the following should be done in a transactional manner ...
     # otherwise all sorts of race conditions could come back to bite us
@@ -140,6 +139,7 @@ class MatchesController < ApplicationController
       @field = @match.fields.create(:joined => DateTime.now, 
                                   :player_id => session[:logged_in_player].id,
                                   :organiser => false)
+      @match.required = @match.required - 1    
     end
     
     # this will worry about validations
