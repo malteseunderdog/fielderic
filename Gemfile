@@ -49,3 +49,6 @@ end
 # Use for Facebook authentication
 gem 'facebooker2', '0.0.16'
 
+# cron for ruby
+gem 'rufus-scheduler', '2.0.17'
+

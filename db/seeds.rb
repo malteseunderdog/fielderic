@@ -78,6 +78,13 @@ Match.create(created: '2012-10-10 16:00:00',
              variety: '11-a-side',
              required: 2)
 
+Match.create(created: '2012-10-10 16:00:00',
+             kickoff: DateTime.now + 35.minutes,
+             location: 'Juventus Stadium',
+             variety: '11-a-side',
+             required: 1)
+
+
 # ******************
 # **   Players   ***
 # ******************
@@ -158,8 +165,8 @@ Field.create(player_id: 3,
              joined: '2012-01-14 15:09:01')
     
 Field.create(player_id: 2,
-             match_id: 5,
-             organiser: TRUE,
+             match_id: 10,
+             organiser: FALSE,
              active: TRUE,
-             joined: '2012-01-16 13:45:50')
+             joined: DateTime.now)
 

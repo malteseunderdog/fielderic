@@ -21,10 +21,16 @@ class Field < ActiveRecord::Base
          :conditions => ["field.match_id  = ? AND field.active = 't'", match_id], 
          :order => "field.joined")
   end
-
   
   def self.get_by_player_and_match(player_id, match_id)
     find(:first, :conditions => ["field.player_id = ? AND field.match_id = ? AND field.active = 't'", player_id, match_id])
+  end
+
+  def self.get_notifaction_fields()
+    find(:all, 
+         :joins => [:match, :player],
+         :readonly => false , 
+         :conditions => ["field.active = 't' AND field.notified = 'f' AND match.kickoff >= ? AND match.kickoff < ?", DateTime.now, DateTime.now + 12.hours ])
   end
    
 end

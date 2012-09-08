@@ -189,4 +189,20 @@ class PlayersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  # finds all players who need notification and notifies them
+  def self.notify_about_match()
+    fields = Field.get_notifaction_fields()
+    fields.each do |f|
+      # record who we are sending messages to
+      Rails.logger.info "Sending notification email to " + f.player.name
+      # send the email
+      UserMailer.notify_player_about_match(f.player, f.match).deliver
+      # mark as notified
+      f.notified = true
+      # and save it so we will never pick up this guy again
+      f.save!
+    end 
+  end
+  
 end

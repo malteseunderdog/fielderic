@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(:version => 201201140003109) do
     t.boolean  "organiser"
     t.boolean  "active",     :default => true
     t.datetime "joined"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "notified",   :default => false
   end
 
   create_table "match", :force => true do |t|
