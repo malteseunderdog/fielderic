@@ -1,7 +1,7 @@
 class ErrorController < ApplicationController
 
   def handle404
-    flash[:notice] = "404: Thank you Mario! But our princess is in another castle!"
+    flash[:error_404] = "404 error. That's for making URLs up!"
     render "index"
   end
 

@@ -10,6 +10,11 @@
         <table class="table">
             <thead>
                 <tr>
+            	<% if @matches.empty? %>
+        			<br/>
+        			You have not organised any matches
+        			<br/><br/>
+    			<% else %>
                     <th>What</th>
                     <th>When</th>
                     <th>Where</th>
@@ -17,6 +22,7 @@
                     <th>Comment</th>
                     <th></th>
                     <th></th>
+                <% end %>
                 </tr>
             </thead>
             <tbody>
