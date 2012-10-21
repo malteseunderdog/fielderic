@@ -12,6 +12,10 @@
 <script type="text/javascript">
 	// Pre load images for rollover
 	if (document.images) {		
+		eric_mono = new Image;
+		eric_mono.src = "/images/about/eric.png"
+		eric_colour = new Image;
+		eric_colour.src = "/images/about/5-a-side.png"
 		dave_mono = new Image;
 		dave_mono.src = "/images/about/dave.png";
 		dave_colour = new Image;
@@ -45,8 +49,7 @@
 	<tbody>
 		<tr valign="top">
 			<td width="300px">
-				<a href="#" class="thumbnail">
-      				<img src="/images/about/eric.png">
+				<a href="#" class="thumbnail" onMouseOver="swapImage('eric','eric_colour')" onMouseOut="swapImage('eric','eric_mono')"><img src="/images/about/eric.png" width="300" height="225" border="0" name="eric"></a>
     			</a>	  			
   			</td>
   			<td width="30px" />
