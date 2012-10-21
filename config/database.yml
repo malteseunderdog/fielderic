@@ -1,6 +1,6 @@
 development:
     adapter: postgresql
-    database: db6jn3dteciv72
+    database: fielderic 
     username: oogyvirvrueyyl
     password: sFdp9kJKmtqUwRPkfAK8_zYLy6
     host: ec2-107-21-107-3.compute-1.amazonaws.com
@@ -23,7 +23,7 @@ development:
 
 production:
     adapter: postgresql
-    database: db6jn3dteciv72
+    database: fielderic 
     username: oogyvirvrueyyl
     password: sFdp9kJKmtqUwRPkfAK8_zYLy6
     host: ec2-107-21-107-3.compute-1.amazonaws.com
