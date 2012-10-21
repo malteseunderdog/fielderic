@@ -1,11 +1,11 @@
 development:
     adapter: postgresql
-    database: fielderic
-    username: eric
-    password: cantona
-    host: localhost
+    database: fielderic 
+    username: eric 
+    password: cantona 
+    host: localhost 
     encoding: UTF8
-    pool: 5
+    pool: 10
     timeout: 5000
 
 # Warning: The database defined as "test" will be erased and
@@ -23,10 +23,10 @@ test:
 
 production:
     adapter: postgresql
-    database: fielderic
-    username: eric
-    password: cantona
-    host: localhost
+    database: fielderic 
+    username: eric 
+    password: cantona 
+    host: localhost 
     encoding: UTF8
     pool: 10
     timeout: 5000
