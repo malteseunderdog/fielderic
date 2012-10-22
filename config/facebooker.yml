@@ -9,10 +9,9 @@
 # This should only be necessary until the final version of the new profile is released.
 
 development:
-  app_id: 113577885437797
-  secret: f818e53fc6716105d32006aa7034dbb2
-  api_key: 113577885437797
-  canvas_page_name:
+  app_id: 451879278187083
+  secret: 0109c977ac676c2c704641715c359b63
+  api_key: 451879278187083
   callback_url: http://localhost:3000/
   pretty_errors: true
   set_asset_host_to_callback_url: true
@@ -21,7 +20,6 @@ test:
   app_id: 113577885437797
   secret: f818e53fc6716105d32006aa7034dbb2
   api_key: 113577885437797
-  canvas_page_name: 
   callback_url: http://localhost:3000/
   set_asset_host_to_callback_url: true
 
@@ -29,6 +27,5 @@ production:
   app_id: 113577885437797
   secret: f818e53fc6716105d32006aa7034dbb2
   api_key: 113577885437797
-  canvas_page_name: 
-  callback_url: http://localhost:3000/
+  callback_url: http://localhost/
   set_asset_host_to_callback_url: true   
