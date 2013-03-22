@@ -109,6 +109,8 @@ class PlayersController < ApplicationController
       elsif key.eql? "password"          
         if ((!params[:old_password].nil?) && (!Digest::SHA2.hexdigest(@player.id.to_s() + params[:old_password]).eql?@player.password))
           @player.errors.add("old_password", "Incorrect password")
+        elsif value.length < 6
+          @player.errors.add("new_password", "Password should be 6 characters or longer")
         elsif !value.eql?params[:confirm_password]
           @player.errors.add("new_password", "Passwords do not match")
         elsif params[:confirm_password].empty? || params[:confirm_password].nil?
