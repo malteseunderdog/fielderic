@@ -1,27 +1,76 @@
-<h1>Listing players</h1>
-
-<table>
-  <tr>
-    <th>Nickname</th>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Mobile</th>
-    <th>Location</th>
-  </tr>
-
-<% @player.each do |player| %>
-  <tr>
-    <td><%=h player.nickname %></td>
-    <td><%=h player.name %></td>
-    <td><%=h player.email %></td>
-    <td><%=h player.mobile %></td>
-    <td><%=h player.location %></td>    
-    <td><%= link_to 'Show', player %></td>
-    <td><%= link_to 'Edit', edit_player_path(player) %></td>
-  </tr>
+<% if flash[:notice] %>
+	<div class="alert alert-info">
+    	<%= flash[:notice] %>
+	</div>    
 <% end %>
+<div class="span4">
+<div class="well">
+<table class="table-no-top-border">
+	<thead>
+		<h3>Your profile details</h3>
+	</thead>
+	<br/>
+	<tbody>
+		<tr>
+			<td>
+			<b>Nickname</b>
+			</td>
+			<td>
+			<%= h @player.nickname %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<b>Name</b>
+			</td>
+			<td>
+			<%= h @player.name %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<b>Email</b>
+			</td>
+			<td>
+			<%= h @player.email %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<b>Mobile</b>
+			</td>
+			<td>
+			<%= h @player.mobile %>
+			</td>
+		</tr>
+		<!--
+		<p>
+		<b>Location:</b>
+		<%=h @player.location %>
+		</p>
+		-->
+		<tr>
+			<td>
+			<b>Password:</b>
+			</td>
+			<td>
+			<% if @player.password.blank? %>
+			<%= link_to 'Set a password', set_password_path(@player) %>
+			<% else %>
+			<%= link_to 'Change password', set_password_path(@player) %>
+			<% end %>
+			</td>
+		</tr>
+		<tfoot>
+		<tr>
+			<td colspan="2">
+				<a class="btn" href="/players/edit/<%=@player.id%>">
+					<i class="icon-pencil"></i>
+		        	Edit profile
+		    	</a>
+			</td>
+		</tr>
+		</tfoot>
 </table>
-
-<br />
-
-<%= link_to 'Register', new_player_path %>
+</div>
+</div>
