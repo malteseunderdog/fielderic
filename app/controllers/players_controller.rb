@@ -1,3 +1,5 @@
+require 'mail'
+
 class PlayersController < ApplicationController
 
   skip_before_filter :require_login, :only => [ :create ]
@@ -29,13 +31,25 @@ class PlayersController < ApplicationController
   def password
     @player = Player.find(params[:id])
   end
-
+  
+  def is_email_valid(email)
+    begin
+      mail_address = Mail::Address.new(email)
+      is_valid = mail_address.domain && mail_address.address == email
+      mail_address_tree = mail_address.__send__(:tree)
+      is_valid &&= (mail_address_tree.domain.dot_atom_text.elements.size > 1)
+    rescue Exception => e   
+      is_valid = false
+    end
+    is_valid
+  end
+  
   # POST /player
   # POST /player.xml
   def create
     @player = Player.new(params[:player])
     @player.email = @player.email.downcase
-
+    
     # Get player coordinates and location
     #@client_ip = request.remote_ip
     #@player_locator = PlayerLocator.new
@@ -43,20 +57,35 @@ class PlayersController < ApplicationController
     #@player.location = @player_locator.get_location(@client_ip)
 
     # Check if nickname, email and mobile number are unique
-    player_by_nickname = Player.get_player_by_nickname(@player.nickname)
-    player_by_email = Player.get_player(@player.email)
-    player_by_mobile = Player.get_player_by_mobile(@player.mobile)
+    player_by_nickname = Player.get_player_by_nickname(@player.nickname.strip)
+    player_by_email = Player.get_player(@player.email.strip)
+    player_by_mobile = Player.get_player_by_mobile(@player.mobile.strip)
 
-    if (!player_by_nickname.nil? || !player_by_email.nil? || !player_by_mobile.nil?)
-      if (!player_by_nickname.nil?)
-        @player.errors.add("nickname", "Someone already has that nickname")
-      end
-      if (!player_by_email.nil?)
-        @player.errors.add("email", "Someone already has that email address")
-      end
-      if (!player_by_mobile.nil?)
-        @player.errors.add("mobile", "Someone already has that mobile number")
-      end
+    if (@player.nickname.nil? || (@player.nickname =~ (/^\s*$/)) == 0)
+      @player.errors.add("nickname", "Nickname cannot be empty")
+    end
+    if (@player.name.nil? || (@player.name =~ (/^\s*$/)) == 0)
+      @player.errors.add("full name", "Full Name cannot be empty")
+    end
+    if (@player.email.nil? || (@player.email =~ (/^\s*$/)) == 0)
+      @player.errors.add("email", "Email address cannot be empty")
+    elsif (!is_email_valid(@player.email))
+      @player.errors.add("email", "Email address is not valid")
+    end
+    if (@player.mobile.nil? || (@player.mobile =~ (/^\s*$/)) == 0)
+      @player.errors.add("mobile", "Mobile number cannot be empty")
+    end
+    if (!player_by_nickname.nil?)
+      @player.errors.add("nickname", "Someone already has that nickname")
+    end
+    if (!player_by_email.nil?)
+      @player.errors.add("email", "Someone already has that email address")
+    end
+    if (!player_by_mobile.nil?)
+      @player.errors.add("mobile", "Someone already has that mobile number")
+    end
+
+    if (!@player.errors.empty?)
       respond_to do |format|
         format.html { render :template => "home/index" }
         format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
@@ -64,6 +93,10 @@ class PlayersController < ApplicationController
     else
     # Set registration time
       @player.registration = Time.now
+      @player.nickname = @player.nickname.strip
+      @player.name = @player.name.strip
+      @player.email = @player.email.strip
+      @player.mobile = @player.mobile.strip
 
       respond_to do |format|
         if @player.save
@@ -89,9 +122,13 @@ class PlayersController < ApplicationController
     player_params.each do |key,value|
       if key.eql? "email"
         params[:player]["email"] = value.downcase
-        @player_params_email = value.downcase
+        @player_params_email = value.downcase.strip
       elsif key.eql? "mobile"
-        @player_params_mobile = value
+        params[:player]["mobile"] = value.downcase
+        @player_params_mobile = value.strip
+      elsif key.eql? "name"
+        params[:player]["name"] = value.downcase
+        @player_params_name = value.strip
       elsif key.eql? "password"          
         if ((!params[:old_password].nil?) && (!Digest::SHA2.hexdigest(@player.id.to_s() + params[:old_password]).eql?@player.password))
           @player.errors.add("old_password", "Incorrect password")
@@ -127,21 +164,37 @@ class PlayersController < ApplicationController
       if (!@player.mobile.eql? @player_params_mobile)
         @player_by_mobile = Player.get_player_by_mobile(@player_params_mobile)
       end
+      
+      if (@player_params_name.nil? || (@player_params_name =~ (/^\s*$/)) == 0)
+        @player.errors.add("name", "Full Name cannot be empty")
+      end
+      if (@player_params_email.nil? || (@player_params_email =~ (/^\s*$/)) == 0)
+        @player.errors.add("email", "Email address cannot be empty")
+      elsif (!is_email_valid(@player_params_email))
+        @player.errors.add("email", "Email address is not valid")
+      end
+      if (@player_params_mobile.nil? || (@player_params_mobile =~ (/^\s*$/)) == 0)
+        @player.errors.add("mobile", "Mobile number cannot be empty")
+      end
+      if (!@player_by_email.nil?)
+        @player.errors.add("email", "Someone already has that email address")
+      end
+      if (!@player_by_mobile.nil?)
+        @player.errors.add("mobile", "Someone already has that mobile number")
+      end
         
-      if (!@player_by_email.nil?) || (!@player_by_mobile.nil?)
-        if (!@player_by_email.nil?)
-          @player.errors.add("email", "Someone already has that email address")
-          @player.email = @player_params_email
-        end
-        if (!@player_by_mobile.nil?)
-          @player.errors.add("mobile", "Someone already has that mobile number")
-          @player.mobile = @player_params_mobile
-        end
+      if (!@player.errors.empty?)
+        @player.name = @player_params_name
+        @player.email = @player_params_email
+        @player.mobile = @player_params_mobile
         respond_to do |format|
           format.html { render :action => "edit" }
           format.xml  { render :xml => @player, :status => :unprocessable_entity }
         end
       else
+        params[:player][:name] = params[:player][:name].strip
+        params[:player][:email] = params[:player][:email].strip
+        params[:player][:mobile] = params[:player][:mobile].strip 
         respond_to do |format|
           if @player.update_attributes(params[:player])
             flash[:notice] = 'Player was successfully updated.'
