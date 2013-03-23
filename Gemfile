@@ -9,7 +9,7 @@ gem 'rails', '3.2.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # database adapter
-gem 'pg', '0.14.0'
+gem 'pg', '0.14.1'
 # jquery files
 gem 'jquery-rails', '2.0.2'
 # the ui themes
@@ -53,4 +53,4 @@ gem 'facebooker2', '0.0.16'
 gem 'rufus-scheduler', '2.0.17'
 
 # production webserver
-gem 'thin'
+gem 'thin', '1.5.1'
