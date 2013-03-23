@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8">
 		<title>Field Eric ~ Plan Some | Play Some</title>
+
+		<meta charset="UTF-8" />
+		<meta http-equiv="Content-Language" content="en" />
 		<meta name="description" content="social sports, find player, organise match, field eric cantona">
 		<meta name="author" content="Jean-Paul Ebejer, David Camilleri, Michael Camilleri">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Le styles -->
+		<!-- The styles -->
 
 		<!-- Our own CSS -->
 		<%= stylesheet_link_tag "application" %>
 		<!-- Some JS here please -->
 		<%= javascript_include_tag "application" %>
 
-		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-		<!-- Le fav and touch icons -->
+		<!-- fav and touch icons -->
 		<%= favicon_link_tag %>
 		<%= favicon_link_tag 'football.png', :rel => 'apple-touch-icon', :type => 'image/png' %>
 	</head>
@@ -99,18 +101,21 @@
 									<li>
                                         <%= form_tag(login_path, :method => "post", :id => "loginForm", :remote => true) do %>
                                         <%= field_set_tag do %>
-	                                        <%= label_tag(:email, "Email") %>
-    	                                    <%= text_field_tag :email, nil, :class => "textInput" %>
+    	                                    <%= text_field_tag "email", nil, :class => "textInput", :placeholder => "Email" %>
+    	                                    <div id="passwordStuff">
+    	                                       <%= password_field_tag :password, nil, :class => "textInput", :placeholder => "Password" %>
+                                               <%= link_to "Forgotten Password?", new_password_reset_path %>                 
+    	                                    </div>    	                                    
 										<% end %>
+										
                                         <div id="extra_form_controls"></div>
                                         <%= submit_tag("Play!", :class => "btn btn-primary") %>
                                         
                                         <div id="errors"></div>
-                                        <div id="extra_notices"><p><a>(But Bob, where is my password?)</a></p></div>
+                                        <p><a href="/nopassword">(But Bob, where is my password?)</a></p>
                                         <div class="fbconnect"> Or connect with Facebook: <%=fb_login_and_redirect(request.url, :scope => 'user_location,email') %></div>
                                     	<% end %>										
 									</li>
-									
 								</ul>
 							</li>
 							<% end %>

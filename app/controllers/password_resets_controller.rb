@@ -4,9 +4,14 @@ class PasswordResetsController < ApplicationController
   
   def create
     player = Player.get_player(params[:email])
-    player.send_password_reset if player
-    flash[:main_page_message] = "Email sent with password reset instructions."
-    redirect_to "/"
+    if player
+      player.send_password_reset
+      flash[:main_page_message] = "Email sent with password reset instructions."
+      redirect_to "/"
+    else
+      flash[:error] = "Unknown email address <" + params[:email] + ">."
+      render :new
+    end
   end
   
   def edit

@@ -1,20 +1,32 @@
 # This controller handles the login/logout function of the site.
 class SessionsController < ApplicationController
 
-  skip_before_filter :require_login, :only => [ :login ]
+  skip_before_filter :require_login, :only => [ :login, :needsPassword ]
+
+  def needsPassword
+    # this method checks if a paricular
+    email = params[:email].downcase 
+    player = Player.get_player(email)
+    
+    if (!player.nil?) && (!player.password.nil?)
+      render :text => "true"
+    else
+      render :text => "false"    
+    end
+  end
 
   # method called upon clicking Play button
   def login
-
     email = params[:email].downcase
     password = params[:password]
     player = Player.get_player(email)
-
-    if !password.nil? 
-      password = Digest::SHA2.hexdigest(player.id.to_s() + password)
-    end      
         
     if (!player.nil?)
+      
+      if !password.blank? 
+        password = Digest::SHA2.hexdigest(player.id.to_s() + password)
+      end      
+      
       # let us check if we should show a password field or not
       @needs_password_field = !player.password.blank?
 

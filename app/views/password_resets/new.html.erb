@@ -3,5 +3,8 @@
     <%= label_tag :email %>
     <%= text_field_tag :email, params[:email] %>
   </div>
+  <% if flash[:error] %>
+    <p class="alert alert-error"><%= flash[:error] %></p>
+  <% end %>
   <div class="actions"><%= submit_tag "Reset Password" %></div>
 <% end %>

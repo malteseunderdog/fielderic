@@ -60,6 +60,7 @@ FieldEric::Application.routes.draw do
   # Paths for authentication
   match '/logout' => 'sessions#logout', :as => :logout
   match '/login' => 'sessions#login', :as => :login
+  match '/password' => 'sessions#needsPassword'
   
   match '/register' => 'players#new', :as => :register
   match 'players/password/:id' => 'players#password', :as => :set_password

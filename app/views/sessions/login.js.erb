@@ -1,16 +1,8 @@
-
-<% if (@needs_password_field) %>
-    $("#extra_form_controls").html("<%=escape_javascript label_tag(:password, "Password") %><%=escape_javascript password_field_tag(:password, nil, :class => "textInput") %><%=escape_javascript link_to "Forgotten Password?", new_password_reset_path %>");
-    $("#extra_notices").html("");
-<% end %>
-
-
 <% if flash[:error] %>
     $("#errors").html("<div class=\"alert alert-error\"><%= flash[:error] %></div>");
 <% else %>
     $("#errors").html("");
 <% end %>
-
 
 <% if !session[:logged_in_player].nil? %>
     window.location = "/";
