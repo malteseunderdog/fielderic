@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # use static version of rails, if you want to use the latest version just
 # remove the version info.
 # if you update this, say after "gem update", you have to run "bundle update"
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -11,9 +11,9 @@ gem 'rails', '3.2.3'
 # database adapter
 gem 'pg', '0.14.1'
 # jquery files
-gem 'jquery-rails', '2.0.2'
+gem 'jquery-rails', '2.2.1'
 # the ui themes
-gem 'jquery-ui-themes', '0.0.6'
+gem 'jquery-ui-themes', '0.0.8'
 ## If you add stuff here -- you will probably need to run a "bundle install"
 
 # Gems used only for assets and not required
@@ -28,7 +28,7 @@ group :assets do
   gem 'uglifier', '1.2.5'
   
   # Twitter bootstrap
-  gem 'anjlab-bootstrap-rails', '2.0.4.1', :require => 'bootstrap-rails'
+  gem 'anjlab-bootstrap-rails', '2.0.4.4', :require => 'bootstrap-rails'
 end
 
 # To use ActiveModel has_secure_password

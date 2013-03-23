@@ -17,3 +17,6 @@
 # Project/Local specific files
 .project
 config/database.yml
+
+# ignore this annoying gemfile lock
+Gemfile.lock
