@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   def require_login
     unless !session[:logged_in_player].nil? # why not use if ?!
       flash[:login_required] = "You must be logged in to access this section"
-      redirect_to :back
+      redirect_to "/"
     end
   end
   

@@ -5,22 +5,8 @@ class PlayersController < ApplicationController
   # GET /player
   # GET /player.xml
   def index
-    @player = Player.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @player }
-    end
-  end
-
-  # GET /player/1
-  # GET /player/1.xml
-  def show
-    @player = Player.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @player }
+    begin
+      @player = Player.find(session[:logged_in_player])
     end
   end
 
@@ -37,7 +23,7 @@ class PlayersController < ApplicationController
 
   # GET /player/1/edit
   def edit
-    @player = Player.find(params[:id])
+    @player = Player.find(session[:logged_in_player])
   end
 
   def password
