@@ -55,16 +55,16 @@
 			</td>
 			<td>
 			<% if @player.password.blank? %>
-			<%= link_to 'Set a password', set_password_path(@player) %>
+			<%= link_to 'Set a password', set_password_path %>
 			<% else %>
-			<%= link_to 'Change password', set_password_path(@player) %>
+			<%= link_to 'Change password', set_password_path %>
 			<% end %>
 			</td>
 		</tr>
 		<tfoot>
 		<tr>
 			<td colspan="2">
-				<a class="btn" href="/players/edit/<%=@player.id%>">
+				<a class="btn" href="/players/profile/edit/">
 					<i class="icon-pencil"></i>
 		        	Edit profile
 		    	</a>
