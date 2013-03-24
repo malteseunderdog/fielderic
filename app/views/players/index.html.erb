@@ -1,6 +1,6 @@
-<% if flash[:notice] %>
+<% if flash[:player_updated] %>
 	<div class="alert alert-info">
-    	<%= flash[:notice] %>
+    	<%=h flash[:player_updated] %></p>
 	</div>    
 <% end %>
 <div class="span4">
@@ -64,7 +64,7 @@
 		<tfoot>
 		<tr>
 			<td colspan="2">
-				<a class="btn" href="/players/profile/edit/">
+				<a class="btn" href="/players/profile/edit">
 					<i class="icon-pencil"></i>
 		        	Edit profile
 		    	</a>
