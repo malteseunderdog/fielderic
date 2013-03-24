@@ -178,12 +178,12 @@
 </div>
 
 <script type="text/javascript">
-  $('#leave-match').popover({trigger:'focus', placement:'top', title:'<h3>Leave match</h3>', 
+  $('#leave-match').popover({html : true, trigger:'focus', placement:'top', title:'<h3>Leave match</h3>', 
   content:'Are you sure you want to <strong>leave</strong> this match? </br></br><a class="btn btn-cancel" href="#"><i class="icon-remove"></i> No</a>&nbsp;&nbsp;<a class="btn btn-primary" href="/matches/leave/<%=@match.id%>"><i class="icon-ok icon-white"></i> Yes</a>'}).click(function(e) { 
        e.preventDefault(); 
        $(this).focus(); 
    });
-  $('#cancel-match').popover({trigger:'focus', placement:'top', title:'<h3>Cancel match</h3>', 
+  $('#cancel-match').popover({html : true, trigger:'focus', placement:'top', title:'<h3>Cancel match</h3>', 
   content:'Are you sure you want to <strong>cancel</strong> this match? </br></br><a class="btn btn-cancel" href="#"><i class="icon-remove"></i> No</a>&nbsp;&nbsp;<a class="btn btn-primary" href="/matches/cancel/<%=@match.id%>"><i class="icon-ok icon-white"></i> Yes</a>'}).click(function(e) { 
        e.preventDefault(); 
        $(this).focus(); 
