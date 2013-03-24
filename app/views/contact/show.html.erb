@@ -1,6 +1,7 @@
 <div class="span5">
 <div class="well">
 <table class="table-no-top-border">
+<%= form_tag '/contact/sent', :method => :post do %>
 	<thead>
 		<h3>Contact us</h3>
 	</thead>
@@ -42,6 +43,7 @@
 			</td>
 		</tr>
 	</tfoot>
+<% end %>
 </table>
 </div>
 </div>

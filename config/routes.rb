@@ -61,6 +61,7 @@ FieldEric::Application.routes.draw do
   match '/logout' => 'sessions#logout', :as => :logout
   match '/login' => 'sessions#login', :as => :login
   match '/password' => 'sessions#needsPassword'
+  match '/contact' => 'contact#show'
   
   match '/register' => 'players#new', :as => :register
   match 'players/password/:id' => 'players#password', :as => :set_password
@@ -81,8 +82,9 @@ FieldEric::Application.routes.draw do
   resources :fields
   match '/fields/organise/' => 'fields#organise'
 
-  resources :password_resets
-
+  resources :password_resets  
+  resources :contact
+  
   match '/' => 'home#index'
   match '/' => 'matches#index'
   match '/' => 'players#home'

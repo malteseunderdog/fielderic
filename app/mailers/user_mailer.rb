@@ -12,4 +12,8 @@ class UserMailer < ActionMailer::Base
     mail :to => player.email, :subject => "[fielderic] Start warming up, football match at " + match.kickoff.to_default_s()
   end
   
+  def contact_us
+    mail :to => "seven@fielderic.com", :subject => "Message from fielderic.com"
+  end
+  
 end
