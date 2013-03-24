@@ -110,7 +110,7 @@ class PlayersController < ApplicationController
         if @player.save
           session[:logged_in_player] = @player
           new_cookie_flag = (params[:remember_me] == "1")
-          flash[:player_updated] = "Your profile has been created. Go to your edit profile page to set your password."
+          flash[:player_updated] = "Your profile has been created. You now have the option to set your password."
           format.html { redirect_to('/players') }
           format.xml  { render :xml => @player, :status => :created, :location => @player }
         else
