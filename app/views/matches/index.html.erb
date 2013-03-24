@@ -1,40 +1,48 @@
 <% if flash[:notice] %>
-<div class="alert alert-info">
-    <%= flash[:notice] %>
-</div>
+	<div class="alert alert-info">
+		<%= flash[:notice] %>
+	</div>
 <% end %>
 
-<div class="row">
-    <div class="span12">
-        <h1>Play in one of these matches</h1>
-        
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>What</th>
-                    <th>When</th>
-                    <th>Where</th>
-                    <th>Places left</th>
-                    <th>Comment</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-            <% for match in @matches %>
-                <tr>
-                    <td><%=h match.variety %>-a-side</td>
-                    <td><%=h match.kickoff %></td>
-                    <td><%=h match.location %></td>
-                    <td>
-                        <span class="badge <%= match.required > 0 ? "badge-success" : "badge-error" %>">
-                            <%=h match.required %>
-                        </span>
-                    </td>
-                    <td><%=h match.comment %></td>
-                    <td><%= link_to "Details", match, :class => "btn btn-info btn-small" %></td>
-                </tr>
-            <% end %>
-            </tbody>
-        </table>
-    </div>
-</div>
+<% if @matches.empty? %>
+	<% if session[:logged_in_player] == nil%>
+		<div class="well">
+			No matches yet. Log in or sign up to create one.
+		</div>
+	<% else %>
+		<div class="well">
+			No matches yet, click <a href="/matches/new">here</a> to create one.
+		</div>
+	<% end %>
+<% else %>
+	<div class="row">
+		<div class="span12">
+			<h1>Play in one of these matches</h1>
+	
+			<table class="table">
+				<thead>
+					<tr>
+						<th>What</th>
+						<th>When</th>
+						<th>Where</th>
+						<th>Places left</th>
+						<th>Comment</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for match in @matches %>
+					<tr>
+						<td><%= h match.variety %>-a-side</td>
+						<td><%= h match.kickoff %></td>
+						<td><%= h match.location %></td>
+						<td><span class="badge <%= match.required > 0 ? "badge-success" : "badge-error" %>"> <%= h match.required %> </span></td>
+						<td><%= h match.comment %></td>
+						<td><%= link_to "Details", match, :class => "btn btn-info btn-small" %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+<% end %>
