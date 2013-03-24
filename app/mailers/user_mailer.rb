@@ -13,7 +13,9 @@ class UserMailer < ActionMailer::Base
   end
   
   def contact_us(name, email, text)
-    @message = "Message from " + name + " (" + email + "): " + text
+    @name = name
+    @email = email
+    @text = text
     mail :to => "seven@fielderic.com", :subject => "Message from fielderic.com contact page"
   end
   
