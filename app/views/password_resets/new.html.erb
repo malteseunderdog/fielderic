@@ -6,5 +6,9 @@
   <% if flash[:error] %>
     <p class="alert alert-error"><%= flash[:error] %></p>
   <% end %>
-  <div class="actions"><%= submit_tag "Reset Password" %></div>
+  <div class="actions">
+  	<button type="submit" class="btn btn-primary">
+		Reset Password
+	</button>
+  </div>
 <% end %>
