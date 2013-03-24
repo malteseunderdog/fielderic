@@ -12,4 +12,11 @@ class UserMailer < ActionMailer::Base
     mail :to => player.email, :subject => "[fielderic] Start warming up, football match at " + match.kickoff.to_default_s()
   end
   
+  def contact_us(name, email, text)
+    @name = name
+    @email = email
+    @text = text
+    mail :to => "seven@fielderic.com", :subject => "Message from fielderic.com contact page"
+  end
+  
 end
