@@ -86,7 +86,8 @@
 									<% if session[:logged_in_player].fb_user_id.nil? %>
 										<li><a href="/logout">Logout</a></li>
 									<% else %>
-										<li><%= fb_logout_link("Logout", '/logout')%></li>
+									    <%= fb_connect_async_js %>
+										<li><%= fb_logout_link("Logout", '/logout') %></li>
 									<% end %>									
 								</ul>
 							</li>							
@@ -113,8 +114,17 @@
                                         
                                         <div id="errors"></div>
                                         <p><a href="/nopassword">(But Bob, where is my password?)</a></p>
+                                        
+                                        <%= fb_connect_async_js %>
+                                        <% if !current_facebook_user 
+                                           # you must explicitly request permissions for facebook user fields.
+                                           # here we instruct facebook to ask the user for permission for our website
+                                           # to access the user's facebook email and birthday %>
+                                          <%= fb_login_and_redirect(request.url, :scope => 'email,user_location') %>
+                                        <% end %>
+                                        <!-- 
                                         <div class="fbconnect"> Or connect with Facebook: <%=fb_login_and_redirect(request.url, :scope => 'user_location,email') %></div>
-                                    	<% end %>										
+                                    	<% end %> -->										
 									</li>
 								</ul>
 							</li>
@@ -125,7 +135,6 @@
 			</div>
 		</div>
 		<div class="container">
-    
     		<% if flash[:login_required] %>
         		<div class="alert">
     	   	       <%=h flash[:login_required] %></p>
@@ -139,60 +148,10 @@
             <% end %>
 	
 			<%= yield %>
-	
 		</div>
 
-		<div id="footer">
-				<!--
-				<p>&copy; Company 2012</p>
-				-->
+		<div id="footer">		
 		</div>		
-		
-		<div id="fb-root"></div>
-		<script>
-		  window.fbAsyncInit = function() {
-		    FB.init({
-		      appId  : '113577885437797',
-			  status : true, // check login status
-			  cookie : true, // enable cookies to allow the server to access the session
-			  oauth : true,
-	  		  xfbml  : true  // parse XFBML
-			});
-			
-			FB.getLoginStatus(function(response) {
-				var cookies = { };
-			    if (document.cookie && document.cookie != '') {
-			        var split = document.cookie.split(';');
-			        
-			        refreshed = false;
-			        fb_cookie_found = false;
-			        
-			        for (var i = 0; i < split.length; i++) {
-			            var name_value = split[i].split("=");
-			            name_value[0] = name_value[0].replace(/^ /, '');
-			            cookie_name = decodeURIComponent(name_value[0]);
-			            if (cookie_name.substring(0, 9) === "refreshed") {
-			            	refreshed = true;
-			            }
-			            if (cookie_name.substring(0, 4) === "fbsr") {
-			            	fb_cookie_found = true;
-			            }
-			        }
-			        
-			        if ((fb_cookie_found == true) && (refreshed == false)) {
-		            	document.cookie="refreshed=true";
-		            	window.location.reload();
-			        }
-			    }
-	        });
-	      };
-		  
-	      (function() {
-			var e = document.createElement('script'); e.async = true;
-			e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-			document.getElementById('fb-root').appendChild(e);
-		  }());
-		</script>
 		
 	</body>
 </html>

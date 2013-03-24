@@ -9,7 +9,4 @@ class HomeController < ApplicationController
     @matches = Match.future_games_with_required_players(7)
   end
   
-  def sign_out
-    session[:player]=nil
-  end
 end
