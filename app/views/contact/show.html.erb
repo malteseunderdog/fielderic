@@ -7,29 +7,57 @@
 	</thead>
 	<br/>
 	<tbody>
+		<% if !@contact_name_error.nil? %>
 		<tr>
-			<td>
-			<b>Your name</b>
-			</td>
-			<td>
-				<input id="name" name="name" type="text" size="50" autocomplete="off" />
+			<td colspan="2">
+				<div class="alert alert-error">
+					<%= @contact_name_error %>
+				</div>
 			</td>
 		</tr>
+		<% end %>
 		<tr>
 			<td>
-			<b>Your email</b>
+				<b>Your name</b>
 			</td>
-			<td>
-				<input id="email" name="email" type="text" size="50" autocomplete="off" />
+			<td width="80%">
+				<input id="name" name="name" type="text" style="width:97%;" autofocus="true" autocomplete="off" value="<%= @contact_name %>" />
 			</td>
 		</tr>
+
+		<% if !@contact_email_error.nil? %>		
+		<tr>
+			<td colspan="2">
+				<div class="alert alert-error">
+					<%= @contact_email_error %>
+				</div>
+			</td>
+		</tr>
+		<% end %>
 		<tr>
 			<td>
-			<b>Message</b>
+				<b>Your email</b>
 			</td>
+			<td width="80%">
+				<input id="email" name="email" type="text" style="width:97%;" autocomplete="off" value="<%= @contact_email %>" />
+			</td>
+		</tr>
+			
+		<% if !@contact_message_error.nil? %>
+		<tr>
+			<td colspan="2">
+				<div class="alert alert-error">
+					<%= @contact_message_error %>
+				</div>
+			</td>
+		</tr>
+		<% end %>
+		<tr>
 			<td>
-				<textarea id="message" name="message" rows="7"></textarea> 
-				
+				<b>Message</b>
+			</td>
+			<td width="80%">
+				<textarea id="message" name="message" rows="10" style="width:97%; resize: none;"><%= @contact_message %></textarea> 
 			</td>
 		</tr>
 	</tbody>

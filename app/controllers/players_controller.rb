@@ -1,7 +1,6 @@
-require 'mail'
-
 class PlayersController < ApplicationController
 
+  include PlayersHelper
   skip_before_filter :require_login, :only => [ :create ]
 
   # GET /player
@@ -32,26 +31,6 @@ class PlayersController < ApplicationController
     @player = Player.find(session[:logged_in_player])
   end
   
-  def is_email_valid(email)
-    begin
-      mail_address = Mail::Address.new(email)
-      is_valid = mail_address.domain && mail_address.address == email
-      mail_address_tree = mail_address.__send__(:tree)
-      is_valid &&= (mail_address_tree.domain.dot_atom_text.elements.size > 1)
-    rescue Exception => e   
-      is_valid = false
-    end
-    is_valid
-  end
-  
-  def is_mobile_valid(mobile)
-    is_valid = false
-    if ((mobile =~ (/^\+?[ ()0-9]+$/)) == 0)
-      is_valid = true
-    end
-    is_valid
-  end
-  
   # POST /player
   # POST /player.xml
   def create
@@ -72,36 +51,30 @@ class PlayersController < ApplicationController
     player_by_email = Player.get_player(@player.email)
     player_by_mobile = Player.get_player_by_mobile(@player.mobile)
 
-    if (@player.nickname.nil? || (@player.nickname =~ (/^\s*$/)) == 0)
-      @player.errors.add("nickname", "Nickname cannot be empty")
-    end
-    if (@player.name.nil? || (@player.name =~ (/^\s*$/)) == 0)
-      @player.errors.add("full name", "Full Name cannot be empty")
-    end
-    if (@player.email.nil? || (@player.email =~ (/^\s*$/)) == 0)
-      @player.errors.add("email", "Email address cannot be empty")
-    elsif (!is_email_valid(@player.email))
-      @player.errors.add("email", "Email address is not valid")
-    end
-    if (@player.mobile.nil? || (@player.mobile =~ (/^\s*$/)) == 0)
-      @player.errors.add("mobile", "Mobile number cannot be empty")
-    elsif (!is_mobile_valid(@player.mobile))
-      @player.errors.add("mobile", "Mobile number is not valid")
-    end
     if (!player_by_nickname.nil?)
-      @player.errors.add("nickname", "Someone already has that nickname")
+      @nickname_error = "Someone already has that nickname"
     end
     if (!player_by_email.nil?)
-      @player.errors.add("email", "Someone already has that email address")
+      @email_error = "Someone already has that email address"
     end
     if (!player_by_mobile.nil?)
-      @player.errors.add("mobile", "Someone already has that mobile number")
+      @mobile_error = "Someone already has that mobile number"
+    end
+    if (@nickname_error.nil?)
+      @nickname_error = check_nickname_validity(@player.nickname)
+    end
+    @name_error = check_name_validity(@player.name)
+    if (@email_error.nil?)
+      @email_error = check_email_validity(@player.email)
+    end
+    if (@mobile_error.nil?)
+      @mobile_error = check_mobile_validity(@player.mobile)
     end
 
-    if (!@player.errors.empty?)
+    if (!@nickname_error.nil? || !@name_error.nil? || !@email_error.nil? || !@mobile_error.nil?)
       respond_to do |format|
         format.html { render :template => "home/index" }
-        format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => [@nickname_error, @name_error, @email_error, @mobile_error], :status => :unprocessable_entity }
       end
     else
     # Set registration time
@@ -115,7 +88,7 @@ class PlayersController < ApplicationController
           format.xml  { render :xml => @player, :status => :created, :location => @player }
         else
           format.html { render :action => "new" }
-          format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
+          format.xml  { render :xml => [@nickname_error, @name_error, @email_error, @mobile_error], :status => :unprocessable_entity }
         end
       end
     end
@@ -139,13 +112,11 @@ class PlayersController < ApplicationController
         @player_params_name = value.strip
       elsif key.eql? "password"          
         if ((!params[:old_password].nil?) && (!Digest::SHA2.hexdigest(@player.id.to_s() + params[:old_password]).eql?@player.password))
-          @player.errors.add("old_password", "Incorrect password")
+          @old_password_error = "Incorrect password"
         elsif value.length < 6
-          @player.errors.add("new_password", "Password should be 6 characters or longer")
+          @new_password_error = "Password should be 6 characters or longer"
         elsif !value.eql?params[:confirm_password]
-          @player.errors.add("new_password", "Passwords do not match")
-        elsif params[:confirm_password].empty? || params[:confirm_password].nil?
-          @player.errors.add("new_password", "Password cannot be empty")
+          @new_password_error = "Passwords do not match"
         end
         h = params[:player]
         clear_password = h["password"]
@@ -156,13 +127,13 @@ class PlayersController < ApplicationController
     if session[:updating_password]
       session[:updating_password] = nil
       respond_to do |format|
-        if ((!@player.errors.any?) && (@player.update_attributes(params[:player])))
+        if ((@old_password_error.nil?) && (@new_password_error.nil?) && (@player.update_attributes(params[:player])))
           flash[:player_updated] = "Password was set successfully."
           format.html { redirect_to('/players') }
           format.xml  { head :ok }
         else
           format.html { render :action => "password" }
-          format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
+          format.xml  { render :xml => [@old_password_error, @new_password_error], :status => :unprocessable_entity }
         end
       end
     else
@@ -173,33 +144,27 @@ class PlayersController < ApplicationController
         @player_by_mobile = Player.get_player_by_mobile(@player_params_mobile)
       end
       
-      if (@player_params_name.nil? || (@player_params_name =~ (/^\s*$/)) == 0)
-        @player.errors.add("name", "Full Name cannot be empty")
-      end
-      if (@player_params_email.nil? || (@player_params_email =~ (/^\s*$/)) == 0)
-        @player.errors.add("email", "Email address cannot be empty")
-      elsif (!is_email_valid(@player_params_email))
-        @player.errors.add("email", "Email address is not valid")
-      end
-      if (@player_params_mobile.nil? || (@player_params_mobile =~ (/^\s*$/)) == 0)
-        @player.errors.add("mobile", "Mobile number cannot be empty")
-      elsif (!is_mobile_valid(@player_params_mobile))
-        @player.errors.add("mobile", "Mobile number is not valid")
-      end
       if (!@player_by_email.nil?)
-        @player.errors.add("email", "Someone already has that email address")
+        @email_error = "Someone already has that email address"
       end
       if (!@player_by_mobile.nil?)
-        @player.errors.add("mobile", "Someone already has that mobile number")
+        @mobile_error = "Someone already has that mobile number"
+      end
+      @name_error = check_name_validity(@player_params_name)
+      if (@email_error.nil?)
+        @email_error = check_email_validity(@player_params_email)
+      end  
+      if (@mobile_error.nil?)
+        @mobile_error = check_mobile_validity(@player_params_mobile)
       end
         
-      if (!@player.errors.empty?)
+      if (!@name_error.nil? || !@email_error.nil? || !@mobile_error.nil?)
         @player.name = @player_params_name
         @player.email = @player_params_email
         @player.mobile = @player_params_mobile
         respond_to do |format|
           format.html { render :action => "edit" }
-          format.xml  { render :xml => @player, :status => :unprocessable_entity }
+          format.xml  { render :xml => [@name_error, @email_error, @mobile_error], :status => :unprocessable_entity }
         end
       else
         params[:player][:name] = params[:player][:name].strip
@@ -212,7 +177,7 @@ class PlayersController < ApplicationController
             format.xml  { head :ok }
           else
             format.html { render :action => "edit" }
-            format.xml  { render :xml => @player.errors, :status => :unprocessable_entity }
+            format.xml  { render :xml => [@name_error, @email_error, @mobile_error], :status => :unprocessable_entity }
           end
         end
       end
@@ -229,7 +194,7 @@ class PlayersController < ApplicationController
         format.xml  { head :ok }
       else
         format.html { render :action => "password" }
-        format.xml  { render :xml => @player.errors, :status => :unprocessable_entity } 
+        format.xml  { render :xml => [@old_password_error, @new_password_error], :status => :unprocessable_entity } 
       end
     end
   end

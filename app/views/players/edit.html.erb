@@ -6,26 +6,15 @@
 	</thead>
 	<br/>
 	<%= form_for(@player) do |f| %>
-		<% if @player.errors.any? %>
-			<% @player.errors.full_messages.each do |msg| %>
-				<% if (msg.downcase.include? 'name') %>
-					<% @name_error = msg.sub("Full Name", "") %>
-				<% end %>
-				<% if (msg.downcase.include? 'email') %>
-					<% @email_error = msg.sub("Email", "") %>
-				<% end %>
-				<% if (msg.downcase.include? 'mobile') %>
-					<% @mobile_error = msg.sub("Mobile", "") %>
-				<% end %>
-			<% end %>
-		<% end %>
 		<tbody>
 			<% if !@name_error.nil? %>
-				<tr>
-					<td colspan="2">
-						<font color="red"><%= @name_error %>
-					</td>
-				</tr>
+			<tr>
+				<td colspan="2">
+					<div class="alert alert-error">
+						<%= @name_error %>
+					</div>
+				</td>
+			</tr>
 			<% end %>
 			<tr>
 				<td>
@@ -35,11 +24,13 @@
 			</tr>
 			
 			<% if !@email_error.nil? %>
-				<tr>
-					<td colspan="2">
-						<font color="red"><%= @email_error %>
-					</td>
-				</tr>
+			<tr>
+				<td colspan="2">
+					<div class="alert alert-error">
+						<%= @email_error %>
+					</div>
+				</td>
+			</tr>
 			<% end %>
 			<tr>
 				<td>
@@ -49,11 +40,13 @@
 			</tr>
 			
 			<% if !@mobile_error.nil? %>
-				<tr>
-					<td colspan="2">
-						<font color="red"><%= @mobile_error %>
-					</td>
-				</tr>
+			<tr>
+				<td colspan="2">
+					<div class="alert alert-error">
+						<%= @mobile_error %>
+					</div>
+				</td>
+			</tr>
 			<% end %>
 			<tr>
 				<td>

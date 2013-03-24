@@ -1,4 +1,8 @@
+require 'mail'
+
 module PlayersHelper
+  
+  include ApplicationHelper
   
   #
   # Use this to wrap view elements that the user can't access.
@@ -90,4 +94,27 @@ module PlayersHelper
     end
   end
   
+  def check_nickname_validity(nickname)
+    if (nickname.nil? || (nickname =~ (/^\s*$/)) == 0)
+      nickname_error = "Nickname cannot be empty"
+    end
+    nickname_error
+  end
+  
+  def is_mobile_valid(mobile)
+    is_valid = false
+    if ((mobile =~ (/^\+?[ ()0-9]+$/)) == 0)
+      is_valid = true
+    end
+    is_valid
+  end
+  
+  def check_mobile_validity(mobile)
+    if (mobile.nil? || (mobile =~ (/^\s*$/)) == 0)
+      mobile_error = "Mobile number cannot be empty"
+    elsif (!is_mobile_valid(mobile))
+      mobile_error = "Mobile number is not valid"
+    end
+    mobile_error
+  end
 end
