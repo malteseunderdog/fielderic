@@ -86,10 +86,8 @@ FieldEric::Application.routes.draw do
   resources :contact
   
   match '/' => 'home#index'
-  match '/' => 'matches#index'
-  match '/' => 'players#home'
   match '/index.html' => 'home#index'
   match '/:controller(/:action(/:id))' 
     
-  match "*path" => 'error#handle404'
+  # match "*path" => 'error#handle404'
 end

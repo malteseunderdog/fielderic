@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  
   def ensure_authenticated
     # TODO: This method is used so that if a user logs out from the FB page, the session player doesn't stay fixed forever.
     # The problem with this is that the user needs to make 2 page calls, for example 2 page reloads, until the session is nulled.
@@ -25,9 +24,19 @@ class ApplicationController < ActionController::Base
       fb_user = current_facebook_user
       if !fb_user.nil?
         player = Player.get_player_with_facebook_id(fb_user.id)
-        fb_user.fetch
-        if player == nil
-          player = Player.new_facebook_player(fb_user)
+        if player.nil?
+          # gets the data fields of the user (?) 
+          fb_user.fetch
+          db_player = Player.get_player(fb_user.email)
+          if db_player.nil?
+            # player does not exist
+            player = Player.new_facebook_player(fb_user)
+          else
+            if db_player.fb_user_id.nil?
+              db_player.update_attributes(:fb_user_id => fb_user.id)
+            end
+            player = db_player
+          end
         end
         session[:logged_in_player] = player
       end
@@ -43,6 +52,7 @@ class ApplicationController < ActionController::Base
       end
       @_current_facebook_user
     rescue Exception=>e
+      puts $!, $@ # print some error message
       # Catch exceptions if user logs out from Facebook from another application
       # while logged in on FE using Facebook.
       # User is simply signed out of FE - no need to do any handling here.

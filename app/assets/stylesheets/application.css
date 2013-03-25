@@ -11,8 +11,8 @@
  * We have added the boostrap css - used for fielderic (this is done through a gem)
  *
  *= require jquery-ui/ui-lightness
- *= require bootstrap
- *= require responsive
+ *= require twitter/bootstrap
+ *= require twitter/bootstrap-responsive
  *= require_self 
  *= require_tree .
 */

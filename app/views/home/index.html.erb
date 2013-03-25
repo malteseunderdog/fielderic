@@ -64,9 +64,15 @@
 		</table>
 		<%= link_to "More matches ...", matches_path %>
 		<% else %>
-		<div class="well">
-			No matches yet, click <a href="/matches/new">here</a> to create one.
-		</div>
+			<% if session[:logged_in_player] == nil%>
+				<div class="well">
+					No matches yet. Log in or sign up to create one.
+				</div>
+			<% else %>
+				<div class="well">
+					No matches yet, click <a href="/matches/new">here</a> to create one.
+				</div>
+			<% end %>
 		<% end %>
 	</div>
 	<div class="span4">

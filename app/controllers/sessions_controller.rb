@@ -1,7 +1,7 @@
 # This controller handles the login/logout function of the site.
 class SessionsController < ApplicationController
-
-  skip_before_filter :require_login, :only => [ :login, :needsPassword ]
+  
+  skip_before_filter :require_login, :only => [ :login, :needsPassword, :logout ]
 
   def needsPassword
     # this method checks if a paricular
@@ -58,10 +58,11 @@ class SessionsController < ApplicationController
 
   # logout 
   def logout
+    # should we delete the whole session here?  Perhaps not.  Delete individual 
+    # items
     session[:logged_in_player] = nil
-    cookies.delete(:refreshed)
+    session[:player] = nil    
     redirect_to "/"
   end
-
     
 end
