@@ -1,6 +1,6 @@
 class MatchesController < ApplicationController
   
-  skip_before_filter :require_login, :only => [ :index, :new ]
+  skip_before_filter :require_login, :only => [ :index ]
   
   # GET /match
   # GET /match.xml
